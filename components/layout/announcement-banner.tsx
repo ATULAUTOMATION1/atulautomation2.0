@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, Sparkles } from "lucide-react";
+import { X, Sparkles, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function AnnouncementBanner() {
@@ -15,16 +15,18 @@ export function AnnouncementBanner() {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="bg-primary text-primary-foreground relative z-50 overflow-hidden"
+                className="bg-gradient-to-r from-primary via-orange-600 to-primary text-primary-foreground relative z-50 overflow-hidden"
             >
-                <div className="container-custom py-2 flex items-center justify-center text-xs md:text-sm font-medium">
-                    <Sparkles className="h-4 w-4 mr-2 animate-pulse" />
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer pointer-events-none" />
+
+                <div className="container-custom py-2.5 flex items-center justify-center text-xs md:text-sm font-medium">
+                    <Sparkles className="h-3.5 w-3.5 mr-2 animate-pulse" />
                     <span>
-                        <span className="font-bold">BETA LAUNCH:</span> Atul Automation v2.0 is live! Early adopters get 30% off Pro plans.
+                        <span className="font-bold">🚀 BETA LAUNCH:</span> Atul Automation v2.0 is live! Early adopters get 30% off.
                     </span>
-                    <span className="mx-2 hidden md:inline">|</span>
-                    <a href="#pricing" className="underline hover:no-underline font-bold hidden md:inline">
-                        Claim Offer
+                    <a href="#pricing" className="ml-3 font-bold hidden md:inline-flex items-center gap-1 bg-white/20 hover:bg-white/30 px-3 py-0.5 rounded-full transition-colors text-xs">
+                        Claim Offer <ArrowRight className="h-3 w-3" />
                     </a>
 
                     <button
@@ -32,7 +34,7 @@ export function AnnouncementBanner() {
                         className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 hover:bg-white/20 rounded-full transition-colors"
                         aria-label="Close banner"
                     >
-                        <X className="h-4 w-4" />
+                        <X className="h-3.5 w-3.5" />
                     </button>
                 </div>
             </motion.div>

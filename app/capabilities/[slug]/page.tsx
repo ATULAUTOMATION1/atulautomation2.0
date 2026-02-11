@@ -18,7 +18,7 @@ function ChatbotDemo() {
             <p className="text-muted-foreground mb-4 max-w-sm">
                 Interact with our AI agent to see how it handles natural language queries and qualifies leads.
             </p>
-            <button className="btn-nature-primary flex items-center">
+            <button className="btn-primary flex items-center">
                 Start Chat <Play className="h-4 w-4 ml-2" />
             </button>
         </div>
@@ -171,7 +171,7 @@ export default function ServiceDetailPage() {
     }
 
     return (
-        <main className="min-h-screen bg-background pt-24 pb-16">
+        <main className="min-h-screen bg-transparent pt-24 pb-16">
             <div className="container-custom">
                 {/* Header */}
                 <div className="mb-12">
@@ -191,7 +191,7 @@ export default function ServiceDetailPage() {
 
                         {/* Primary CTA */}
                         <div className="flex gap-4">
-                            <a href="#demo" className="btn-nature-primary text-lg px-8 py-3">
+                            <a href="#demo" className="btn-primary text-lg px-8 py-3">
                                 Try Demo <Play className="h-4 w-4 ml-2 fill-current" />
                             </a>
                             <a href="/#pricing" className="px-8 py-3 rounded-md font-medium border border-border hover:bg-muted transition-colors">

@@ -7,64 +7,29 @@ import { ROICalculator } from "@/components/tools/roi-calculator";
 import { DocsHub } from "@/components/sections/docs-hub";
 import { Community } from "@/components/sections/community";
 import { Branding } from "@/components/sections/branding";
-import { Pricing } from "@/components/sections/pricing";
+// import { Pricing } from "@/components/sections/pricing"; // DISABLED — re-enable when ready
 import { Testimonials } from "@/components/sections/testimonials";
 import { Blog } from "@/components/sections/blog";
-import { FeaturedProjects } from "@/components/sections/featured-projects"; // Import
-import { FadeIn } from "@/components/ui/fade-in";
+import { FeaturedProjects } from "@/components/sections/featured-projects";
+import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <main className="min-h-screen text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
       <Hero />
-
-      <FadeIn>
-        <Services />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <FeaturedProjects />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <AIModules />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <InteractiveDemos />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <WorkflowBuilder />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <ROICalculator />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <DocsHub />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <Pricing />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <Testimonials />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <Branding />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <Blog />
-      </FadeIn>
-
-      <FadeIn delay={0.1}>
-        <Community />
-      </FadeIn>
+      <Services />
+      <FeaturedProjects />
+      <AIModules />
+      <InteractiveDemos />
+      <WorkflowBuilder />
+      <ROICalculator />
+      <DocsHub />
+      {/* <Pricing /> */}{/* DISABLED — re-enable when ready */}
+      <Testimonials />
+      <Branding />
+      <Blog />
+      <Contact />
+      <Community />
     </main>
   );
 }

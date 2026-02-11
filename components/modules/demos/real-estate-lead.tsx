@@ -24,7 +24,7 @@ export function RealEstateLead() {
                             <div className="h-2 w-1/3 bg-muted rounded"></div>
                             <div className="h-2 w-2/3 bg-muted rounded"></div>
                         </div>
-                        <button onClick={nextStep} className="btn-nature-primary w-full text-sm py-2">
+                        <button onClick={nextStep} className="btn-primary w-full text-sm py-2">
                             Simulate Incoming Lead
                         </button>
                     </div>

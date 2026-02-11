@@ -1,116 +1,66 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Cpu, MessageSquare, Zap, BookOpen, Building, Users, BarChart } from "lucide-react";
+import { ArrowRight, Cpu, MessageSquare, Zap, BarChart, Building, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 const services = [
-    {
-        icon: <Cpu className="h-8 w-8 text-orange-500" />,
-        title: "AI Automation",
-        description: "Streamline complex processes with intelligent, self-learning algorithms.",
-        href: "/capabilities/ai-agents", // Direct detail page
-        color: "bg-orange-50",
-        btnColor: "text-orange-600"
-    },
-    {
-        icon: <MessageSquare className="h-8 w-8 text-blue-500" />,
-        title: "Intelligent Chatbots",
-        description: "Engage your audience with natural language processing bots.",
-        href: "/capabilities/chatbots", // Direct detail page
-        color: "bg-blue-50",
-        btnColor: "text-blue-600"
-    },
-    {
-        icon: <Zap className="h-8 w-8 text-green-500" />,
-        title: "Automation Workflow",
-        description: "Connect disparate apps and data sources into a seamless symphony.",
-        href: "/capabilities/workflow", // Direct detail page
-        color: "bg-green-50",
-        btnColor: "text-green-600"
-    },
-    {
-        icon: <BarChart className="h-8 w-8 text-purple-500" />,
-        title: "AI Marketing",
-        description: "Data-driven campaigns across Meta & Google optimized for maximum ROI.",
-        href: "/capabilities/marketing", // Direct detail page
-        color: "bg-purple-50",
-        btnColor: "text-purple-600"
-    },
-    {
-        icon: <Building className="h-8 w-8 text-stone-500" />,
-        title: "Real Estate Services",
-        description: "Automated lead capture and virtual tours to sell properties faster.",
-        href: "/capabilities/ai-agents", // Assuming specific RE agent content or fallback
-        color: "bg-stone-100",
-        btnColor: "text-stone-600"
-    },
-    {
-        icon: <Users className="h-8 w-8 text-red-500" />,
-        title: "CRM Solutions",
-        description: "Centralize customer data and automate follow-ups for higher retention.",
-        href: "/capabilities/crm", // Direct detail page
-        color: "bg-red-50",
-        btnColor: "text-red-600"
-    }
+    { icon: Cpu, title: "AI Automation", description: "Self-learning algorithms that adapt to your business and streamline complex processes.", href: "#", color: "text-primary", bg: "bg-primary/8", border: "group-hover:border-primary/40", glow: "group-hover:shadow-primary/10" },
+    { icon: MessageSquare, title: "Intelligent Chatbots", description: "24/7 conversational bots with natural language processing that never miss a beat.", href: "#", color: "text-blue-500", bg: "bg-blue-500/8", border: "group-hover:border-blue-500/40", glow: "group-hover:shadow-blue-500/10" },
+    { icon: Zap, title: "Workflow Automation", description: "Connect apps and data sources into a seamless pipeline that runs on autopilot.", href: "#", color: "text-emerald-500", bg: "bg-emerald-500/8", border: "group-hover:border-emerald-500/40", glow: "group-hover:shadow-emerald-500/10" },
+    { icon: BarChart, title: "AI Marketing", description: "Data-driven campaigns across Meta & Google optimized for maximum ROI.", href: "#", color: "text-violet-500", bg: "bg-violet-500/8", border: "group-hover:border-violet-500/40", glow: "group-hover:shadow-violet-500/10" },
+    { icon: Building, title: "Real Estate Services", description: "Automated lead capture and virtual tours to sell properties 3x faster.", href: "#", color: "text-amber-600", bg: "bg-amber-500/8", border: "group-hover:border-amber-500/40", glow: "group-hover:shadow-amber-500/10" },
+    { icon: Users, title: "CRM Solutions", description: "Centralize customer data and automate follow-ups for higher retention.", href: "#", color: "text-rose-500", bg: "bg-rose-500/8", border: "group-hover:border-rose-500/40", glow: "group-hover:shadow-rose-500/10" },
 ];
 
 export function Services() {
     return (
-        <section id="services" className="section-padding bg-background">
+        <section id="services" className="section-padding bg-transparent relative">
+            {/* Section accent line */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full" />
+
             <div className="container-custom">
-                <div className="text-center max-w-2xl mx-auto mb-16">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-4xl font-bold mb-4"
-                    >
+                <div className="max-w-2xl mx-auto text-center mb-16">
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                        <Zap className="h-3.5 w-3.5" /> What We Do
+                    </motion.p>
+                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
                         Our <span className="text-primary">Capabilities</span>
                     </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-muted-foreground"
-                    >
-                        A full suite of digital transformation tools designed to help you scale faster.
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                        A full suite of digital transformation tools to scale faster.
                     </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {services.map((service, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                        >
-                            <Link href={service.href} className="flex flex-col h-full bg-card border border-border rounded-3xl overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                                {/* Top Half: Color & Icon */}
-                                <div className={`h-40 ${service.color} flex items-center justify-center relative`}>
-                                    {/* Subtle Circle Decoration */}
-                                    <div className="absolute w-24 h-24 rounded-full border border-white/20 bg-white/10 flex items-center justify-center">
-                                        {service.icon}
-                                    </div>
-                                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {services.map((s, i) => {
+                        const Icon = s.icon;
+                        return (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.06 }}
+                            >
+                                <Link href={s.href} className={`group flex flex-col h-full p-7 bg-card border border-border rounded-2xl ${s.border} ${s.glow} hover:shadow-xl transition-all duration-300 relative overflow-hidden`}>
+                                    {/* Hover gradient background */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-muted/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                                {/* Bottom Half: Content */}
-                                <div className="p-8 flex flex-col flex-1 bg-card">
-                                    <h3 className="font-serif text-xl font-bold mb-3 text-foreground">{service.title}</h3>
-                                    <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-1">
-                                        {service.description}
-                                    </p>
-
-                                    <div className={`text-sm font-bold ${service.btnColor} flex items-center group-hover:translate-x-1 transition-transform`}>
-                                        Learn more <ArrowRight className="h-4 w-4 ml-2" />
+                                    <div className="relative z-10">
+                                        <div className={`w-14 h-14 rounded-2xl ${s.bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                                            <Icon className={`h-7 w-7 ${s.color}`} />
+                                        </div>
+                                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors">{s.title}</h3>
+                                        <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">{s.description}</p>
+                                        <span className={`text-sm font-semibold ${s.color} flex items-center gap-1.5 group-hover:gap-2.5 transition-all`}>
+                                            Learn More <ArrowRight className="h-3.5 w-3.5" />
+                                        </span>
                                     </div>
-                                </div>
-                            </Link>
-                        </motion.div>
-                    ))}
+                                </Link>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
         </section>

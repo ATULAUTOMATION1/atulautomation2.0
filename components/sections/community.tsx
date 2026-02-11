@@ -1,60 +1,62 @@
 "use client";
 
-import { MessageSquare, Users, Globe } from "lucide-react";
-import Link from "next/link";
+import { Users, MessageCircle, Globe, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+const STATS = [
+    { icon: Users, value: "2,400+", label: "Members", color: "text-primary", bg: "bg-primary/8" },
+    { icon: MessageCircle, value: "500+", label: "Topics", color: "text-blue-500", bg: "bg-blue-500/8" },
+    { icon: Globe, value: "30+", label: "Countries", color: "text-emerald-500", bg: "bg-emerald-500/8" },
+];
 
 export function Community() {
     return (
-        <section id="community" className="section-padding bg-background relative overflow-hidden">
-            {/* Abstract Background */}
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 pointer-events-none" />
+        <section id="community" className="section-padding bg-transparent">
+            <div className="container-custom">
+                <div className="max-w-3xl mx-auto text-center">
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                        <Users className="h-3.5 w-3.5" /> Community
+                    </motion.p>
+                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                        Join the <span className="text-primary">Movement</span>
+                    </motion.h2>
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg mb-10">
+                        Connect with automation builders, share knowledge, and grow together.
+                    </motion.p>
 
-            <div className="container-custom relative z-10">
-                <div className="bg-card border border-border rounded-3xl p-8 md:p-12 overflow-hidden relative">
-                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-background to-muted/50 -z-10" />
+                    {/* Stats */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="grid grid-cols-3 gap-4 mb-10 max-w-lg mx-auto"
+                    >
+                        {STATS.map((s, i) => {
+                            const Icon = s.icon;
+                            return (
+                                <div key={i} className="py-5 rounded-2xl bg-muted/50 border border-border/50 text-center">
+                                    <Icon className={`h-5 w-5 ${s.color} mx-auto mb-2`} />
+                                    <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
+                                    <p className="text-xs text-muted-foreground font-medium mt-0.5">{s.label}</p>
+                                </div>
+                            );
+                        })}
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 className="text-4xl md:text-5xl font-bold mb-6">Join the <span className="text-primary">Hive Mind</span></h2>
-                            <p className="text-lg text-muted-foreground mb-8">
-                                Connect with 5,000+ automators, developers, and business owners. Share workflows, get help, and stay ahead of the curve.
-                            </p>
-
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Link href="#" className="btn-nature-primary flex items-center justify-center space-x-2">
-                                    <MessageSquare className="h-5 w-5" />
-                                    <span>Join Discord Server</span>
-                                </Link>
-                                <Link href="#" className="flex items-center justify-center space-x-2 px-8 py-3 rounded-full border border-border hover:bg-muted transition-colors font-semibold">
-                                    <Globe className="h-5 w-5 text-primary" />
-                                    <span>Visit Forum</span>
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-background border border-border p-6 rounded-xl shadow-sm hover:-translate-y-1 transition-transform duration-300">
-                                <Users className="h-8 w-8 text-primary mb-4" />
-                                <div className="text-2xl font-bold">5.2k+</div>
-                                <div className="text-sm text-muted-foreground">Active Members</div>
-                            </div>
-                            <div className="bg-background border border-border p-6 rounded-xl shadow-sm hover:-translate-y-1 transition-transform duration-300 translate-y-4">
-                                <MessageSquare className="h-8 w-8 text-secondary mb-4" />
-                                <div className="text-2xl font-bold">120+</div>
-                                <div className="text-sm text-muted-foreground">Daily Topics</div>
-                            </div>
-                            <div className="bg-background border border-border p-6 rounded-xl shadow-sm hover:-translate-y-1 transition-transform duration-300">
-                                <Globe className="h-8 w-8 text-accent mb-4" />
-                                <div className="text-2xl font-bold">15+</div>
-                                <div className="text-sm text-muted-foreground">Countries</div>
-                            </div>
-                            <div className="bg-background border border-border p-6 rounded-xl shadow-sm hover:-translate-y-1 transition-transform duration-300 translate-y-4">
-                                <div className="h-8 w-8 mb-4 font-bold text-2xl text-primary">#</div>
-                                <div className="text-2xl font-bold">Top 1%</div>
-                                <div className="text-sm text-muted-foreground">Automation Community</div>
-                            </div>
-                        </div>
-                    </div>
+                    {/* CTAs */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="flex flex-col sm:flex-row justify-center gap-3"
+                    >
+                        <a href="#" className="btn-primary group">
+                            Join Discord <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                        </a>
+                        <a href="#" className="btn-secondary">
+                            Visit Forum
+                        </a>
+                    </motion.div>
                 </div>
             </div>
         </section>

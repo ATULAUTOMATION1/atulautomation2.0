@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Calculator, TrendingUp, DollarSign, Clock, Users, ArrowRight } from "lucide-react";
 
 export function ROICalculator() {
     const [hours, setHours] = useState(10);
@@ -10,100 +11,116 @@ export function ROICalculator() {
 
     const weeklyCost = hours * rate * employees;
     const annualCost = weeklyCost * 52;
-    const automatedSavings = annualCost * 0.8; // Assuming 80% automation
+    const automatedSavings = annualCost * 0.8;
+    const hoursSaved = hours * employees * 0.8 * 52;
 
     return (
-        <section id="tools" className="section-padding bg-background">
+        <section id="tools" className="section-padding bg-transparent">
             <div className="container-custom">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h2 className="text-4xl font-bold mb-6">Calculate Your <span className="text-gradient">Imbalance</span></h2>
-                        <p className="text-muted-foreground mb-8 text-lg">
-                            See exactly how much manual tasks are costing your business every year.
-                            By automating these tasks, you could reinvest this capital into growth.
-                        </p>
+                <div className="max-w-2xl mx-auto text-center mb-16">
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                        <Calculator className="h-3.5 w-3.5" /> ROI Calculator
+                    </motion.p>
+                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                        Calculate Your <span className="text-primary">Savings</span>
+                    </motion.h2>
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                        See exactly how much manual tasks are costing your business.
+                    </motion.p>
+                </div>
 
-                        <div className="space-y-8">
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Hours Spent Per Week (Manual Tasks)</label>
-                                <input
-                                    type="range"
-                                    min="1" max="100"
-                                    value={hours}
-                                    onChange={(e) => setHours(Number(e.target.value))}
-                                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
-                                />
-                                <div className="text-right font-bold text-primary mt-1">{hours} hours</div>
-                            </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start max-w-5xl mx-auto">
+                    {/* Controls */}
+                    <div className="space-y-6">
+                        <div className="bg-card border border-border rounded-2xl p-8">
+                            <h3 className="font-bold text-lg mb-8 flex items-center gap-2">
+                                <TrendingUp className="h-4 w-4 text-primary" /> Configure Data
+                            </h3>
 
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Hourly Rate ($)</label>
-                                <input
-                                    type="range"
-                                    min="10" max="200"
-                                    value={rate}
-                                    onChange={(e) => setRate(Number(e.target.value))}
-                                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
-                                />
-                                <div className="text-right font-bold text-primary mt-1">${rate}/hr</div>
-                            </div>
+                            <div className="space-y-8">
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <label className="text-sm font-medium flex items-center gap-2">
+                                            <Clock className="h-4 w-4 text-muted-foreground" /> Hours/Week (Manual)
+                                        </label>
+                                        <span className="text-sm font-bold bg-muted px-2 py-1 rounded-md min-w-[3rem] text-center">{hours}h</span>
+                                    </div>
+                                    <input
+                                        type="range" min="1" max="100" value={hours} onChange={(e) => setHours(Number(e.target.value))}
+                                        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                                    />
+                                </div>
 
-                            <div>
-                                <label className="block text-sm font-medium mb-2">Number of Employees</label>
-                                <input
-                                    type="range"
-                                    min="1" max="50"
-                                    value={employees}
-                                    onChange={(e) => setEmployees(Number(e.target.value))}
-                                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
-                                />
-                                <div className="text-right font-bold text-primary mt-1">{employees} people</div>
-                            </div>
-                        </div>
-                    </div>
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <label className="text-sm font-medium flex items-center gap-2">
+                                            <DollarSign className="h-4 w-4 text-muted-foreground" /> Hourly Rate
+                                        </label>
+                                        <span className="text-sm font-bold bg-muted px-2 py-1 rounded-md min-w-[3rem] text-center">${rate}</span>
+                                    </div>
+                                    <input
+                                        type="range" min="10" max="200" value={rate} onChange={(e) => setRate(Number(e.target.value))}
+                                        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                                    />
+                                </div>
 
-                    <div className="bg-card border border-border rounded-2xl p-8 shadow-lg relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-4 opacity-10">
-                            <span className="text-9xl font-bold text-primary">$</span>
-                        </div>
-
-                        <div className="space-y-6 relative z-10">
-                            <div>
-                                <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Current Annual Cost</p>
-                                <motion.div
-                                    key={annualCost}
-                                    initial={{ scale: 0.9, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    className="text-4xl font-bold text-foreground"
-                                >
-                                    ${annualCost.toLocaleString()}
-                                </motion.div>
-                            </div>
-
-                            <div className="h-px bg-border my-6" />
-
-                            <div>
-                                <p className="text-sm text-primary uppercase tracking-wider mb-1 font-bold">Potential Annual Savings</p>
-                                <motion.div
-                                    key={automatedSavings}
-                                    initial={{ scale: 0.9, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    className="text-5xl font-bold text-primary"
-                                >
-                                    ${automatedSavings.toLocaleString()}
-                                </motion.div>
-                                <p className="text-sm text-muted-foreground mt-2">
-                                    *Based on 80% automation efficiency
-                                </p>
-                            </div>
-
-                            <div className="pt-6">
-                                <button className="w-full py-4 rounded-xl bg-foreground text-background font-bold hover:opacity-90 transition-opacity">
-                                    Get Your Personal Audit
-                                </button>
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <label className="text-sm font-medium flex items-center gap-2">
+                                            <Users className="h-4 w-4 text-muted-foreground" /> Employees
+                                        </label>
+                                        <span className="text-sm font-bold bg-muted px-2 py-1 rounded-md min-w-[3rem] text-center">{employees}</span>
+                                    </div>
+                                    <input
+                                        type="range" min="1" max="50" value={employees} onChange={(e) => setEmployees(Number(e.target.value))}
+                                        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    {/* Results */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1 }}
+                        className="bg-primary text-primary-foreground rounded-2xl p-8 shadow-xl relative overflow-hidden"
+                    >
+                        {/* Abstract blobs */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl -ml-16 -mb-16 pointer-events-none" />
+
+                        <div className="relative z-10">
+                            <h3 className="text-lg font-medium mb-6 opacity-90">Estimated Annual Impact</h3>
+
+                            <div className="grid gap-6 mb-8">
+                                <div className="bg-white/10 rounded-xl p-5 border border-white/10 backdrop-blur-sm">
+                                    <p className="text-xs uppercase tracking-wider font-bold opacity-70 mb-1">Potential Savings</p>
+                                    <p className="text-4xl md:text-5xl font-bold tracking-tight mb-1">
+                                        ${Math.round(automatedSavings).toLocaleString()}
+                                    </p>
+                                    <p className="text-sm opacity-80">Per year with automation</p>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                                        <p className="text-2xl font-bold">{Math.round(hoursSaved / 52)}h</p>
+                                        <p className="text-xs opacity-70">Hours Saved / Week</p>
+                                    </div>
+                                    <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                                        <p className="text-2xl font-bold">${Math.round(annualCost).toLocaleString()}</p>
+                                        <p className="text-xs opacity-70">Current Annual Cost</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button className="w-full py-4 rounded-xl bg-white text-primary font-bold text-sm hover:bg-white/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
+                                Get Full Audit <ArrowRight className="h-4 w-4" />
+                            </button>
+                        </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

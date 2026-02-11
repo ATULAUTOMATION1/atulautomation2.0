@@ -1,102 +1,210 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Check, X, RefreshCw } from "lucide-react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { Check, X, RefreshCw, ChevronRight, Zap, Trophy } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-type LogicGate = {
+type GateType = "AND" | "OR" | "XOR" | "NAND";
+
+interface Puzzle {
     id: number;
-    input: boolean;
-    type: "AND" | "OR" | "NOT";
-    output: boolean | null;
-};
+    gate: GateType;
+    title: string;
+    description: string;
+    emoji: string;
+    truthTable: string;
+}
+
+const PUZZLES: Puzzle[] = [
+    { id: 1, gate: "AND", title: "The AND Gate", emoji: "🔗", description: "Both inputs must be ON", truthTable: "Only fires when ALL triggers are active" },
+    { id: 2, gate: "OR", title: "The OR Gate", emoji: "⚡", description: "At least one input ON", truthTable: "Fires when ANY trigger is active" },
+    { id: 3, gate: "XOR", title: "The XOR Gate", emoji: "🎯", description: "Exactly one input ON", truthTable: "Fires when ONLY ONE trigger is active" },
+    { id: 4, gate: "NAND", title: "The NAND Gate", emoji: "🛡️", description: "NOT both inputs ON", truthTable: "Fires unless ALL triggers are active" },
+];
+
+function evaluateGate(gate: GateType, inputs: boolean[]): boolean {
+    switch (gate) {
+        case "AND": return inputs.every(Boolean);
+        case "OR": return inputs.some(Boolean);
+        case "XOR": return inputs.filter(Boolean).length === 1;
+        case "NAND": return !inputs.every(Boolean);
+    }
+}
 
 export function AutomationPuzzle() {
+    const [currentPuzzle, setCurrentPuzzle] = useState(0);
     const [inputs, setInputs] = useState([false, false]);
     const [solved, setSolved] = useState(false);
+    const [solvedPuzzles, setSolvedPuzzles] = useState<number[]>([]);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [allDone, setAllDone] = useState(false);
 
-    // Simple AND Gate Pattern
-    // Trigger A + Trigger B = Action
-    const isCorrect = inputs[0] && inputs[1];
+    const puzzle = PUZZLES[currentPuzzle];
+    const output = evaluateGate(puzzle.gate, inputs);
 
     useEffect(() => {
-        if (isCorrect) {
+        if (output && !solved) {
             setSolved(true);
-        } else {
+            setShowSuccess(true);
+            if (!solvedPuzzles.includes(currentPuzzle)) {
+                setSolvedPuzzles(prev => [...prev, currentPuzzle]);
+            }
+            setTimeout(() => setShowSuccess(false), 2000);
+        } else if (!output) {
             setSolved(false);
         }
-    }, [inputs, isCorrect]);
+    }, [output, solved, currentPuzzle, solvedPuzzles]);
 
-    const toggleInput = (idx: number) => {
-        const newInputs = [...inputs];
-        newInputs[idx] = !newInputs[idx];
-        setInputs(newInputs);
-    };
+    const toggleInput = useCallback((idx: number) => {
+        setInputs(prev => prev.map((v, i) => i === idx ? !v : v));
+    }, []);
+
+    const nextPuzzle = useCallback(() => {
+        if (currentPuzzle < PUZZLES.length - 1) {
+            setCurrentPuzzle(prev => prev + 1);
+            setInputs([false, false]);
+            setSolved(false);
+        } else {
+            setAllDone(true);
+        }
+    }, [currentPuzzle]);
+
+    const resetAll = useCallback(() => {
+        setCurrentPuzzle(0);
+        setInputs([false, false]);
+        setSolved(false);
+        setSolvedPuzzles([]);
+        setAllDone(false);
+    }, []);
+
+    if (allDone) {
+        return (
+            <div className="border border-border rounded-2xl bg-card p-6 flex flex-col items-center justify-center text-center min-h-[300px]">
+                <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                    <Trophy className="h-12 w-12 text-yellow-400 mb-3" />
+                </motion.div>
+                <h3 className="font-bold text-lg text-foreground mb-1">All Gates Mastered!</h3>
+                <p className="text-xs text-muted-foreground mb-4">You understand logic gates 🎉</p>
+                <button onClick={resetAll} className="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+                    <RefreshCw className="h-3 w-3" /> Play Again
+                </button>
+            </div>
+        );
+    }
 
     return (
-        <div className="h-[400px] border border-border rounded-xl bg-background p-6 flex flex-col items-center justify-center relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                <RefreshCw className="h-32 w-32" />
-            </div>
-
-            <h3 className="font-bold text-lg mb-8">Logic Gate: THE "AND" PUZZLE</h3>
-            <p className="text-xs text-muted-foreground text-center mb-8 max-w-xs">
-                Activate both triggers to fire the automation action.
-            </p>
-
-            <div className="flex items-center space-x-8">
-                {/* Inputs */}
-                <div className="flex flex-col space-y-8">
-                    {inputs.map((val, i) => (
-                        <button
-                            key={i}
-                            onClick={() => toggleInput(i)}
-                            className={`w-16 h-16 rounded-lg border-2 flex items-center justify-center transition-all ${val
-                                    ? "bg-primary border-primary text-white shadow-[0_0_15px_rgba(249,115,22,0.5)]"
-                                    : "bg-muted border-border text-muted-foreground hover:border-primary/50"
-                                }`}
-                        >
-                            {val ? "ON" : "OFF"}
-                        </button>
+        <div className="border border-border rounded-2xl bg-card overflow-hidden">
+            {/* Header */}
+            <div className="bg-muted/30 border-b border-border p-3">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <span className="text-lg">{puzzle.emoji}</span>
+                        <div>
+                            <h3 className="font-bold text-sm text-foreground">{puzzle.title}</h3>
+                            <p className="text-[10px] text-muted-foreground">{puzzle.description}</p>
+                        </div>
+                    </div>
+                    <span className="text-[10px] font-mono bg-muted px-2 py-0.5 rounded-full text-muted-foreground">
+                        {currentPuzzle + 1}/{PUZZLES.length}
+                    </span>
+                </div>
+                {/* Progress dots */}
+                <div className="flex gap-1 mt-2">
+                    {PUZZLES.map((_, i) => (
+                        <div key={i} className={`h-1 flex-1 rounded-full transition-colors ${solvedPuzzles.includes(i) ? "bg-emerald-500" : i === currentPuzzle ? "bg-primary" : "bg-border"}`} />
                     ))}
                 </div>
-
-                {/* Connecting Lines */}
-                <div className="flex flex-col space-y-8 relative">
-                    <div className={`w-8 h-1 transition-colors ${inputs[0] ? "bg-primary" : "bg-border"}`} />
-                    <div className={`w-8 h-1 transition-colors ${inputs[1] ? "bg-primary" : "bg-border"}`} />
-                    {/* Vertical Joiner */}
-                    <div className={`absolute top-0 bottom-0 left-8 w-1 transition-colors ${solved ? "bg-primary" : "bg-border"}`} />
-                    <div className={`absolute top-1/2 left-8 w-8 h-1 transform -translate-y-1/2 transition-colors ${solved ? "bg-primary" : "bg-border"}`} />
-                </div>
-
-                {/* Gate / Processor */}
-                <div className={`w-20 h-20 rounded-full border-2 flex items-center justify-center font-bold text-lg transition-all ${solved ? "bg-secondary text-white border-secondary shadow-lg scale-110" : "bg-card border-border"
-                    }`}>
-                    AND
-                </div>
-
-                {/* Final Output Line */}
-                <div className={`w-8 h-1 transition-colors ${solved ? "bg-secondary" : "bg-border"}`} />
-
-                {/* Output */}
-                <div className={`w-16 h-16 rounded-lg border-2 flex items-center justify-center transition-all ${solved
-                        ? "bg-green-500 border-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.6)] animate-pulse"
-                        : "bg-muted border-border text-muted-foreground"
-                    }`}>
-                    {solved ? <Check className="h-8 w-8" /> : <X className="h-8 w-8" />}
-                </div>
             </div>
 
-            {solved && (
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-8 text-green-500 font-bold flex items-center"
-                >
-                    <Check className="mr-2 h-5 w-5" /> Automation Fired Successfully!
-                </motion.div>
-            )}
+            {/* Gate Visualization */}
+            <div className="p-5 flex flex-col items-center">
+                <div className="flex items-center gap-4">
+                    {/* Inputs */}
+                    <div className="flex flex-col gap-4">
+                        {inputs.map((val, i) => (
+                            <motion.button
+                                key={i}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => toggleInput(i)}
+                                className={`w-14 h-14 rounded-xl border-2 flex flex-col items-center justify-center transition-all duration-300 text-xs font-bold gap-0.5 ${val
+                                    ? "bg-primary/20 border-primary text-primary shadow-[0_0_15px_rgba(249,115,22,0.3)]"
+                                    : "bg-muted border-border text-muted-foreground hover:border-primary/40"
+                                    }`}
+                            >
+                                <Zap className={`h-4 w-4 ${val ? "text-primary" : ""}`} />
+                                {val ? "ON" : "OFF"}
+                            </motion.button>
+                        ))}
+                    </div>
+
+                    {/* Wires to gate */}
+                    <div className="flex flex-col gap-4 relative">
+                        <motion.div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${inputs[0] ? "bg-primary" : "bg-border"}`}
+                            animate={inputs[0] ? { opacity: [0.5, 1, 0.5] } : {}} transition={{ duration: 1, repeat: Infinity }} />
+                        <motion.div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${inputs[1] ? "bg-primary" : "bg-border"}`}
+                            animate={inputs[1] ? { opacity: [0.5, 1, 0.5] } : {}} transition={{ duration: 1, repeat: Infinity }} />
+                        {/* Joiner */}
+                        <div className={`absolute top-0 bottom-0 right-0 w-0.5 transition-colors duration-300 ${output ? "bg-cyan-500" : "bg-border"}`} />
+                    </div>
+
+                    {/* Gate */}
+                    <motion.div
+                        animate={output ? { scale: [1, 1.08, 1] } : {}}
+                        transition={{ duration: 0.8, repeat: output ? Infinity : 0 }}
+                        className={`w-16 h-16 rounded-2xl border-2 flex items-center justify-center font-bold text-sm transition-all duration-300 ${output
+                            ? "bg-cyan-500/20 border-cyan-500 text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+                            : "bg-card border-border text-muted-foreground"
+                            }`}
+                    >
+                        {puzzle.gate}
+                    </motion.div>
+
+                    {/* Wire to output */}
+                    <motion.div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${output ? "bg-emerald-500" : "bg-border"}`}
+                        animate={output ? { opacity: [0.5, 1, 0.5] } : {}} transition={{ duration: 0.8, repeat: Infinity }} />
+
+                    {/* Output */}
+                    <motion.div
+                        animate={output ? { scale: [1, 1.05, 1] } : {}}
+                        transition={{ duration: 0.6, repeat: output ? Infinity : 0 }}
+                        className={`w-14 h-14 rounded-xl border-2 flex items-center justify-center transition-all duration-300 ${output
+                            ? "bg-emerald-500/20 border-emerald-500 text-emerald-400 shadow-[0_0_15px_rgba(34,197,94,0.4)]"
+                            : "bg-muted border-border text-muted-foreground"
+                            }`}
+                    >
+                        {output ? <Check className="h-6 w-6" /> : <X className="h-6 w-6" />}
+                    </motion.div>
+                </div>
+
+                {/* Success message or hint */}
+                <div className="mt-4 h-10 flex items-center">
+                    <AnimatePresence mode="wait">
+                        {showSuccess ? (
+                            <motion.p key="success" initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-emerald-500 font-bold text-sm flex items-center gap-1">
+                                <Check className="h-4 w-4" /> Automation Fired! 🎉
+                            </motion.p>
+                        ) : (
+                            <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[11px] text-muted-foreground text-center">
+                                💡 {puzzle.truthTable}
+                            </motion.p>
+                        )}
+                    </AnimatePresence>
+                </div>
+
+                {/* Next puzzle button */}
+                {solved && (
+                    <motion.button
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={nextPuzzle}
+                        className="mt-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold text-xs py-2 px-5 rounded-full flex items-center gap-1"
+                    >
+                        Next Puzzle <ChevronRight className="h-3.5 w-3.5" />
+                    </motion.button>
+                )}
+            </div>
         </div>
     );
 }

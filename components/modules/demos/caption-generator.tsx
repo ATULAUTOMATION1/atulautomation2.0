@@ -58,7 +58,7 @@ export function CaptionGenerator() {
                 <button
                     onClick={generate}
                     disabled={loading || !topic}
-                    className="w-full btn-nature-primary py-2 text-sm disabled:opacity-50"
+                    className="w-full btn-primary py-2 text-sm disabled:opacity-50"
                 >
                     {loading ? "Generating..." : "Generate Output"}
                 </button>

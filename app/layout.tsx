@@ -4,7 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
-import { AnnouncementBanner } from '@/components/layout/announcement-banner';
+import { AnimatedBackground } from '@/components/ui/animated-background';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -67,7 +67,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AnnouncementBanner />
+          <AnimatedBackground />
           <Navbar />
           {children}
           <Footer />

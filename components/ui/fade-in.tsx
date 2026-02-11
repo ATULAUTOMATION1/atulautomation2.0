@@ -9,14 +9,14 @@ export function FadeIn({
 }: {
     children: React.ReactNode;
     delay?: number;
-    className?: string;
+    className?: string; // Corrected type
 }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }} // More subtle entry
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-20px" }} // Trigger slightly earlier
+            transition={{ duration: 0.5, delay, ease: "easeOut" }}
             className={className}
         >
             {children}

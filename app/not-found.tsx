@@ -7,7 +7,7 @@ export default function NotFound() {
             <p className="text-muted-foreground mb-8 text-lg max-w-md">
                 The automation workflow you are looking for does not exist or has been moved.
             </p>
-            <Link href="/" className="btn-nature-primary">
+            <Link href="/" className="btn-primary">
                 Return Home
             </Link>
         </div>

@@ -1,85 +1,105 @@
+"use client";
+
 import Link from "next/link";
-import { Terminal, Twitter, Linkedin, Github, Mail } from "lucide-react";
+import { Terminal, Send, ArrowRight, Heart } from "lucide-react";
+
+const footerLinks = {
+    Services: [
+        { name: "AI Automation", href: "#services" },
+        { name: "Chatbot Development", href: "#services" },
+        { name: "Workflow Automation", href: "#services" },
+        { name: "AI Marketing", href: "#services" },
+    ],
+    Company: [
+        { name: "About Us", href: "#" },
+        { name: "Blog", href: "#" },
+        { name: "Contact", href: "#contact" },
+    ],
+    Resources: [
+        { name: "Documentation", href: "#" },
+        { name: "Community", href: "#community" },
+        { name: "API Reference", href: "#" },
+        { name: "Status", href: "#" },
+    ],
+};
 
 export function Footer() {
     return (
-        <footer className="bg-muted/30 border-t border-border pt-16 pb-8">
-            <div className="container-custom">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <footer className="bg-muted/30 border-t border-border relative overflow-hidden">
+            {/* Subtle gradient accent at top */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+            <div className="container-custom py-16">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
                     {/* Brand */}
-                    <div className="space-y-4">
-                        <div className="flex items-center space-x-2">
-                            <Terminal className="h-6 w-6 text-primary" />
-                            <span className="font-heading font-bold text-xl">
+                    <div className="md:col-span-4">
+                        <Link href="/" className="flex items-center gap-2.5 mb-4 group">
+                            <div className="bg-gradient-to-br from-primary/15 to-primary/5 p-2.5 rounded-xl group-hover:from-primary/20 transition-colors">
+                                <Terminal className="h-4.5 w-4.5 text-primary" />
+                            </div>
+                            <span className="font-heading font-bold text-lg">
                                 Atul<span className="text-primary">Automation</span>
                             </span>
-                        </div>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                            We combine nature's adaptability with machine precision to build systems that grow with you.
+                        </Link>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-xs">
+                            Building intelligent AI systems that help businesses automate, scale, and grow.
                         </p>
-                        <div className="flex space-x-4">
-                            <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                                <Twitter className="h-5 w-5" />
-                            </Link>
-                            <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                                <Linkedin className="h-5 w-5" />
-                            </Link>
-                            <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                                <Github className="h-5 w-5" />
-                            </Link>
+                        {/* Newsletter */}
+                        <div className="flex gap-2">
+                            <input
+                                type="email"
+                                placeholder="Your email"
+                                className="flex-1 px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all placeholder:text-muted-foreground/60"
+                            />
+                            <button className="bg-primary text-white p-2.5 rounded-xl hover:bg-orange-600 hover:shadow-lg hover:shadow-primary/20 transition-all shrink-0">
+                                <Send className="h-4 w-4" />
+                            </button>
                         </div>
                     </div>
 
                     {/* Links */}
-                    <div>
-                        <h3 className="font-bold mb-4">Services</h3>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link href="#" className="hover:text-primary transition-colors">AI Agents</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Workflow Automation</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Chatbot Development</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">CRM Integration</Link></li>
-                        </ul>
-                    </div>
+                    {Object.entries(footerLinks).map(([title, links]) => (
+                        <div key={title} className="md:col-span-2">
+                            <h4 className="text-sm font-bold mb-4 text-foreground">{title}</h4>
+                            <ul className="space-y-2.5">
+                                {links.map((link) => (
+                                    <li key={link.name}>
+                                        <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                            {link.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
 
-                    <div>
-                        <h3 className="font-bold mb-4">Company</h3>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link href="#" className="hover:text-primary transition-colors">About Us</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Case Studies</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Community</Link></li>
-                            <li><Link href="#" className="hover:text-primary transition-colors">Contact</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Newsletter */}
-                    <div>
-                        <h3 className="font-bold mb-4">Stay Verified</h3>
-                        <p className="text-sm text-muted-foreground mb-4">
-                            Get the latest AI automation trends delivered to your inbox.
-                        </p>
-                        <form className="space-y-2">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="w-full px-4 py-2 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-sm"
-                            />
-                            <button
-                                type="submit"
-                                className="w-full btn-nature-primary py-2 text-sm"
-                            >
-                                Subscribe
-                            </button>
-                        </form>
+                    {/* CTA */}
+                    <div className="md:col-span-2">
+                        <h4 className="text-sm font-bold mb-4">Get Started</h4>
+                        <p className="text-sm text-muted-foreground mb-4">Ready to automate? Let&apos;s talk.</p>
+                        <Link href="#contact" className="text-sm font-semibold text-primary flex items-center gap-1 hover:gap-2 transition-all group">
+                            Contact Us <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
                     </div>
                 </div>
+            </div>
 
-                <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-sm text-muted-foreground">
+            {/* Bottom */}
+            <div className="border-t border-border">
+                <div className="container-custom py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <p className="text-xs text-muted-foreground">
                         © {new Date().getFullYear()} Atul Automation. All rights reserved.
                     </p>
-                    <div className="flex space-x-6 text-sm text-muted-foreground">
-                        <Link href="#" className="hover:text-foreground">Privacy Policy</Link>
-                        <Link href="#" className="hover:text-foreground">Terms of Service</Link>
+                    <div className="flex items-center gap-2 order-first sm:order-none mb-4 sm:mb-0">
+                        <Terminal className="h-4 w-4 text-primary" />
+                        <span className="text-xs font-semibold text-muted-foreground">
+                            Made to Automate in <span className="text-orange-600 dark:text-orange-500">India</span> 🇮🇳
+                        </span>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                        <Link href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Privacy</Link>
+                        <Link href="#" className="text-xs text-muted-foreground hover:text-primary transition-colors">Terms</Link>
                     </div>
                 </div>
             </div>

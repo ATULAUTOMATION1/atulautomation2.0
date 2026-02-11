@@ -1,124 +1,331 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Play, Trash2, ArrowRight, CheckCircle, Database, Mail, Zap, MessageSquare } from "lucide-react";
+import {
+    Play, RotateCcw, Mail, Zap, Database, CheckCircle2,
+    MessageSquare, Filter, Bot, Bell, GitBranch, Plus,
+    Trash2, ChevronDown, Cpu, Loader2
+} from "lucide-react";
 
-type Node = {
+type NodeType = "trigger" | "condition" | "action" | "ai";
+
+interface WFNode {
     id: string;
-    type: string;
+    type: NodeType;
     label: string;
-    icon: React.ReactNode;
-    x: number;
-    y: number;
+    emoji: string;
+    icon: typeof Mail;
+    color: string;
+    bgColor: string;
+    borderColor: string;
+}
+
+const NODE_PALETTE: WFNode[] = [
+    { id: "email", type: "trigger", label: "Email Received", emoji: "📩", icon: Mail, color: "text-blue-400", bgColor: "bg-blue-500/15", borderColor: "border-blue-500/40" },
+    { id: "form", type: "trigger", label: "Form Submit", emoji: "📝", icon: MessageSquare, color: "text-blue-400", bgColor: "bg-blue-500/15", borderColor: "border-blue-500/40" },
+    { id: "filter", type: "condition", label: "IF Condition", emoji: "⚡", icon: Filter, color: "text-amber-400", bgColor: "bg-amber-500/15", borderColor: "border-amber-500/40" },
+    { id: "ai_class", type: "ai", label: "AI Classify", emoji: "🧠", icon: Bot, color: "text-purple-400", bgColor: "bg-purple-500/15", borderColor: "border-purple-500/40" },
+    { id: "ai_gen", type: "ai", label: "AI Generate", emoji: "✨", icon: Cpu, color: "text-purple-400", bgColor: "bg-purple-500/15", borderColor: "border-purple-500/40" },
+    { id: "notify", type: "action", label: "Send Alert", emoji: "🔔", icon: Bell, color: "text-emerald-400", bgColor: "bg-emerald-500/15", borderColor: "border-emerald-500/40" },
+    { id: "save_db", type: "action", label: "Save to DB", emoji: "💾", icon: Database, color: "text-emerald-400", bgColor: "bg-emerald-500/15", borderColor: "border-emerald-500/40" },
+    { id: "route", type: "action", label: "Route", emoji: "🔀", icon: GitBranch, color: "text-emerald-400", bgColor: "bg-emerald-500/15", borderColor: "border-emerald-500/40" },
+];
+
+const TYPE_LABELS: Record<NodeType, { label: string; color: string; bg: string }> = {
+    trigger: { label: "TRIGGER", color: "text-blue-400", bg: "bg-blue-500/15" },
+    condition: { label: "CONDITION", color: "text-amber-400", bg: "bg-amber-500/15" },
+    action: { label: "ACTION", color: "text-emerald-400", bg: "bg-emerald-500/15" },
+    ai: { label: "AI AGENT", color: "text-purple-400", bg: "bg-purple-500/15" },
 };
 
-const INITIAL_NODES: Node[] = [
-    { id: "start", type: "trigger", label: "New Lead", icon: <Mail className="h-5 w-5" />, x: 50, y: 150 },
-    { id: "process", type: "action", label: "AI Qualify", icon: <Zap className="h-5 w-5" />, x: 250, y: 150 },
-    { id: "end", type: "end", label: "Add to CRM", icon: <Database className="h-5 w-5" />, x: 450, y: 150 },
+const EXECUTION_MESSAGES: Record<string, string[]> = {
+    email: ["📨 Incoming email detected...", "📧 From: client@acme.com", "✅ Trigger fired!"],
+    form: ["📝 New form submission...", "👤 Name: John Doe", "✅ Trigger fired!"],
+    filter: ["🔍 Evaluating condition...", "⚡ Result: TRUE", "✅ Passing through!"],
+    ai_class: ["🧠 AI analyzing content...", "🤖 Intent: support_request (94%)", "✅ Classification complete!"],
+    ai_gen: ["✨ AI generating response...", "📝 Crafting personalized reply...", "✅ Response ready!"],
+    notify: ["🔔 Preparing notification...", "📱 Sent to #alerts channel", "✅ Team notified!"],
+    save_db: ["💾 Connecting to database...", "📊 Record #4821 created", "✅ Data saved!"],
+    route: ["🔀 Routing workflow...", "🏢 → Sales Department", "✅ Routed successfully!"],
+};
+
+const PRESETS = [
+    { name: "Lead Capture", nodes: ["form", "ai_class", "save_db", "notify"] },
+    { name: "Email Triage", nodes: ["email", "ai_class", "filter", "route"] },
+    { name: "AI Chatbot", nodes: ["form", "ai_gen", "save_db"] },
 ];
 
 export function WorkflowSimulator() {
-    const [nodes, setNodes] = useState<Node[]>(INITIAL_NODES);
+    const [pipeline, setPipeline] = useState<string[]>(["email", "ai_class", "save_db"]);
     const [isRunning, setIsRunning] = useState(false);
-    const [draggedNode, setDraggedNode] = useState<string | null>(null);
+    const [activeStep, setActiveStep] = useState(-1);
+    const [logs, setLogs] = useState<string[]>([]);
+    const [showPalette, setShowPalette] = useState(false);
+    const [executionDone, setExecutionDone] = useState(false);
+    const [totalRuns, setTotalRuns] = useState(0);
 
-    const handleDragEnd = (id: string, info: any) => {
-        setNodes((prev) =>
-            prev.map((node) =>
-                node.id === id ? { ...node, x: node.x + info.offset.x, y: node.y + info.offset.y } : node
-            )
-        );
-        setDraggedNode(null);
-    };
+    const addNode = useCallback((nodeId: string) => {
+        if (pipeline.length >= 6) return;
+        setPipeline(prev => [...prev, nodeId]);
+        setShowPalette(false);
+        setExecutionDone(false);
+    }, [pipeline]);
 
-    const runSimulation = async () => {
+    const removeNode = useCallback((index: number) => {
+        setPipeline(prev => prev.filter((_, i) => i !== index));
+        setExecutionDone(false);
+    }, []);
+
+    const loadPreset = useCallback((nodes: string[]) => {
+        setPipeline(nodes);
+        setExecutionDone(false);
+        setLogs([]);
+        setActiveStep(-1);
+    }, []);
+
+    const runWorkflow = useCallback(async () => {
+        if (pipeline.length === 0 || isRunning) return;
         setIsRunning(true);
-        // Simulate steps highlighting one by one
-        // In a real app, this would check connections
-        setTimeout(() => setIsRunning(false), 3000);
-    };
+        setExecutionDone(false);
+        setLogs([]);
+        setActiveStep(-1);
+
+        for (let i = 0; i < pipeline.length; i++) {
+            setActiveStep(i);
+            const messages = EXECUTION_MESSAGES[pipeline[i]] || ["Processing..."];
+            for (const msg of messages) {
+                setLogs(prev => [...prev, msg]);
+                await new Promise(r => setTimeout(r, 400));
+            }
+            await new Promise(r => setTimeout(r, 300));
+        }
+
+        setLogs(prev => [...prev, "", "🎉 Workflow completed successfully!"]);
+        setActiveStep(-1);
+        setIsRunning(false);
+        setExecutionDone(true);
+        setTotalRuns(prev => prev + 1);
+    }, [pipeline, isRunning]);
+
+    const resetAll = useCallback(() => {
+        setPipeline(["email", "ai_class", "save_db"]);
+        setIsRunning(false);
+        setActiveStep(-1);
+        setLogs([]);
+        setExecutionDone(false);
+    }, []);
 
     return (
-        <div className="h-[500px] border border-border rounded-xl bg-muted/10 relative overflow-hidden select-none">
-            <div className="absolute top-4 left-4 z-10 bg-background/80 backdrop-blur border border-border px-4 py-2 rounded-lg text-sm font-medium">
-                <span className="text-primary font-bold">Simulator Mode:</span> Drag nodes to arrange workflow
-            </div>
-
-            <div className="absolute inset-0 grid grid-cols-[repeat(20,minmax(0,1fr))] grid-rows-[repeat(20,minmax(0,1fr))] opacity-10 pointer-events-none">
-                {Array.from({ length: 400 }).map((_, i) => (
-                    <div key={i} className="border-[0.5px] border-border" />
-                ))}
-            </div>
-
-            {/* Nodes */}
-            {nodes.map((node, index) => (
-                <motion.div
-                    key={node.id}
-                    drag
-                    dragMomentum={false}
-                    onDragStart={() => setDraggedNode(node.id)}
-                    dragConstraints={{ left: 0, right: 600, top: 0, bottom: 400 }}
-                    style={{ x: node.x, y: node.y, position: 'absolute' }}
-                    className={`flex flex-col items-center justify-center w-24 h-24 bg-card border-2 ${isRunning && index === 1 ? "border-primary shadow-[0_0_20px_rgba(249,115,22,0.3)] scale-110" : "border-border"
-                        } rounded-xl shadow-sm cursor-grab active:cursor-grabbing hover:border-primary transition-colors z-20`}
-                >
-                    <div className={`mb-2 p-2 rounded-full ${isRunning && index === 1 ? "bg-primary text-white" : "bg-muted text-foreground"}`}>
-                        {node.icon}
+        <div className="border border-border rounded-2xl bg-card overflow-hidden flex flex-col">
+            {/* Header */}
+            <div className="bg-muted/30 border-b border-border p-4">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center">
+                            <Zap className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                            <h3 className="font-bold text-sm text-foreground">Workflow Builder</h3>
+                            <p className="text-[10px] text-muted-foreground">Drag blocks to build automations</p>
+                        </div>
                     </div>
-                    <span className="text-xs font-bold text-center">{node.label}</span>
+                    <div className="flex items-center gap-2">
+                        {totalRuns > 0 && (
+                            <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{totalRuns} runs</span>
+                        )}
+                        <button onClick={resetAll} className="p-1.5 rounded-lg hover:bg-muted transition-colors" title="Reset">
+                            <RotateCcw className="h-3.5 w-3.5 text-muted-foreground" />
+                        </button>
+                    </div>
+                </div>
 
-                    {/* Connector Dot */}
-                    {index < nodes.length - 1 && (
-                        <div className="absolute -right-3 top-1/2 w-6 h-0.5 bg-border -z-10" />
+                {/* Presets */}
+                <div className="flex gap-1.5 mt-3">
+                    {PRESETS.map(preset => (
+                        <button
+                            key={preset.name}
+                            onClick={() => loadPreset(preset.nodes)}
+                            className="text-[10px] font-medium px-2.5 py-1 rounded-full bg-card border border-border hover:border-primary/40 hover:text-primary transition-all"
+                        >
+                            {preset.name}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* Pipeline Visual */}
+            <div className="p-4 flex-1">
+                <div className="flex flex-wrap items-center gap-2 min-h-[80px]">
+                    {pipeline.map((nodeId, i) => {
+                        const node = NODE_PALETTE.find(n => n.id === nodeId)!;
+                        const tl = TYPE_LABELS[node.type];
+                        const isActive = activeStep === i;
+                        const isDone = activeStep > i || executionDone;
+                        const Icon = node.icon;
+
+                        return (
+                            <motion.div key={`${nodeId}-${i}`} className="flex items-center gap-2" layout>
+                                {i > 0 && (
+                                    <div className="flex items-center">
+                                        <motion.div
+                                            className={`h-0.5 w-6 rounded-full transition-colors duration-300 ${isDone ? "bg-emerald-500" : isActive ? "bg-primary" : "bg-border"}`}
+                                            animate={isActive ? { opacity: [0.3, 1, 0.3] } : {}}
+                                            transition={isActive ? { duration: 1, repeat: Infinity } : {}}
+                                        />
+                                        {isActive && (
+                                            <motion.div
+                                                className="w-2 h-2 rounded-full bg-primary absolute"
+                                                animate={{ x: [0, 24, 0] }}
+                                                transition={{ duration: 0.8, repeat: Infinity }}
+                                            />
+                                        )}
+                                    </div>
+                                )}
+
+                                <motion.div
+                                    layout
+                                    initial={{ scale: 0.8, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    className={`relative group flex items-center gap-2 p-2.5 rounded-xl border-2 transition-all duration-300 ${isDone
+                                        ? "border-emerald-500/40 bg-emerald-500/5"
+                                        : isActive
+                                            ? `${node.borderColor} ${node.bgColor} shadow-lg`
+                                            : `border-border bg-card hover:${node.borderColor}`
+                                        }`}
+                                >
+                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isDone ? "bg-emerald-500/20" : node.bgColor}`}>
+                                        {isDone ? (
+                                            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                                        ) : isActive ? (
+                                            <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
+                                                <Loader2 className={`h-4 w-4 ${node.color}`} />
+                                            </motion.div>
+                                        ) : (
+                                            <Icon className={`h-4 w-4 ${node.color}`} />
+                                        )}
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-bold text-foreground">{node.label}</p>
+                                        <p className={`text-[8px] font-bold uppercase ${tl.color}`}>{tl.label}</p>
+                                    </div>
+
+                                    {/* Remove */}
+                                    {!isRunning && (
+                                        <button
+                                            onClick={() => removeNode(i)}
+                                            className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                                        >
+                                            <Trash2 className="h-3 w-3" />
+                                        </button>
+                                    )}
+                                </motion.div>
+                            </motion.div>
+                        );
+                    })}
+
+                    {/* Add Node Button */}
+                    {pipeline.length < 6 && !isRunning && (
+                        <div className="relative">
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => setShowPalette(!showPalette)}
+                                className="w-10 h-10 rounded-xl border-2 border-dashed border-border hover:border-primary/50 flex items-center justify-center text-muted-foreground hover:text-primary transition-all"
+                            >
+                                <Plus className="h-4 w-4" />
+                            </motion.button>
+
+                            {/* Node Palette Dropdown */}
+                            <AnimatePresence>
+                                {showPalette && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -5, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: -5, scale: 0.95 }}
+                                        className="absolute top-12 left-0 z-30 w-56 bg-card border border-border rounded-xl shadow-xl p-2 space-y-1"
+                                    >
+                                        <p className="text-[9px] font-bold text-muted-foreground uppercase px-2 py-1">Add Block</p>
+                                        {NODE_PALETTE.map(node => {
+                                            const tl = TYPE_LABELS[node.type];
+                                            const Icon = node.icon;
+                                            return (
+                                                <button
+                                                    key={node.id}
+                                                    onClick={() => addNode(node.id)}
+                                                    className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-left"
+                                                >
+                                                    <div className={`w-7 h-7 rounded-md ${node.bgColor} flex items-center justify-center`}>
+                                                        <Icon className={`h-3.5 w-3.5 ${node.color}`} />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-xs font-bold text-foreground">{node.label}</p>
+                                                        <p className={`text-[8px] font-bold ${tl.color}`}>{tl.label}</p>
+                                                    </div>
+                                                </button>
+                                            );
+                                        })}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     )}
-                </motion.div>
-            ))}
+                </div>
 
-            {/* Connection Lines (Visual only for demo) */}
-            <svg className="absolute inset-0 pointer-events-none z-0 overflow-visible">
-                {nodes.map((node, i) => {
-                    if (i === nodes.length - 1) return null;
-                    const nextNode = nodes[i + 1];
-                    return (
-                        <line
-                            key={`line-${i}`}
-                            x1={node.x + 48} // Center of node (approx)
-                            y1={node.y + 48}
-                            x2={nextNode.x + 48}
-                            y2={nextNode.y + 48}
-                            stroke="currentColor"
-                            strokeOpacity="0.2"
-                            strokeWidth="2"
-                            strokeDasharray="4 4"
-                        />
-                    )
-                })}
-            </svg>
+                {/* Execution Console */}
+                <div className="mt-4 bg-muted/30 border border-border rounded-xl overflow-hidden">
+                    <div className="px-3 py-2 border-b border-border bg-muted/20 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <div className="flex gap-1">
+                                <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+                            </div>
+                            <span className="text-[10px] font-mono text-muted-foreground">console</span>
+                        </div>
+                        {isRunning && (
+                            <div className="flex items-center gap-1">
+                                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                <span className="text-[10px] font-mono text-green-500">running</span>
+                            </div>
+                        )}
+                    </div>
+                    <div className="p-3 h-[140px] overflow-y-auto font-mono text-[11px] space-y-0.5">
+                        {logs.length === 0 ? (
+                            <p className="text-muted-foreground/50 italic">Click &quot;Run Workflow&quot; to execute your pipeline...</p>
+                        ) : (
+                            logs.map((log, i) => (
+                                <motion.p
+                                    key={i}
+                                    initial={{ opacity: 0, x: -5 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    className={`${log.includes("✅") ? "text-emerald-400" : log.includes("🎉") ? "text-primary font-bold" : "text-muted-foreground"}`}
+                                >
+                                    {log || "\u00A0"}
+                                </motion.p>
+                            ))
+                        )}
+                    </div>
+                </div>
+            </div>
 
-            <div className="absolute bottom-4 right-4 z-10">
-                <button
-                    onClick={runSimulation}
-                    disabled={isRunning}
-                    className="btn-nature-primary flex items-center space-x-2"
+            {/* Footer */}
+            <div className="p-4 border-t border-border flex items-center justify-between">
+                <p className="text-[10px] text-muted-foreground">{pipeline.length}/6 blocks</p>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={runWorkflow}
+                    disabled={isRunning || pipeline.length === 0}
+                    className="btn-primary rounded-full text-xs shadow-sm h-9"
                 >
                     {isRunning ? (
-                        <>Running Logic...</>
+                        <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Running...</>
                     ) : (
-                        <>
-                            <Play className="h-4 w-4" />
-                            <span>Test Flow</span>
-                        </>
+                        <><Play className="h-3.5 w-3.5 fill-white" /> Run Workflow</>
                     )}
-                </button>
+                </motion.button>
             </div>
-
-            {isRunning && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background/90 backdrop-blur px-6 py-4 rounded-xl border border-primary text-primary font-bold shadow-2xl animate-in zoom-in duration-300 pointer-events-none z-30">
-                    Processing Automation...
-                </div>
-            )}
         </div>
     );
 }

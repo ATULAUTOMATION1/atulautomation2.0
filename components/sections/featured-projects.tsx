@@ -1,104 +1,79 @@
 "use client";
 
-import { ExternalLink, MoveUpRight, Activity, TrendingUp, BarChart3 } from "lucide-react";
-import Link from "next/link";
+import { ArrowRight, ExternalLink, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
 const PROJECTS = [
     {
-        category: "AI AGENT",
-        title: "HealthCare AI support Bot",
-        desc: "A compliant AI assistant handling patient intake and scheduling for a regional clinic.",
-        tags: ["Python", "OpenAI", "Next.js"],
-        color: "bg-orange-50",
-        iconColor: "text-orange-500",
-        graphic: (
-            <svg viewBox="0 0 100 40" className="w-full h-full opacity-50 stroke-orange-300 fill-none stroke-2">
-                <path d="M0 20 L20 20 L30 10 L40 30 L50 20 L100 20" />
-            </svg>
-        )
+        title: "AI-Powered E-Commerce Assistant",
+        desc: "Built a conversational commerce bot that increased sales by 180% for a fashion brand.",
+        tags: ["GPT-4", "Shopify", "WhatsApp"],
+        gradient: "from-primary/10 via-primary/5 to-transparent",
+        accent: "border-l-primary",
     },
     {
-        category: "AUTOMATION",
-        title: "E-Commerce Auto-Scaler",
-        desc: "Automated inventory management and ad-spend optimization system for Shopify stores.",
-        tags: ["Node.js", "Shopify API", "MongoDB"],
-        color: "bg-blue-50",
-        iconColor: "text-blue-500",
-        graphic: (
-            <div className="relative w-full h-full">
-                <div className="absolute top-1/4 left-1/4 w-12 h-12 bg-blue-200/50 rounded-lg transform rotate-12" />
-                <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-blue-300/30 rounded-lg transform -rotate-6" />
-            </div>
-        )
+        title: "Multi-Channel CRM Automation",
+        desc: "Unified customer data from 6 platforms into a single intelligent pipeline.",
+        tags: ["HubSpot", "Zapier", "Webhooks"],
+        gradient: "from-blue-500/10 via-blue-500/5 to-transparent",
+        accent: "border-l-blue-500",
     },
     {
-        category: "WEB DEV",
-        title: "FinTech Dashboard",
-        desc: "Real-time financial analytics dashboard with predictive revenue modeling.",
-        tags: ["React", "D3.js", "Firebase"],
-        color: "bg-emerald-50",
-        iconColor: "text-emerald-500",
-        graphic: (
-            <div className="flex items-end justify-center h-full gap-2 pb-4 opacity-40">
-                <div className="w-4 h-8 bg-emerald-300 rounded-t" />
-                <div className="w-4 h-12 bg-emerald-400 rounded-t" />
-                <div className="w-4 h-6 bg-emerald-300 rounded-t" />
-                <div className="w-4 h-16 bg-emerald-500 rounded-t" />
-                <div className="w-4 h-10 bg-emerald-400 rounded-t" />
-            </div>
-        )
-    }
+        title: "Real Estate Lead Qualifier",
+        desc: "AI agent that qualifies leads from Facebook Ads and schedules property tours automatically.",
+        tags: ["Meta Ads", "AI Agent", "Calendar"],
+        gradient: "from-violet-500/10 via-violet-500/5 to-transparent",
+        accent: "border-l-violet-500",
+    },
+    {
+        title: "Content Factory Pipeline",
+        desc: "Automated blog writing, SEO optimization, and social media distribution for a media company.",
+        tags: ["Claude", "WordPress", "Buffer"],
+        gradient: "from-emerald-500/10 via-emerald-500/5 to-transparent",
+        accent: "border-l-emerald-500",
+    },
 ];
 
 export function FeaturedProjects() {
     return (
-        <section className="section-padding bg-background">
+        <section id="projects" className="section-padding bg-transparent relative">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full" />
+
             <div className="container-custom">
-                <div className="text-center max-w-2xl mx-auto mb-16">
-                    <h2 className="text-4xl font-bold mb-4">Featured <span className="text-primary">Projects</span></h2>
-                    <p className="text-muted-foreground text-lg">
-                        Real-world applications driving value across industries.
-                    </p>
+                <div className="max-w-2xl mx-auto text-center mb-16">
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                        <Zap className="h-3.5 w-3.5" /> Our Work
+                    </motion.p>
+                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                        Featured <span className="text-primary">Projects</span>
+                    </motion.h2>
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                        Real results from real automation deployments.
+                    </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {PROJECTS.map((project, i) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {PROJECTS.map((p, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 16 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="group bg-card rounded-[2rem] border border-border overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                            transition={{ delay: i * 0.08 }}
+                            className={`group bg-card border border-border rounded-2xl p-7 hover:shadow-xl hover:border-primary/20 transition-all duration-300 cursor-pointer relative overflow-hidden border-l-[3px] ${p.accent}`}
                         >
-                            {/* Top Graphic Section */}
-                            <div className={`h-48 ${project.color} relative p-6 flex flex-col justify-between`}>
-                                <span className="self-start bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase text-muted-foreground shadow-sm">
-                                    {project.category}
-                                </span>
+                            {/* Hover gradient */}
+                            <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-8">
-                                    {project.graphic}
+                            <div className="relative z-10">
+                                <div className="flex items-start justify-between mb-4">
+                                    <h3 className="text-lg font-bold group-hover:text-primary transition-colors leading-tight pr-4">{p.title}</h3>
+                                    <ExternalLink className="h-4 w-4 text-muted-foreground/30 group-hover:text-primary transition-colors shrink-0 mt-1" />
                                 </div>
-                            </div>
-
-                            {/* Bottom Content Section */}
-                            <div className="p-8 relative">
-                                <div className="absolute top-8 right-8 text-muted-foreground group-hover:text-primary transition-colors">
-                                    <ExternalLink className="h-5 w-5" />
-                                </div>
-
-                                <h3 className="font-serif text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors pr-8">
-                                    {project.title}
-                                </h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                                    {project.desc}
-                                </p>
-
+                                <p className="text-sm text-muted-foreground leading-relaxed mb-5">{p.desc}</p>
                                 <div className="flex flex-wrap gap-2">
-                                    {project.tags.map((tag, j) => (
-                                        <span key={j} className="px-3 py-1 bg-muted rounded-md text-xs font-medium text-muted-foreground">
+                                    {p.tags.map((tag, j) => (
+                                        <span key={j} className="text-[11px] font-semibold px-3 py-1 rounded-full bg-muted/70 text-muted-foreground border border-border/50">
                                             {tag}
                                         </span>
                                     ))}

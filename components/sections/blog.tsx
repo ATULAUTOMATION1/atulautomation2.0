@@ -1,80 +1,92 @@
 "use client";
 
-import { ArrowRight, Calendar, User } from "lucide-react";
-import Link from "next/link";
-import { FadeIn } from "@/components/ui/fade-in";
+import { ArrowRight, BookOpen, Clock, TrendingUp } from "lucide-react";
+import { motion } from "framer-motion";
 
-const BLOG_POSTS = [
+const POSTS = [
     {
-        title: "Why 2026 is the Year of Autonomous Agents",
-        excerpt: "Discover how multi-agent systems are replacing traditional SaaS tools and reshaping the enterprise landscape.",
-        date: "Feb 10, 2026",
-        author: "Atul K.",
-        category: "Industry Trends",
-        readTime: "5 min read"
+        title: "How AI Chatbots are Revolutionizing Customer Service",
+        excerpt: "Discover how businesses are using AI chatbots to provide instant support and increase customer satisfaction.",
+        category: "AI Trends",
+        date: "Jan 2026",
+        readTime: "5 min",
+        color: "text-primary",
+        gradient: "from-primary/10 to-transparent",
+        accent: "border-t-primary",
     },
     {
-        title: "Dropshipping on Autopilot: A Case Study",
-        excerpt: "How we used custom AI workflows to scale a Shopify store from $0 to $10k/month without manual intervention.",
-        date: "Feb 05, 2026",
-        author: "Sarah J.",
-        category: "Case Study",
-        readTime: "8 min read"
+        title: "Top 10 Workflow Automations That Save 20+ Hours",
+        excerpt: "We break down the most impactful automations you can deploy today to reclaim your time.",
+        category: "Automation",
+        date: "Jan 2026",
+        readTime: "7 min",
+        color: "text-blue-500",
+        gradient: "from-blue-500/10 to-transparent",
+        accent: "border-t-blue-500",
     },
     {
-        title: "Prompt Engineering vs. Agent Orchestration",
-        excerpt: "Stop writing better prompts and start building smarter systems. The shift from single-turn to multi-step reasoning.",
-        date: "Jan 28, 2026",
-        author: "Dev Team",
-        category: "Technical Guide",
-        readTime: "12 min read"
+        title: "The Future of No-Code AI Agents for SMBs",
+        excerpt: "No-code platforms are making AI accessible to every business. Here's what's coming next.",
+        category: "Industry",
+        date: "Dec 2025",
+        readTime: "6 min",
+        color: "text-violet-500",
+        gradient: "from-violet-500/10 to-transparent",
+        accent: "border-t-violet-500",
     }
 ];
 
 export function Blog() {
     return (
-        <section id="blog" className="section-padding bg-muted/20">
+        <section id="blog" className="section-padding bg-transparent relative">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full" />
+
             <div className="container-custom">
-                <div className="text-center max-w-2xl mx-auto mb-16">
-                    <h2 className="text-4xl font-bold mb-4">Insights & <span className="text-primary">Intelligence</span></h2>
-                    <p className="text-muted-foreground text-lg">
-                        Deep dives into the future of work, automation strategies, and technical breakdowns.
-                    </p>
+                <div className="max-w-2xl mx-auto text-center mb-16">
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                        <BookOpen className="h-3.5 w-3.5" /> Blog
+                    </motion.p>
+                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                        Latest <span className="text-primary">Insights</span>
+                    </motion.h2>
+                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                        Stay ahead with expert takes on AI, automation, and digital growth.
+                    </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {BLOG_POSTS.map((post, i) => (
-                        <FadeIn key={i} delay={i * 0.1}>
-                            <article className="bg-background rounded-2xl overflow-hidden border border-border hover:border-primary transition-all duration-300 hover:shadow-lg flex flex-col h-full group">
-                                <div className="aspect-video bg-muted relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 group-hover:scale-105 transition-transform duration-500" />
-                                    <div className="absolute top-4 left-4 bg-background/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary shadow-sm">
-                                        {post.category}
-                                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {POSTS.map((post, i) => (
+                        <motion.article
+                            key={i}
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.08 }}
+                            className={`group bg-card border border-border border-t-[3px] ${post.accent} rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 cursor-pointer relative`}
+                        >
+                            {/* Hover gradient */}
+                            <div className={`absolute inset-0 bg-gradient-to-b ${post.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+
+                            <div className="p-7 relative z-10">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <span className={`text-[11px] font-bold ${post.color} bg-muted/50 px-2.5 py-1 rounded-full`}>{post.category}</span>
+                                    <span className="text-muted-foreground/30">·</span>
+                                    <span className="text-[11px] text-muted-foreground flex items-center gap-1">
+                                        <Clock className="h-3 w-3" /> {post.readTime}
+                                    </span>
                                 </div>
 
-                                <div className="p-6 flex flex-col flex-1">
-                                    <div className="flex items-center text-xs text-muted-foreground mb-3 space-x-4">
-                                        <span className="flex items-center"><Calendar className="h-3 w-3 mr-1" /> {post.date}</span>
-                                        <span className="flex items-center"><User className="h-3 w-3 mr-1" /> {post.author}</span>
-                                    </div>
+                                <h3 className="text-lg font-bold mb-3 group-hover:text-primary transition-colors leading-snug">{post.title}</h3>
+                                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{post.excerpt}</p>
 
-                                    <h3 className="font-bold text-xl mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                                        {post.title}
-                                    </h3>
-                                    <p className="text-sm text-muted-foreground mb-6 line-clamp-3">
-                                        {post.excerpt}
-                                    </p>
-
-                                    <div className="mt-auto pt-4 border-t border-border flex justify-between items-center text-sm">
-                                        <span className="text-muted-foreground">{post.readTime}</span>
-                                        <Link href="#" className="font-semibold text-primary flex items-center hover:underline">
-                                            Read Article <ArrowRight className="h-4 w-4 ml-1" />
-                                        </Link>
-                                    </div>
+                                <div className="flex items-center justify-between pt-5 border-t border-border/50">
+                                    <span className="text-xs text-muted-foreground">{post.date}</span>
+                                    <span className="text-sm font-semibold text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                                        Read <ArrowRight className="h-3.5 w-3.5" />
+                                    </span>
                                 </div>
-                            </article>
-                        </FadeIn>
+                            </div>
+                        </motion.article>
                     ))}
                 </div>
             </div>
