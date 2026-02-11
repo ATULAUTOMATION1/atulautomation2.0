@@ -6,6 +6,41 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function Contact() {
     const [submitted, setSubmitted] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        service: "Select a Service",
+        message: ""
+    });
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setSubmitted(true);
+            } else {
+                alert("Failed to send message. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            alert("Something went wrong. Please try again later.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     return (
         <section id="contact" className="section-padding bg-transparent relative">
@@ -82,17 +117,38 @@ export function Contact() {
                                     <p className="text-muted-foreground">We&apos;ll get back to you within 24 hours.</p>
                                 </motion.div>
                             ) : (
-                                <motion.form key="form" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-4 relative">
+                                <motion.form key="form" onSubmit={handleSubmit} className="space-y-4 relative">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div className="group">
-                                            <input type="text" placeholder="Full Name" required className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all placeholder:text-muted-foreground/60" />
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                placeholder="Full Name"
+                                                required
+                                                className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all placeholder:text-muted-foreground/60"
+                                            />
                                         </div>
                                         <div className="group">
-                                            <input type="email" placeholder="Email Address" required className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all placeholder:text-muted-foreground/60" />
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                placeholder="Email Address"
+                                                required
+                                                className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all placeholder:text-muted-foreground/60"
+                                            />
                                         </div>
                                     </div>
-                                    <select className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all">
-                                        <option>Select a Service</option>
+                                    <select
+                                        name="service"
+                                        value={formData.service}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all"
+                                    >
+                                        <option disabled>Select a Service</option>
                                         <option>AI Automation</option>
                                         <option>Chatbot Development</option>
                                         <option>Workflow Automation</option>
@@ -100,9 +156,21 @@ export function Contact() {
                                         <option>CRM Solutions</option>
                                         <option>Other</option>
                                     </select>
-                                    <textarea placeholder="Tell us about your project..." rows={4} className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all resize-none placeholder:text-muted-foreground/60" />
-                                    <button type="submit" className="btn-primary group w-full sm:w-auto shadow-lg shadow-primary/20">
-                                        Send Message <Send className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                                    <textarea
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        placeholder="Tell us about your project..."
+                                        rows={4}
+                                        required
+                                        className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all resize-none placeholder:text-muted-foreground/60"
+                                    />
+                                    <button
+                                        type="submit"
+                                        disabled={isLoading}
+                                        className="btn-primary group w-full sm:w-auto shadow-lg shadow-primary/20 disabled:opacity-70 disabled:cursor-not-allowed"
+                                    >
+                                        {isLoading ? "Sending..." : "Send Message"} <Send className={`ml-2 h-4 w-4 ${!isLoading && "group-hover:translate-x-0.5 transition-transform"}`} />
                                     </button>
                                 </motion.form>
                             )}
