@@ -25,10 +25,12 @@ export function Contact() {
                 body: JSON.stringify(formData),
             });
 
-            if (response.ok) {
+            const data = await response.json();
+
+            if (response.ok && data.success) {
                 setSubmitted(true);
             } else {
-                alert("Failed to send message. Please try again.");
+                alert(data.message || "Failed to send message. Please try again.");
             }
         } catch (error) {
             console.error("Error submitting form:", error);

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Circle, Mail, Brain, Database, UserCheck, MessageSquare, BarChart, Zap, Globe, Cog, MousePointer } from "lucide-react";
+import { ArrowRight, CheckCircle, Circle, Mail, Brain, Database, UserCheck, MessageSquare, BarChart, Zap, Globe, Cog, MousePointer, Search, Eye, TrendingUp, Building } from "lucide-react";
 
 export interface WorkflowStep {
     step: number;
@@ -22,7 +22,11 @@ const ICONS: Record<string, any> = {
     Cog: <Cog className="h-6 w-6" />,
     MousePointer: <MousePointer className="h-6 w-6" />,
     CheckCircle: <CheckCircle className="h-6 w-6" />,
-    Circle: <Circle className="h-6 w-6" />
+    Circle: <Circle className="h-6 w-6" />,
+    Search: <Search className="h-6 w-6" />,
+    Eye: <Eye className="h-6 w-6" />,
+    TrendingUp: <TrendingUp className="h-6 w-6" />,
+    Building: <Building className="h-6 w-6" />,
 };
 
 export function WorkflowVisualizer({ steps }: { steps: any[] }) {

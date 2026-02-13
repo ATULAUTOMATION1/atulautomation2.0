@@ -5,21 +5,21 @@ import { Terminal, Send, ArrowRight, Heart } from "lucide-react";
 
 const footerLinks = {
     Services: [
-        { name: "AI Automation", href: "#services" },
-        { name: "Chatbot Development", href: "#services" },
-        { name: "Workflow Automation", href: "#services" },
-        { name: "AI Marketing", href: "#services" },
+        { name: "AI Automation", href: "/capabilities/ai-agents" },
+        { name: "Chatbot Development", href: "/capabilities/chatbots" },
+        { name: "Workflow Automation", href: "/capabilities/workflow" },
+        { name: "AI Marketing", href: "/capabilities/marketing" },
     ],
     Company: [
-        { name: "About Us", href: "#" },
-        { name: "Blog", href: "#" },
-        { name: "Contact", href: "#contact" },
+        { name: "About Us", href: "/#branding" },
+        { name: "Blog", href: "/#blog" },
+        { name: "Contact", href: "/#contact" },
     ],
     Resources: [
-        { name: "Documentation", href: "#" },
-        { name: "Community", href: "#community" },
-        { name: "API Reference", href: "#" },
-        { name: "Status", href: "#" },
+        { name: "Documentation", href: "/#resources" },
+        { name: "Community", href: "/#community" },
+        { name: "Capabilities", href: "/capabilities" },
+        { name: "Projects", href: "/#projects" },
     ],
 };
 

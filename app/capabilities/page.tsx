@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Cpu, MessageSquare, BarChart, Zap, Globe, Database } from "lucide-react";
+import { ArrowLeft, Cpu, MessageSquare, BarChart, Zap, Globe, Database, Building } from "lucide-react";
 
 const CAPABILITIES = [
     {
@@ -25,6 +25,12 @@ const CAPABILITIES = [
         title: "Workflow Automation",
         desc: "Connect disparate apps and data sources into a seamless symphony of automated tasks.",
         icon: <Zap className="h-12 w-12 text-yellow-500" />
+    },
+    {
+        id: "real-estate",
+        title: "Real Estate Services",
+        desc: "AI-powered lead capture, virtual tours, and market analytics to sell properties 3x faster.",
+        icon: <Building className="h-12 w-12 text-amber-500" />
     },
     {
         id: "web-dev",

@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Check, Download, ExternalLink, Play, Mail, Brain, Database, UserCheck, MessageSquare, BarChart, Zap, Globe, Cog, MousePointer } from "lucide-react";
+import { ArrowLeft, Check, Download, ExternalLink, Play, Mail, Brain, Database, UserCheck, MessageSquare, BarChart, Zap, Globe, Cog, MousePointer, Building, Search, Eye, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { WorkflowBuilder } from "@/components/modules/workflow-builder";
 import { WorkflowVisualizer } from "@/components/modules/workflow-visualizer";
@@ -134,6 +134,23 @@ const SERVICE_DATA: Record<string, any> = {
             { title: "SEO Ready", desc: "Rank higher with semantic HTML." },
         ],
         demoComponent: <WebDevPortfolio />
+    },
+    "real-estate": {
+        title: "Real Estate Services",
+        subtitle: "Sell Properties 3x Faster",
+        description: "Revolutionize your real estate business with AI-powered lead capture, automated virtual tours, intelligent property matching, and predictive market analytics that close deals faster.",
+        features: ["360° Virtual Tours", "AI Lead Scoring", "Automated Follow-ups", "Market Price Prediction", "Property Matching Engine", "CRM & MLS Integration"],
+        workflowSteps: [
+            { step: 1, title: "Capture", desc: "Visitor browses listings", icon: "Search" },
+            { step: 2, title: "Engage", desc: "AI bot qualifies interest", icon: "MessageSquare" },
+            { step: 3, title: "Tour", desc: "Virtual tour scheduled", icon: "Eye" },
+            { step: 4, title: "Close", desc: "Automated deal pipeline", icon: "TrendingUp" }
+        ],
+        benefits: [
+            { title: "3x Faster Sales", desc: "Close deals in half the time with AI-driven insights." },
+            { title: "40% More Leads", desc: "Capture and qualify leads 24/7 with automated funnels." },
+        ],
+        demoComponent: null
     },
     "crm": {
         title: "CRM Integration",

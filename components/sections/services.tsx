@@ -5,12 +5,12 @@ import { ArrowRight, Cpu, MessageSquare, Zap, BarChart, Building, Users } from "
 import { motion } from "framer-motion";
 
 const services = [
-    { icon: Cpu, title: "AI Automation", description: "Self-learning algorithms that adapt to your business and streamline complex processes.", href: "#", color: "text-primary", bg: "bg-primary/8", border: "group-hover:border-primary/40", glow: "group-hover:shadow-primary/10" },
-    { icon: MessageSquare, title: "Intelligent Chatbots", description: "24/7 conversational bots with natural language processing that never miss a beat.", href: "#", color: "text-blue-500", bg: "bg-blue-500/8", border: "group-hover:border-blue-500/40", glow: "group-hover:shadow-blue-500/10" },
-    { icon: Zap, title: "Workflow Automation", description: "Connect apps and data sources into a seamless pipeline that runs on autopilot.", href: "#", color: "text-emerald-500", bg: "bg-emerald-500/8", border: "group-hover:border-emerald-500/40", glow: "group-hover:shadow-emerald-500/10" },
-    { icon: BarChart, title: "AI Marketing", description: "Data-driven campaigns across Meta & Google optimized for maximum ROI.", href: "#", color: "text-violet-500", bg: "bg-violet-500/8", border: "group-hover:border-violet-500/40", glow: "group-hover:shadow-violet-500/10" },
-    { icon: Building, title: "Real Estate Services", description: "Automated lead capture and virtual tours to sell properties 3x faster.", href: "#", color: "text-amber-600", bg: "bg-amber-500/8", border: "group-hover:border-amber-500/40", glow: "group-hover:shadow-amber-500/10" },
-    { icon: Users, title: "CRM Solutions", description: "Centralize customer data and automate follow-ups for higher retention.", href: "#", color: "text-rose-500", bg: "bg-rose-500/8", border: "group-hover:border-rose-500/40", glow: "group-hover:shadow-rose-500/10" },
+    { icon: Cpu, title: "AI Automation", description: "Self-learning algorithms that adapt to your business and streamline complex processes.", href: "/capabilities/ai-agents", color: "text-primary", bg: "bg-primary/8", border: "group-hover:border-primary/40", glow: "group-hover:shadow-primary/10" },
+    { icon: MessageSquare, title: "Intelligent Chatbots", description: "24/7 conversational bots with natural language processing that never miss a beat.", href: "/capabilities/chatbots", color: "text-blue-500", bg: "bg-blue-500/8", border: "group-hover:border-blue-500/40", glow: "group-hover:shadow-blue-500/10" },
+    { icon: Zap, title: "Workflow Automation", description: "Connect apps and data sources into a seamless pipeline that runs on autopilot.", href: "/capabilities/workflow", color: "text-emerald-500", bg: "bg-emerald-500/8", border: "group-hover:border-emerald-500/40", glow: "group-hover:shadow-emerald-500/10" },
+    { icon: BarChart, title: "AI Marketing", description: "Data-driven campaigns across Meta & Google optimized for maximum ROI.", href: "/capabilities/marketing", color: "text-violet-500", bg: "bg-violet-500/8", border: "group-hover:border-violet-500/40", glow: "group-hover:shadow-violet-500/10" },
+    { icon: Building, title: "Real Estate Services", description: "Automated lead capture and virtual tours to sell properties 3x faster.", href: "/capabilities/real-estate", color: "text-amber-600", bg: "bg-amber-500/8", border: "group-hover:border-amber-500/40", glow: "group-hover:shadow-amber-500/10" },
+    { icon: Users, title: "CRM Solutions", description: "Centralize customer data and automate follow-ups for higher retention.", href: "/capabilities/crm", color: "text-rose-500", bg: "bg-rose-500/8", border: "group-hover:border-rose-500/40", glow: "group-hover:shadow-rose-500/10" },
 ];
 
 export function Services() {

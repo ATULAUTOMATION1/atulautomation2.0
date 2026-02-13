@@ -8,7 +8,7 @@ import { DocsHub } from "@/components/sections/docs-hub";
 import { Community } from "@/components/sections/community";
 import { Branding } from "@/components/sections/branding";
 // import { Pricing } from "@/components/sections/pricing"; // DISABLED — re-enable when ready
-import { Testimonials } from "@/components/sections/testimonials";
+
 import { Blog } from "@/components/sections/blog";
 import { FeaturedProjects } from "@/components/sections/featured-projects";
 import { Contact } from "@/components/sections/contact";
@@ -25,7 +25,7 @@ export default function Home() {
       <ROICalculator />
       <DocsHub />
       {/* <Pricing /> */}{/* DISABLED — re-enable when ready */}
-      <Testimonials />
+
       <Branding />
       <Blog />
       <Contact />
