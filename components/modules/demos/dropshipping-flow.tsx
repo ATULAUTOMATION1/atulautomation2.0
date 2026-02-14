@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ShoppingCart, Package, Truck, CreditCard } from "lucide-react";
 
 export function DropshippingFlow() {
@@ -13,7 +12,7 @@ export function DropshippingFlow() {
 
     return (
         <div className="h-[400px] border border-border rounded-xl bg-background p-6 flex flex-col justify-center">
-            <h3 className="font-bold text-lg mb-8 text-center">Automated Dropshipping Pipeline</h3>
+            <h3 className="font-bold text-lg mb-8 text-center opacity-0 animate-fade-in-up">Automated Dropshipping Pipeline</h3>
 
             <div className="relative">
                 {/* Connecting Line */}
@@ -21,25 +20,23 @@ export function DropshippingFlow() {
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {steps.map((step, i) => (
-                        <motion.div
+                        <div
                             key={i}
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: i * 0.2 }}
-                            className="relative flex md:flex-col items-center gap-4 md:gap-2 z-10"
+                            className="relative flex md:flex-col items-center gap-4 md:gap-2 z-10 opacity-0 animate-fade-in-up"
+                            style={{ animationDelay: `${i * 200}ms` }}
                         >
-                            <div className={`h-12 w-12 rounded-full bg-background border-2 border-primary flex items-center justify-center ${step.color} shadow-sm`}>
+                            <div className={`h-12 w-12 rounded-full bg-background border-2 border-primary flex items-center justify-center ${step.color} shadow-sm transition-transform hover:scale-110`}>
                                 {step.icon}
                             </div>
                             <div className="bg-card border border-border px-3 py-1.5 rounded-lg text-sm font-medium shadow-sm">
                                 {step.label}
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>
 
-            <div className="mt-8 p-4 bg-muted/30 rounded-lg text-xs font-mono text-muted-foreground">
+            <div className="mt-8 p-4 bg-muted/30 rounded-lg text-xs font-mono text-muted-foreground opacity-0 animate-fade-in-up delay-700">
                 <div className="flex justify-between items-center mb-1">
                     <span>STATUS:</span>
                     <span className="text-green-500 font-bold">ACTIVE</span>
