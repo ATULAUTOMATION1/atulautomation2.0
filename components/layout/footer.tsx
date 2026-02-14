@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Terminal, Send, ArrowRight, Heart } from "lucide-react";
+import { Send, ArrowRight, Heart } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const footerLinks = {
     Services: [
@@ -23,7 +24,21 @@ const footerLinks = {
     ],
 };
 
+function BrandLogo({ className = "h-4.5 w-4.5" }: { className?: string }) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" className={`${className} text-primary`} stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 17l6-6-6-6" />
+            <path d="M12 19h8" />
+        </svg>
+    );
+}
+
 export function Footer() {
+    const [year, setYear] = useState("2026");
+    useEffect(() => {
+        setYear(new Date().getFullYear().toString());
+    }, []);
+
     return (
         <footer className="bg-muted/30 border-t border-border relative overflow-hidden">
             {/* Subtle gradient accent at top */}
@@ -35,7 +50,7 @@ export function Footer() {
                     <div className="md:col-span-4">
                         <Link href="/" className="flex items-center gap-2.5 mb-4 group">
                             <div className="bg-gradient-to-br from-primary/15 to-primary/5 p-2.5 rounded-xl group-hover:from-primary/20 transition-colors">
-                                <Terminal className="h-4.5 w-4.5 text-primary" />
+                                <BrandLogo />
                             </div>
                             <span className="font-heading font-bold text-lg">
                                 Atul<span className="text-primary">Automation</span>
@@ -88,10 +103,10 @@ export function Footer() {
             <div className="border-t border-border">
                 <div className="container-custom py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <p className="text-xs text-muted-foreground">
-                        © {new Date().getFullYear()} Atul Automation. All rights reserved.
+                        © {year} Atul Automation. All rights reserved.
                     </p>
                     <div className="flex items-center gap-2 order-first sm:order-none mb-4 sm:mb-0">
-                        <Terminal className="h-4 w-4 text-primary" />
+                        <BrandLogo className="h-4 w-4" />
                         <span className="text-xs font-semibold text-muted-foreground">
                             Made to Automate in <span className="text-orange-600 dark:text-orange-500">India</span> 🇮🇳
                         </span>

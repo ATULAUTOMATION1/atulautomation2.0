@@ -37,7 +37,10 @@ export function Navbar() {
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2.5 group">
                     <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/15 transition-colors">
-                        <Terminal className="h-4.5 w-4.5 text-primary" />
+                        <svg viewBox="0 0 24 24" fill="none" className="h-4.5 w-4.5 text-primary" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M4 17l6-6-6-6" />
+                            <path d="M12 19h8" />
+                        </svg>
                     </div>
                     <span className="font-heading font-bold text-lg tracking-tight">
                         Atul<span className="text-primary">Automation</span>

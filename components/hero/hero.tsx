@@ -24,9 +24,9 @@ export function Hero() {
         <section className="relative min-h-[100svh] flex items-center overflow-hidden bg-transparent">
             {/* Enhanced background effects */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-primary/[0.06] rounded-full blur-[150px]" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/[0.05] rounded-full blur-[130px]" />
-                <div className="absolute top-[40%] left-[50%] w-[300px] h-[300px] bg-accent/[0.03] rounded-full blur-[100px]" />
+                <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-primary/[0.06] rounded-full blur-[80px]" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/[0.05] rounded-full blur-[70px]" />
+                <div className="absolute top-[40%] left-[50%] w-[300px] h-[300px] bg-accent/[0.03] rounded-full blur-[60px]" />
             </div>
 
             {/* Animated grid lines */}

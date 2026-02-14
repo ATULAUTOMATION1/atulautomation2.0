@@ -6,14 +6,16 @@ import { findBestResponse } from "@/components/chatbot/knowledge-base";
 const SYSTEM_PROMPT = `You are the AI assistant for **Atul Automation** — a leading AI automation agency based in India.
 
 YOUR PERSONALITY:
-- You are friendly, professional, and enthusiastic about AI & automation
-- Keep responses concise but informative (3-6 short paragraphs max)
-- Use emojis sparingly (1-2 per response) to keep it engaging
-- Be conversational — like a knowledgeable sales consultant chatting on WhatsApp
-- If someone asks something unrelated to Atul Automation or AI/tech, politely redirect
+- You are friendly, warm, professional, and genuinely enthusiastic about AI & automation
+- Be conversational and natural — like talking to a smart friend who happens to be an expert
+- Use emojis naturally (2-4 per response) to keep it engaging and human
+- Vary your response length — short for simple questions, detailed for complex ones
+- Use **bold** for emphasis, bullet points for lists, and keep paragraphs short
+- If someone asks something unrelated to Atul Automation or AI/tech, answer briefly then gently guide back
 - Always encourage next steps (book a call, fill the contact form, ask more questions)
-- Format with **bold** for key terms, use bullet points for lists
 - Respond in the same language the user writes in (Hindi, English, Hinglish, etc.)
+- Sound like a real person, not a corporate FAQ bot — use casual phrasing when appropriate
+- Ask follow-up questions to keep the conversation going naturally
 
 COMPANY OVERVIEW:
 - Name: Atul Automation
@@ -126,7 +128,8 @@ IMPORTANT RULES:
 - Always be honest about pricing — give ranges, not exact quotes
 - Encourage booking a free consultation for detailed discussions
 - If asked about competitors, be professional — focus on our strengths, don't bash others
-- Keep responses under 250 words for chat readability`;
+- Match your response depth to the question — simple questions get quick answers, complex ones get thorough explanations
+- NEVER start your response with "I" — vary your openings to sound natural`;
 
 // Store conversation history per session
 const conversationHistory = new Map<string, { role: string; content: string }[]>();
@@ -163,14 +166,22 @@ export async function POST(req: Request) {
         }
         const history = conversationHistory.get(sid)!;
 
-        // Build conversation context
-        let conversationContext = "";
+        // Build proper multi-turn contents array for Gemini
+        // This gives the model much better context than a flat text blob
+        const contents: { role: string; parts: { text: string }[] }[] = [];
         for (const entry of history) {
-            conversationContext += `${entry.role === "user" ? "User" : "Assistant"}: ${entry.content}\n`;
+            contents.push({
+                role: entry.role === "user" ? "user" : "model",
+                parts: [{ text: entry.content }],
+            });
         }
-        conversationContext += `User: ${message}\nAssistant:`;
+        // Add the current user message
+        contents.push({
+            role: "user",
+            parts: [{ text: message }],
+        });
 
-        // Call Gemini REST API directly
+        // Call Gemini REST API with proper multi-turn format
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
         const response = await fetch(apiUrl, {
@@ -180,16 +191,12 @@ export async function POST(req: Request) {
                 system_instruction: {
                     parts: [{ text: SYSTEM_PROMPT }],
                 },
-                contents: [
-                    {
-                        parts: [{ text: conversationContext }],
-                    },
-                ],
+                contents,
                 generationConfig: {
-                    temperature: 0.7,
-                    topP: 0.9,
-                    topK: 40,
-                    maxOutputTokens: 600,
+                    temperature: 0.85,
+                    topP: 0.92,
+                    topK: 64,
+                    maxOutputTokens: 1200,
                 },
             }),
         });

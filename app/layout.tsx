@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { AnimatedBackground } from '@/components/ui/animated-background';
-import { ChatWidget } from '@/components/chatbot/chat-widget';
+import { LazyChat } from '@/components/chatbot/lazy-chat';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
@@ -62,7 +62,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          <ChatWidget />
+          <LazyChat />
         </ThemeProvider>
       </body>
     </html>

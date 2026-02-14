@@ -59,7 +59,14 @@ function getSessionId() {
 export function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
     const [isMinimized, setIsMinimized] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
+    const [messages, setMessages] = useState<Message[]>([]);
+
+    useEffect(() => {
+        setMessages([{
+            ...WELCOME_MESSAGE,
+            timestamp: new Date()
+        }]);
+    }, []);
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const [showScrollDown, setShowScrollDown] = useState(false);
@@ -232,8 +239,8 @@ export function ChatWidget() {
 
                                     <div className={`max-w-[82%] ${msg.role === "user" ? "order-1" : ""}`}>
                                         <div className={`rounded-2xl px-4 py-3 text-[13px] leading-relaxed ${msg.role === "user"
-                                                ? "bg-primary text-white rounded-br-md"
-                                                : "bg-muted/60 border border-border/50 text-foreground rounded-bl-md"
+                                            ? "bg-primary text-white rounded-br-md"
+                                            : "bg-muted/60 border border-border/50 text-foreground rounded-bl-md"
                                             }`}>
                                             {msg.role === "bot" ? formatBotMessage(msg.content) : msg.content}
                                         </div>
@@ -354,8 +361,8 @@ export function ChatWidget() {
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
                 className={`fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${isOpen
-                        ? "bg-muted border border-border text-foreground hover:bg-muted/80"
-                        : "bg-gradient-to-br from-primary to-orange-500 text-white hover:shadow-xl hover:shadow-primary/25"
+                    ? "bg-muted border border-border text-foreground hover:bg-muted/80"
+                    : "bg-gradient-to-br from-primary to-orange-500 text-white hover:shadow-xl hover:shadow-primary/25"
                     }`}
                 aria-label={isOpen ? "Close chat" : "Open chat"}
             >
