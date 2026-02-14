@@ -1,7 +1,6 @@
 "use client";
 
-import { ArrowRight, BookOpen, Clock, TrendingUp } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, BookOpen, Clock } from "lucide-react";
 
 const POSTS = [
     {
@@ -42,27 +41,23 @@ export function Blog() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full" />
 
             <div className="container-custom">
-                <div className="max-w-2xl mx-auto text-center mb-16">
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                <div className="max-w-2xl mx-auto text-center mb-16 opacity-0 animate-fade-in-up">
+                    <p className="section-badge mb-4">
                         <BookOpen className="h-3.5 w-3.5" /> Blog
-                    </motion.p>
-                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                    </p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4">
                         Latest <span className="text-primary">Insights</span>
-                    </motion.h2>
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                    </h2>
+                    <p className="text-muted-foreground text-lg">
                         Stay ahead with expert takes on AI, automation, and digital growth.
-                    </motion.p>
+                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {POSTS.map((post, i) => (
-                        <motion.article
+                        <article
                             key={i}
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.08 }}
-                            className={`group bg-card border border-border border-t-[3px] ${post.accent} rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 cursor-pointer relative`}
+                            className={`group bg-card border border-border border-t-[3px] ${post.accent} rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 cursor-pointer relative opacity-0 animate-fade-in-up delay-${(i + 1) * 100}`}
                         >
                             {/* Hover gradient */}
                             <div className={`absolute inset-0 bg-gradient-to-b ${post.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
@@ -86,7 +81,7 @@ export function Blog() {
                                     </span>
                                 </div>
                             </div>
-                        </motion.article>
+                        </article>
                     ))}
                 </div>
             </div>

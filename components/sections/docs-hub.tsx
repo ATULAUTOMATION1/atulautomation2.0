@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, Video, FileText, Lightbulb } from "lucide-react";
 
 const CATEGORIES = [
@@ -37,20 +36,20 @@ export function DocsHub() {
     return (
         <section id="resources" className="section-padding bg-muted/30">
             <div className="container-custom">
-                <div className="max-w-2xl mx-auto text-center mb-12">
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                <div className="max-w-2xl mx-auto text-center mb-12 opacity-0 animate-fade-in-up">
+                    <p className="section-badge mb-4">
                         <BookOpen className="h-3.5 w-3.5" /> Resources
-                    </motion.p>
-                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                    </p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4">
                         Learning <span className="text-primary">Hub</span>
-                    </motion.h2>
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                    </h2>
+                    <p className="text-muted-foreground text-lg">
                         Courses, guides, videos and prompts to master AI automation.
-                    </motion.p>
+                    </p>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex flex-wrap justify-center gap-2 mb-10">
+                <div className="flex flex-wrap justify-center gap-2 mb-10 opacity-0 animate-fade-in-up delay-100">
                     {CATEGORIES.map((cat) => {
                         const Icon = cat.icon;
                         const isActive = active === cat.id;
@@ -59,7 +58,7 @@ export function DocsHub() {
                                 key={cat.id}
                                 onClick={() => setActive(cat.id)}
                                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive
-                                    ? "bg-card border border-border shadow-sm"
+                                    ? "bg-card border border-border shadow-sm ring-1 ring-primary/20"
                                     : "text-muted-foreground hover:text-foreground"
                                     }`}
                             >
@@ -71,29 +70,20 @@ export function DocsHub() {
                 </div>
 
                 {/* Cards */}
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={active}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto"
-                    >
-                        {DOCS[active]?.map((doc, i) => {
-                            const cat = CATEGORIES.find(c => c.id === active)!;
-                            return (
-                                <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:shadow-lg hover:border-primary/20 transition-all duration-300 group cursor-pointer">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${cat.bg} ${cat.color}`}>{doc.type}</span>
-                                    </div>
-                                    <h3 className="font-bold mb-2 group-hover:text-primary transition-colors">{doc.title}</h3>
-                                    <p className="text-sm text-muted-foreground">{doc.desc}</p>
+                <div key={active} className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto animate-fade-in-up">
+                    {DOCS[active]?.map((doc, i) => {
+                        const cat = CATEGORIES.find(c => c.id === active)!;
+                        return (
+                            <div key={i} className="bg-card border border-border rounded-2xl p-6 hover:shadow-lg hover:border-primary/20 transition-all duration-300 group cursor-pointer h-full">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${cat.bg} ${cat.color}`}>{doc.type}</span>
                                 </div>
-                            );
-                        })}
-                    </motion.div>
-                </AnimatePresence>
+                                <h3 className="font-bold mb-2 group-hover:text-primary transition-colors">{doc.title}</h3>
+                                <p className="text-sm text-muted-foreground">{doc.desc}</p>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         </section>
     );

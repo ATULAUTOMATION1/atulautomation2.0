@@ -1,7 +1,6 @@
 "use client";
 
 import { Eye, Lightbulb, Link2, Globe, GraduationCap, Leaf, Rocket } from "lucide-react";
-import { motion } from "framer-motion";
 
 const CORE_ELEMENTS = [
     {
@@ -46,55 +45,46 @@ export function Branding() {
         <section className="section-padding bg-transparent">
             <div className="container-custom">
                 {/* Header */}
-                <div className="max-w-3xl mx-auto text-center mb-16">
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                <div className="max-w-3xl mx-auto text-center mb-16 opacity-0 animate-fade-in-up">
+                    <p className="section-badge mb-4">
                         <Eye className="h-3.5 w-3.5" /> Our Vision
-                    </motion.p>
-                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-6">
+                    </p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6">
                         Vision of <span className="text-primary">Atul Automation</span>
-                    </motion.h2>
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg leading-relaxed">
+                    </h2>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
                         Atul Automation envisions a world where technology and creativity converge to empower businesses and individuals.
                         We strive to be the leading force in AI-powered automation, building platforms that are not only efficient but also inspiring, interactive, and globally accessible.
-                    </motion.p>
+                    </p>
                 </div>
 
                 {/* Core Elements */}
-                <div className="max-w-2xl mx-auto text-center mb-10">
-                    <motion.h3 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-2xl md:text-3xl font-bold">
+                <div className="max-w-2xl mx-auto text-center mb-10 opacity-0 animate-fade-in-up delay-100">
+                    <h3 className="text-2xl md:text-3xl font-bold">
                         Core Elements of Our <span className="text-primary">Vision</span>
-                    </motion.h3>
+                    </h3>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto mb-16">
                     {CORE_ELEMENTS.map((item, i) => {
                         const Icon = item.icon;
                         return (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.08 }}
-                                className="group bg-card border border-border rounded-2xl p-6 hover:shadow-lg hover:border-primary/20 transition-all duration-300"
+                                className={`group bg-card border border-border rounded-2xl p-6 hover:shadow-lg hover:border-primary/20 transition-all duration-300 opacity-0 animate-fade-in-up delay-${(i + 1) * 100}`}
                             >
                                 <div className={`w-12 h-12 rounded-xl ${item.bg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}>
                                     <Icon className={`h-6 w-6 ${item.color}`} />
                                 </div>
                                 <h4 className="text-lg font-bold mb-2 text-foreground group-hover:text-primary transition-colors">{item.title}</h4>
                                 <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                            </motion.div>
+                            </div>
                         );
                     })}
                 </div>
 
                 {/* Aspiration */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="max-w-4xl mx-auto"
-                >
+                <div className="max-w-4xl mx-auto opacity-0 animate-fade-in-up delay-300">
                     <div className="relative bg-gradient-to-br from-primary/5 via-card to-secondary/5 border border-primary/20 rounded-2xl p-8 md:p-12 text-center overflow-hidden">
                         {/* Decorative glow */}
                         <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full blur-[80px] pointer-events-none" />
@@ -110,7 +100,7 @@ export function Branding() {
                             </p>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );
