@@ -9,7 +9,7 @@ export function AnnouncementBanner() {
     if (!isVisible) return null;
 
     return (
-        <div className="bg-gradient-to-r from-primary via-orange-600 to-primary text-primary-foreground relative z-50 overflow-hidden animate-in slide-in-from-top duration-500">
+        <div className="bg-gradient-to-r from-primary via-orange-600 to-primary text-primary-foreground relative z-50 overflow-hidden animate-fade-in">
             {/* Shimmer effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer pointer-events-none" />
 
