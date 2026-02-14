@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
     Play, RotateCcw, Mail, Zap, Database, CheckCircle2,
     MessageSquare, Filter, Bot, Bell, GitBranch, Plus,
-    Trash2, ChevronDown, Cpu, Loader2
+    Trash2, Cpu, Loader2
 } from "lucide-react";
 
 type NodeType = "trigger" | "condition" | "action" | "ai";
@@ -165,32 +164,20 @@ export function WorkflowSimulator() {
                         const Icon = node.icon;
 
                         return (
-                            <motion.div key={`${nodeId}-${i}`} className="flex items-center gap-2" layout>
+                            <div key={`${nodeId}-${i}`} className="flex items-center gap-2 animate-fade-in-up">
                                 {i > 0 && (
                                     <div className="flex items-center">
-                                        <motion.div
-                                            className={`h-0.5 w-6 rounded-full transition-colors duration-300 ${isDone ? "bg-emerald-500" : isActive ? "bg-primary" : "bg-border"}`}
-                                            animate={isActive ? { opacity: [0.3, 1, 0.3] } : {}}
-                                            transition={isActive ? { duration: 1, repeat: Infinity } : {}}
+                                        <div
+                                            className={`h-0.5 w-6 rounded-full transition-colors duration-300 ${isDone ? "bg-emerald-500" : isActive ? "bg-primary animate-pulse" : "bg-border"}`}
                                         />
-                                        {isActive && (
-                                            <motion.div
-                                                className="w-2 h-2 rounded-full bg-primary absolute"
-                                                animate={{ x: [0, 24, 0] }}
-                                                transition={{ duration: 0.8, repeat: Infinity }}
-                                            />
-                                        )}
                                     </div>
                                 )}
 
-                                <motion.div
-                                    layout
-                                    initial={{ scale: 0.8, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
+                                <div
                                     className={`relative group flex items-center gap-2 p-2.5 rounded-xl border-2 transition-all duration-300 ${isDone
                                         ? "border-emerald-500/40 bg-emerald-500/5"
                                         : isActive
-                                            ? `${node.borderColor} ${node.bgColor} shadow-lg`
+                                            ? `${node.borderColor} ${node.bgColor} shadow-lg scale-105`
                                             : `border-border bg-card hover:${node.borderColor}`
                                         }`}
                                 >
@@ -198,9 +185,9 @@ export function WorkflowSimulator() {
                                         {isDone ? (
                                             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                                         ) : isActive ? (
-                                            <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
+                                            <div className="animate-spin duration-1000">
                                                 <Loader2 className={`h-4 w-4 ${node.color}`} />
-                                            </motion.div>
+                                            </div>
                                         ) : (
                                             <Icon className={`h-4 w-4 ${node.color}`} />
                                         )}
@@ -214,60 +201,51 @@ export function WorkflowSimulator() {
                                     {!isRunning && (
                                         <button
                                             onClick={() => removeNode(i)}
-                                            className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                                            className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:scale-110"
                                         >
                                             <Trash2 className="h-3 w-3" />
                                         </button>
                                     )}
-                                </motion.div>
-                            </motion.div>
+                                </div>
+                            </div>
                         );
                     })}
 
                     {/* Add Node Button */}
                     {pipeline.length < 6 && !isRunning && (
                         <div className="relative">
-                            <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
+                            <button
                                 onClick={() => setShowPalette(!showPalette)}
-                                className="w-10 h-10 rounded-xl border-2 border-dashed border-border hover:border-primary/50 flex items-center justify-center text-muted-foreground hover:text-primary transition-all"
+                                className="w-10 h-10 rounded-xl border-2 border-dashed border-border hover:border-primary/50 flex items-center justify-center text-muted-foreground hover:text-primary transition-all hover:scale-110 active:scale-90"
                             >
                                 <Plus className="h-4 w-4" />
-                            </motion.button>
+                            </button>
 
                             {/* Node Palette Dropdown */}
-                            <AnimatePresence>
-                                {showPalette && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: -5, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: -5, scale: 0.95 }}
-                                        className="absolute top-12 left-0 z-30 w-56 bg-card border border-border rounded-xl shadow-xl p-2 space-y-1"
-                                    >
-                                        <p className="text-[9px] font-bold text-muted-foreground uppercase px-2 py-1">Add Block</p>
-                                        {NODE_PALETTE.map(node => {
-                                            const tl = TYPE_LABELS[node.type];
-                                            const Icon = node.icon;
-                                            return (
-                                                <button
-                                                    key={node.id}
-                                                    onClick={() => addNode(node.id)}
-                                                    className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-left"
-                                                >
-                                                    <div className={`w-7 h-7 rounded-md ${node.bgColor} flex items-center justify-center`}>
-                                                        <Icon className={`h-3.5 w-3.5 ${node.color}`} />
-                                                    </div>
-                                                    <div>
-                                                        <p className="text-xs font-bold text-foreground">{node.label}</p>
-                                                        <p className={`text-[8px] font-bold ${tl.color}`}>{tl.label}</p>
-                                                    </div>
-                                                </button>
-                                            );
-                                        })}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                            {showPalette && (
+                                <div className="absolute top-12 left-0 z-30 w-56 bg-card border border-border rounded-xl shadow-xl p-2 space-y-1 animate-fade-in-up">
+                                    <p className="text-[9px] font-bold text-muted-foreground uppercase px-2 py-1">Add Block</p>
+                                    {NODE_PALETTE.map(node => {
+                                        const tl = TYPE_LABELS[node.type];
+                                        const Icon = node.icon;
+                                        return (
+                                            <button
+                                                key={node.id}
+                                                onClick={() => addNode(node.id)}
+                                                className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors text-left"
+                                            >
+                                                <div className={`w-7 h-7 rounded-md ${node.bgColor} flex items-center justify-center`}>
+                                                    <Icon className={`h-3.5 w-3.5 ${node.color}`} />
+                                                </div>
+                                                <div>
+                                                    <p className="text-xs font-bold text-foreground">{node.label}</p>
+                                                    <p className={`text-[8px] font-bold ${tl.color}`}>{tl.label}</p>
+                                                </div>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
@@ -295,14 +273,12 @@ export function WorkflowSimulator() {
                             <p className="text-muted-foreground/50 italic">Click &quot;Run Workflow&quot; to execute your pipeline...</p>
                         ) : (
                             logs.map((log, i) => (
-                                <motion.p
+                                <p
                                     key={i}
-                                    initial={{ opacity: 0, x: -5 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    className={`${log.includes("✅") ? "text-emerald-400" : log.includes("🎉") ? "text-primary font-bold" : "text-muted-foreground"}`}
+                                    className={`animate-fade-in-up ${log.includes("✅") ? "text-emerald-400" : log.includes("🎉") ? "text-primary font-bold" : "text-muted-foreground"}`}
                                 >
                                     {log || "\u00A0"}
-                                </motion.p>
+                                </p>
                             ))
                         )}
                     </div>
@@ -312,19 +288,17 @@ export function WorkflowSimulator() {
             {/* Footer */}
             <div className="p-4 border-t border-border flex items-center justify-between">
                 <p className="text-[10px] text-muted-foreground">{pipeline.length}/6 blocks</p>
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                <button
                     onClick={runWorkflow}
                     disabled={isRunning || pipeline.length === 0}
-                    className="btn-primary rounded-full text-xs shadow-sm h-9"
+                    className="btn-primary rounded-full text-xs shadow-sm h-9 hover:scale-105 active:scale-95 transition-transform"
                 >
                     {isRunning ? (
-                        <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Running...</>
+                        <span className="flex items-center gap-2"><Loader2 className="h-3.5 w-3.5 animate-spin" /> Running...</span>
                     ) : (
-                        <><Play className="h-3.5 w-3.5 fill-white" /> Run Workflow</>
+                        <span className="flex items-center gap-2"><Play className="h-3.5 w-3.5 fill-white" /> Run Workflow</span>
                     )}
-                </motion.button>
+                </button>
             </div>
         </div>
     );

@@ -1,7 +1,6 @@
 "use client";
 
 import { Star, Quote, MessageSquare } from "lucide-react";
-import { motion } from "framer-motion";
 
 const REVIEWS = [
     {
@@ -36,27 +35,23 @@ export function Testimonials() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full" />
 
             <div className="container-custom">
-                <div className="max-w-2xl mx-auto text-center mb-16">
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                <div className="max-w-2xl mx-auto text-center mb-16 opacity-0 animate-fade-in-up">
+                    <p className="section-badge mb-4">
                         <MessageSquare className="h-3.5 w-3.5" /> Testimonials
-                    </motion.p>
-                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                    </p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4">
                         Trusted by <span className="text-primary">Innovators</span>
-                    </motion.h2>
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                    </h2>
+                    <p className="text-muted-foreground text-lg">
                         See what our clients say about AI automation impact.
-                    </motion.p>
+                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {REVIEWS.map((r, i) => (
-                        <motion.div
+                        <div
                             key={i}
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.08 }}
-                            className={`bg-card border border-border border-t-[3px] ${r.accent} p-7 rounded-2xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group`}
+                            className={`bg-card border border-border border-t-[3px] ${r.accent} p-7 rounded-2xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group opacity-0 animate-fade-in-up delay-${(i + 1) * 100}`}
                         >
                             <Quote className="absolute top-5 right-5 h-10 w-10 text-muted-foreground/5 group-hover:text-primary/10 transition-colors duration-500" />
 
@@ -77,7 +72,7 @@ export function Testimonials() {
                                     <p className="text-xs text-muted-foreground">{r.role}</p>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>

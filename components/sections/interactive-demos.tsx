@@ -4,19 +4,13 @@ import { WorkflowSimulator } from "../tools/workflow-simulator";
 import { AutomationPuzzle } from "../tools/automation-puzzle";
 import { TrendFeed } from "../tools/trend-feed";
 import { EcoAutomationGame } from "../games/eco-automation-game";
-import { motion } from "framer-motion";
 import { Sparkles, Gamepad2, Cpu } from "lucide-react";
 
 export function InteractiveDemos() {
     return (
         <section id="interactive-demos" className="section-padding bg-transparent">
             <div className="container-custom">
-                <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="max-w-2xl mx-auto text-center mb-14"
-                >
+                <div className="max-w-2xl mx-auto text-center mb-14 opacity-0 animate-fade-in-up">
                     <p className="section-badge mb-4">
                         <Sparkles className="h-3.5 w-3.5" /> Hands-on Learning
                     </p>
@@ -26,14 +20,10 @@ export function InteractiveDemos() {
                     <p className="text-muted-foreground text-lg">
                         Build workflows, solve puzzles, and stay ahead of industry trends.
                     </p>
-                </motion.div>
+                </div>
 
                 {/* Build & Test */}
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                >
+                <div className="opacity-0 animate-fade-in-up delay-100">
                     <div className="flex items-center gap-2 mb-4">
                         <Cpu className="h-4 w-4 text-primary" />
                         <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Build & Test</span>
@@ -45,15 +35,10 @@ export function InteractiveDemos() {
                             <TrendFeed />
                         </div>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Learn & Play */}
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mt-12"
-                >
+                <div className="mt-12 opacity-0 animate-fade-in-up delay-200">
                     <div className="flex items-center gap-2 mb-4">
                         <Gamepad2 className="h-4 w-4 text-violet-500" />
                         <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Learn & Play</span>
@@ -81,7 +66,7 @@ export function InteractiveDemos() {
                             </div>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );
