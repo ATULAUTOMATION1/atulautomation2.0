@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ArrowRight, Cpu, MessageSquare, Zap, BarChart, Building, Users } from "lucide-react";
-import { motion } from "framer-motion";
 
 const services = [
     { icon: Cpu, title: "AI Automation", description: "Self-learning algorithms that adapt to your business and streamline complex processes.", href: "/capabilities/ai-agents", color: "text-primary", bg: "bg-primary/8", border: "group-hover:border-primary/40", glow: "group-hover:shadow-primary/10" },
@@ -20,29 +19,23 @@ export function Services() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full" />
 
             <div className="container-custom">
-                <div className="max-w-2xl mx-auto text-center mb-16">
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                <div className="max-w-2xl mx-auto text-center mb-16 opacity-0 animate-fade-in-up">
+                    <p className="section-badge mb-4">
                         <Zap className="h-3.5 w-3.5" /> What We Do
-                    </motion.p>
-                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                    </p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4">
                         Our <span className="text-primary">Capabilities</span>
-                    </motion.h2>
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                    </h2>
+                    <p className="text-muted-foreground text-lg">
                         A full suite of digital transformation tools to scale faster.
-                    </motion.p>
+                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {services.map((s, i) => {
                         const Icon = s.icon;
                         return (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.06 }}
-                            >
+                            <div key={i} className="opacity-0 animate-fade-in-up delay-100">
                                 <Link href={s.href} className={`group flex flex-col h-full p-7 bg-card border border-border rounded-2xl ${s.border} ${s.glow} hover:shadow-xl transition-all duration-300 relative overflow-hidden`}>
                                     {/* Hover gradient background */}
                                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-muted/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -58,7 +51,7 @@ export function Services() {
                                         </span>
                                     </div>
                                 </Link>
-                            </motion.div>
+                            </div>
                         );
                     })}
                 </div>
