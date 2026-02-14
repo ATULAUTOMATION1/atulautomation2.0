@@ -50,11 +50,11 @@ export function Community() {
                         viewport={{ once: true }}
                         className="flex flex-col sm:flex-row justify-center gap-3"
                     >
-                        <a href="#" className="btn-primary group">
+                        <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="btn-primary group">
                             Join Discord <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                         </a>
-                        <a href="#" className="btn-secondary">
-                            Visit Forum
+                        <a href="/blog" className="btn-secondary">
+                            Visit Blog
                         </a>
                     </motion.div>
                 </div>
