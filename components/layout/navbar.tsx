@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Menu, X, Terminal, ArrowRight } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
     { name: "Services", href: "/#services" },
@@ -80,44 +79,42 @@ export function Navbar() {
             </div>
 
             {/* Mobile Menu */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl"
-                    >
-                        <div className="container-custom py-4 flex flex-col gap-1">
-                            {navItems.map((item, i) => (
-                                <motion.div
-                                    key={item.name}
-                                    initial={{ opacity: 0, x: -8 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.04 }}
-                                >
-                                    <Link
-                                        href={item.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className="text-base font-medium text-muted-foreground hover:text-foreground px-4 py-3 hover:bg-muted/50 rounded-xl block transition-colors"
-                                    >
-                                        {item.name}
-                                    </Link>
-                                </motion.div>
-                            ))}
-                            <div className="pt-3 mt-2 border-t border-border">
-                                <Link
-                                    href="#contact"
-                                    onClick={() => setIsOpen(false)}
-                                    className="btn-primary w-full justify-center"
-                                >
-                                    Get Started <ArrowRight className="ml-1.5 h-4 w-4" />
-                                </Link>
-                            </div>
-                        </div>
-                    </motion.div>
+            <div
+                className={cn(
+                    "md:hidden overflow-hidden transition-all duration-300 ease-in-out border-b border-border bg-background/95 backdrop-blur-xl",
+                    isOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0 border-b-0"
                 )}
-            </AnimatePresence>
+            >
+                <div className="container-custom py-4 flex flex-col gap-1">
+                    {navItems.map((item, i) => (
+                        <div
+                            key={item.name}
+                            className={cn(
+                                "transition-all duration-300 transform",
+                                isOpen ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
+                            )}
+                            style={{ transitionDelay: `${i * 50}ms` }}
+                        >
+                            <Link
+                                href={item.href}
+                                onClick={() => setIsOpen(false)}
+                                className="text-base font-medium text-muted-foreground hover:text-foreground px-4 py-3 hover:bg-muted/50 rounded-xl block transition-colors"
+                            >
+                                {item.name}
+                            </Link>
+                        </div>
+                    ))}
+                    <div className="pt-3 mt-2 border-t border-border">
+                        <Link
+                            href="#contact"
+                            onClick={() => setIsOpen(false)}
+                            className="btn-primary w-full justify-center"
+                        >
+                            Get Started <ArrowRight className="ml-1.5 h-4 w-4" />
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </header>
     );
 }
