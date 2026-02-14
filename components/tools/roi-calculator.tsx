@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Calculator, TrendingUp, DollarSign, Clock, Users, ArrowRight } from "lucide-react";
 
 export function ROICalculator() {
@@ -17,19 +16,19 @@ export function ROICalculator() {
     return (
         <section id="tools" className="section-padding bg-transparent">
             <div className="container-custom">
-                <div className="max-w-2xl mx-auto text-center mb-16">
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                <div className="max-w-2xl mx-auto text-center mb-16 opacity-0 animate-fade-in-up">
+                    <p className="section-badge mb-4">
                         <Calculator className="h-3.5 w-3.5" /> ROI Calculator
-                    </motion.p>
-                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                    </p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4">
                         Calculate Your <span className="text-primary">Savings</span>
-                    </motion.h2>
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                    </h2>
+                    <p className="text-muted-foreground text-lg">
                         See exactly how much manual tasks are costing your business.
-                    </motion.p>
+                    </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start max-w-5xl mx-auto opacity-0 animate-fade-in-up delay-100">
                     {/* Controls */}
                     <div className="space-y-6">
                         <div className="bg-card border border-border rounded-2xl p-8">
@@ -81,13 +80,7 @@ export function ROICalculator() {
                     </div>
 
                     {/* Results */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="bg-primary text-primary-foreground rounded-2xl p-8 shadow-xl relative overflow-hidden"
-                    >
+                    <div className="bg-primary text-primary-foreground rounded-2xl p-8 shadow-xl relative overflow-hidden transition-transform hover:scale-[1.01] duration-500">
                         {/* Abstract blobs */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl -ml-16 -mb-16 pointer-events-none" />
@@ -98,7 +91,7 @@ export function ROICalculator() {
                             <div className="grid gap-6 mb-8">
                                 <div className="bg-white/10 rounded-xl p-5 border border-white/10 backdrop-blur-sm">
                                     <p className="text-xs uppercase tracking-wider font-bold opacity-70 mb-1">Potential Savings</p>
-                                    <p className="text-4xl md:text-5xl font-bold tracking-tight mb-1">
+                                    <p className="text-4xl md:text-5xl font-bold tracking-tight mb-1 animate-fade-in" key={automatedSavings}>
                                         ${Math.round(automatedSavings).toLocaleString()}
                                     </p>
                                     <p className="text-sm opacity-80">Per year with automation</p>
@@ -106,21 +99,21 @@ export function ROICalculator() {
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                                        <p className="text-2xl font-bold">{Math.round(hoursSaved / 52)}h</p>
+                                        <p className="text-2xl font-bold animate-fade-in" key={hoursSaved}>{Math.round(hoursSaved / 52)}h</p>
                                         <p className="text-xs opacity-70">Hours Saved / Week</p>
                                     </div>
                                     <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                                        <p className="text-2xl font-bold">${Math.round(annualCost).toLocaleString()}</p>
+                                        <p className="text-2xl font-bold animate-fade-in" key={annualCost}>${Math.round(annualCost).toLocaleString()}</p>
                                         <p className="text-xs opacity-70">Current Annual Cost</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <button className="w-full py-4 rounded-xl bg-white text-primary font-bold text-sm hover:bg-white/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
+                            <button className="w-full py-4 rounded-xl bg-white text-primary font-bold text-sm hover:bg-white/90 transition-colors flex items-center justify-center gap-2 shadow-sm active:scale-95">
                                 Get Full Audit <ArrowRight className="h-4 w-4" />
                             </button>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

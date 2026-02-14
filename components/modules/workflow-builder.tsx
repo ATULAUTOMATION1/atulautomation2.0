@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Plus, Play, CheckCircle, Trash2, Workflow, RotateCcw } from "lucide-react";
 
 type Node = {
@@ -76,19 +75,19 @@ export function WorkflowBuilder() {
     return (
         <section id="modules" className="section-padding bg-transparent">
             <div className="container-custom">
-                <div className="max-w-2xl mx-auto text-center mb-16">
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-badge mb-4">
+                <div className="max-w-2xl mx-auto text-center mb-16 opacity-0 animate-fade-in-up">
+                    <p className="section-badge mb-4">
                         <Workflow className="h-3.5 w-3.5" /> Visual Builder
-                    </motion.p>
-                    <motion.h2 initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl md:text-5xl font-bold mb-4">
+                    </p>
+                    <h2 className="text-3xl md:text-5xl font-bold mb-4">
                         Build Your <span className="text-primary">Workflow</span>
-                    </motion.h2>
-                    <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }} className="text-muted-foreground text-lg">
+                    </h2>
+                    <p className="text-muted-foreground text-lg">
                         Assemble your perfect automation pipeline and simulate it live.
-                    </motion.p>
+                    </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 opacity-0 animate-fade-in-up delay-100">
                     {/* Sidebar */}
                     <div className="bg-card border border-border rounded-2xl p-6 h-fit">
                         <h3 className="font-bold text-xs uppercase tracking-wider text-muted-foreground mb-4 flex items-center gap-2">
@@ -96,16 +95,14 @@ export function WorkflowBuilder() {
                         </h3>
                         <div className="grid grid-cols-2 gap-3">
                             {AVAILABLE_NODES.map((node) => (
-                                <motion.button
+                                <button
                                     key={node.id}
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
                                     onClick={() => addToWorkflow(node)}
-                                    className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all text-sm font-medium ${NODE_TYPE_STYLES[node.type]}`}
+                                    className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all text-sm font-medium hover:scale-105 active:scale-95 ${NODE_TYPE_STYLES[node.type]}`}
                                 >
                                     <span className="text-2xl mb-2">{node.icon}</span>
                                     <span className="text-xs font-bold">{node.label}</span>
-                                </motion.button>
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -138,57 +135,51 @@ export function WorkflowBuilder() {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center space-y-3 pb-4">
-                                    <AnimatePresence mode="popLayout">
-                                        {workflow.map((node, index) => {
-                                            const isActive = activeStep === index;
-                                            const isCompleted = completedSteps.has(index);
-                                            return (
-                                                <motion.div
-                                                    key={node.id}
-                                                    layout
-                                                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                                                    animate={{ opacity: 1, y: 0, scale: isActive ? 1.05 : 1 }}
-                                                    exit={{ opacity: 0, scale: 0.9 }}
-                                                    className="relative w-full max-w-sm"
-                                                >
-                                                    <div className={`
-                                                        relative bg-background p-4 rounded-xl border shadow-sm flex items-center justify-between group transition-all
-                                                        ${isActive ? 'border-primary ring-1 ring-primary shadow-md' :
-                                                            isCompleted ? 'border-green-500/30 bg-green-500/5' : 'border-border'}
-                                                    `}>
-                                                        <div className="flex items-center gap-3">
-                                                            <div className={`h-10 w-10 rounded-lg flex items-center justify-center text-lg ${isCompleted ? "bg-green-100 dark:bg-green-900/30 text-green-600" : "bg-muted"}`}>
-                                                                {isCompleted ? <CheckCircle className="h-5 w-5" /> : node.icon}
-                                                            </div>
-                                                            <div>
-                                                                <span className="font-bold text-sm block">{node.label}</span>
-                                                                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${NODE_TYPE_LABELS[node.type].color} inline-block mt-0.5`}>
-                                                                    {NODE_TYPE_LABELS[node.type].label}
-                                                                </span>
-                                                            </div>
+                                    {workflow.map((node, index) => {
+                                        const isActive = activeStep === index;
+                                        const isCompleted = completedSteps.has(index);
+                                        return (
+                                            <div
+                                                key={node.id}
+                                                className="relative w-full max-w-sm animate-fade-in"
+                                            >
+                                                <div className={`
+                                                    relative bg-background p-4 rounded-xl border shadow-sm flex items-center justify-between group transition-all duration-300
+                                                    ${isActive ? 'border-primary ring-1 ring-primary shadow-md scale-105' :
+                                                        isCompleted ? 'border-green-500/30 bg-green-500/5' : 'border-border'}
+                                                `}>
+                                                    <div className="flex items-center gap-3">
+                                                        <div className={`h-10 w-10 rounded-lg flex items-center justify-center text-lg transition-colors duration-500 ${isCompleted ? "bg-green-100 dark:bg-green-900/30 text-green-600" : "bg-muted"}`}>
+                                                            {isCompleted ? <CheckCircle className="h-5 w-5 animate-zoom-in" /> : node.icon}
                                                         </div>
-
-                                                        {isActive && (
-                                                            <div className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin" />
-                                                        )}
-
-                                                        {!isRunning && (
-                                                            <button
-                                                                onClick={() => removeFromWorkflow(index)}
-                                                                className="text-muted-foreground hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md hover:bg-muted"
-                                                            >
-                                                                <Trash2 className="h-3.5 w-3.5" />
-                                                            </button>
-                                                        )}
+                                                        <div>
+                                                            <span className="font-bold text-sm block">{node.label}</span>
+                                                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${NODE_TYPE_LABELS[node.type].color} inline-block mt-0.5`}>
+                                                                {NODE_TYPE_LABELS[node.type].label}
+                                                            </span>
+                                                        </div>
                                                     </div>
 
-                                                    {index < workflow.length - 1 && (
-                                                        <div className="h-6 w-0.5 bg-border mx-auto my-1" />
+                                                    {isActive && (
+                                                        <div className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin" />
                                                     )}
-                                                </motion.div>
-                                            );
-                                        })}
-                                    </AnimatePresence>
+
+                                                    {!isRunning && (
+                                                        <button
+                                                            onClick={() => removeFromWorkflow(index)}
+                                                            className="text-muted-foreground hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md hover:bg-muted"
+                                                        >
+                                                            <Trash2 className="h-3.5 w-3.5" />
+                                                        </button>
+                                                    )}
+                                                </div>
+
+                                                {index < workflow.length - 1 && (
+                                                    <div className="h-6 w-0.5 bg-border mx-auto my-1" />
+                                                )}
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             )}
                         </div>
@@ -196,7 +187,7 @@ export function WorkflowBuilder() {
                         <div className="mt-6 pt-4 border-t border-border flex justify-between items-center relative z-10">
                             <div>
                                 {completedSteps.size > 0 && !isRunning && (
-                                    <span className="text-green-600 text-xs font-bold flex items-center gap-1.5">
+                                    <span className="text-green-600 text-xs font-bold flex items-center gap-1.5 animate-fade-in">
                                         <CheckCircle className="h-3.5 w-3.5" /> Simulation Complete
                                     </span>
                                 )}
@@ -204,7 +195,7 @@ export function WorkflowBuilder() {
                             <button
                                 onClick={runSimulation}
                                 disabled={isRunning || workflow.length === 0}
-                                className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed text-xs px-5 py-2.5 h-10"
+                                className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed text-xs px-5 py-2.5 h-10 transition-transform active:scale-95"
                             >
                                 {isRunning ? "Running..." : <><Play className="h-3.5 w-3.5 mr-2 fill-current" /> Run Workflow</>}
                             </button>
