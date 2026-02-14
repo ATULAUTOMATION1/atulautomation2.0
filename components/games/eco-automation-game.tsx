@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
     Zap, Bot, Mail, Database, GitBranch, ArrowRight,
     Star, Trophy, Sparkles, ChevronRight, RotateCcw,
@@ -393,7 +392,7 @@ export function EcoAutomationGame() {
                     {phase !== "menu" && rankInfo.next && (
                         <div className="mt-3">
                             <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                                <motion.div className="h-full bg-gradient-to-r from-cyan-400 to-violet-400 rounded-full" animate={{ width: `${rankInfo.pct}%` }} transition={{ duration: 0.8 }} />
+                                <div className="h-full bg-gradient-to-r from-cyan-400 to-violet-400 rounded-full transition-all duration-700" style={{ width: `${rankInfo.pct}%` }} />
                             </div>
                             <p className="text-[10px] text-white/40 mt-1 text-right">Next rank: {rankInfo.next} XP</p>
                         </div>
@@ -402,383 +401,373 @@ export function EcoAutomationGame() {
             </div>
 
             {/* Achievement Toast */}
-            <AnimatePresence>
-                {newAchievement && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -40 }}
-                        className="absolute top-20 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-xl shadow-xl flex items-center gap-2"
-                    >
-                        <span className="text-xl">{newAchievement.emoji}</span>
-                        <div>
-                            <p className="text-xs font-bold">Achievement Unlocked!</p>
-                            <p className="text-[10px]">{newAchievement.title}</p>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {newAchievement && (
+                <div
+                    className="absolute top-20 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-xl shadow-xl flex items-center gap-2 animate-bounce"
+                >
+                    <span className="text-xl">{newAchievement.emoji}</span>
+                    <div>
+                        <p className="text-xs font-bold">Achievement Unlocked!</p>
+                        <p className="text-[10px]">{newAchievement.title}</p>
+                    </div>
+                </div>
+            )}
 
             {/* Achievements Panel */}
-            <AnimatePresence>
-                {showAchievements && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-b border-border">
-                        <div className="p-4 bg-muted/30 space-y-2">
-                            <p className="text-xs font-bold text-muted-foreground uppercase">🏅 Achievements ({achievements.filter(a => a.unlocked).length}/{achievements.length})</p>
-                            <div className="grid grid-cols-5 gap-1.5">
-                                {achievements.map(ach => (
-                                    <div key={ach.id} className={`text-center p-2 rounded-lg transition-all ${ach.unlocked ? "bg-amber-500/10 border border-amber-500/30" : "bg-muted/50 opacity-40"}`} title={ach.description}>
-                                        <span className="text-lg">{ach.unlocked ? ach.emoji : "🔒"}</span>
-                                        <p className="text-[8px] font-bold text-muted-foreground mt-0.5 leading-tight">{ach.title}</p>
-                                    </div>
-                                ))}
-                            </div>
+            {showAchievements && (
+                <div className="overflow-hidden border-b border-border animate-fade-in-up">
+                    <div className="p-4 bg-muted/30 space-y-2">
+                        <p className="text-xs font-bold text-muted-foreground uppercase">🏅 Achievements ({achievements.filter(a => a.unlocked).length}/{achievements.length})</p>
+                        <div className="grid grid-cols-5 gap-1.5">
+                            {achievements.map(ach => (
+                                <div key={ach.id} className={`text-center p-2 rounded-lg transition-all ${ach.unlocked ? "bg-amber-500/10 border border-amber-500/30" : "bg-muted/50 opacity-40"}`} title={ach.description}>
+                                    <span className="text-lg">{ach.unlocked ? ach.emoji : "🔒"}</span>
+                                    <p className="text-[8px] font-bold text-muted-foreground mt-0.5 leading-tight">{ach.title}</p>
+                                </div>
+                            ))}
                         </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                    </div>
+                </div>
+            )}
 
             {/* Game Area */}
             <div className="p-5 min-h-[420px]">
-                <AnimatePresence mode="wait">
-                    {/* ─── MENU ─── */}
-                    {phase === "menu" && (
-                        <motion.div key="menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-                            <div className="text-center mb-2">
-                                <h4 className="text-xl font-bold text-foreground">🎯 Select Mission</h4>
-                                <p className="text-xs text-muted-foreground mt-1">Build real AI workflows step by step</p>
-                            </div>
-                            <div className="space-y-2">
-                                {levels.map((lv, idx) => {
-                                    const done = completedLevels.includes(idx);
-                                    const locked = idx > 0 && !completedLevels.includes(idx - 1);
-                                    const stars = levelStars[idx] || 0;
-                                    return (
-                                        <motion.button key={lv.id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.06 }} onClick={() => !locked && startLevel(idx)} disabled={locked}
-                                            className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all text-left group ${locked ? "border-border opacity-40 cursor-not-allowed" : done ? "border-emerald-500/40 bg-emerald-500/5 hover:bg-emerald-500/10" : "border-border hover:border-violet-500/40 hover:bg-violet-500/5"}`}
-                                        >
-                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 ${done ? "bg-emerald-500/20" : locked ? "bg-muted" : "bg-violet-500/15"}`}>
-                                                {locked ? <Lock className="h-4 w-4 text-muted-foreground" /> : done ? "✅" : lv.emoji}
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="flex items-center gap-2">
-                                                    <p className="font-bold text-sm text-foreground">{lv.title}</p>
-                                                    <span className="text-[10px] font-mono text-muted-foreground bg-muted px-1.5 py-0.5 rounded">+{lv.xpReward}XP</span>
-                                                </div>
-                                                <p className="text-xs text-muted-foreground truncate">{lv.description}</p>
-                                            </div>
-                                            {done && (
-                                                <div className="flex gap-0.5 shrink-0">{[1, 2, 3].map(s => (<Star key={s} className={`h-3.5 w-3.5 ${s <= stars ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/30"}`} />))}</div>
-                                            )}
-                                            {!locked && !done && <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-violet-500 transition-colors shrink-0" />}
-                                        </motion.button>
-                                    );
-                                })}
-                            </div>
-                            {completedLevels.length > 0 && (
-                                <div className="text-center pt-1">
-                                    <div className="inline-flex items-center gap-2 bg-muted/50 rounded-full px-4 py-1.5">
-                                        <TrendingUp className="h-3.5 w-3.5 text-emerald-500" />
-                                        <span className="text-xs text-muted-foreground">{completedLevels.length}/{levels.length} complete · {totalXp} XP earned</span>
-                                    </div>
-                                </div>
-                            )}
-                        </motion.div>
-                    )}
-
-                    {/* ─── LESSON ─── */}
-                    {phase === "lesson" && (
-                        <motion.div key="lesson" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
-                            <div className="text-center">
-                                <span className="text-4xl">{level.emoji}</span>
-                                <h4 className="text-lg font-bold text-foreground mt-2">Level {level.id}: {level.title}</h4>
-                                <div className="mt-2 inline-block bg-violet-500/10 border border-violet-500/20 rounded-lg px-3 py-1.5">
-                                    <p className="text-xs font-medium text-violet-400">{level.concept}</p>
-                                </div>
-                            </div>
-
-                            {/* Real-world scenario */}
-                            <div className="bg-gradient-to-r from-blue-500/5 to-cyan-500/5 border border-blue-500/20 rounded-xl p-3">
-                                <div className="flex items-start gap-2">
-                                    <span className="text-sm mt-0.5">🏢</span>
-                                    <div>
-                                        <p className="text-[10px] font-bold uppercase text-blue-400 mb-1">Real-World Scenario</p>
-                                        <p className="text-xs text-muted-foreground leading-relaxed">{level.scenario}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Lesson points */}
-                            <div className="bg-muted/40 rounded-xl p-3 space-y-2">
-                                <div className="flex items-center gap-1.5">
-                                    <Lightbulb className="h-3.5 w-3.5 text-amber-500" />
-                                    <p className="text-xs font-bold text-foreground">Key Concepts</p>
-                                </div>
-                                {level.lesson.map((line, i) => (
-                                    <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + i * 0.15 }}
-                                        className="flex items-start gap-2 pl-1"
+                {/* ─── MENU ─── */}
+                {phase === "menu" && (
+                    <div key="menu" className="space-y-4 animate-fade-in">
+                        <div className="text-center mb-2">
+                            <h4 className="text-xl font-bold text-foreground">🎯 Select Mission</h4>
+                            <p className="text-xs text-muted-foreground mt-1">Build real AI workflows step by step</p>
+                        </div>
+                        <div className="space-y-2">
+                            {levels.map((lv, idx) => {
+                                const done = completedLevels.includes(idx);
+                                const locked = idx > 0 && !completedLevels.includes(idx - 1);
+                                const stars = levelStars[idx] || 0;
+                                return (
+                                    <button key={lv.id} onClick={() => !locked && startLevel(idx)} disabled={locked}
+                                        className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all text-left group animate-fade-in-up ${locked ? "border-border opacity-40 cursor-not-allowed" : done ? "border-emerald-500/40 bg-emerald-500/5 hover:bg-emerald-500/10" : "border-border hover:border-violet-500/40 hover:bg-violet-500/5"}`}
+                                        style={{ animationDelay: `${idx * 100}ms` }}
                                     >
-                                        <div className="w-5 h-5 rounded-md bg-violet-500/15 flex items-center justify-center shrink-0 mt-0.5">
-                                            <span className="text-[10px] font-bold text-violet-400">{i + 1}</span>
+                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0 ${done ? "bg-emerald-500/20" : locked ? "bg-muted" : "bg-violet-500/15"}`}>
+                                            {locked ? <Lock className="h-4 w-4 text-muted-foreground" /> : done ? "✅" : lv.emoji}
                                         </div>
-                                        <p className="text-xs text-muted-foreground leading-relaxed">{line}</p>
-                                    </motion.div>
-                                ))}
-                            </div>
-
-                            {/* Block legend */}
-                            <div className="grid grid-cols-4 gap-1.5">
-                                {Object.entries(typeConfig).map(([key, val]) => (
-                                    <div key={key} className={`${val.bg} border ${val.border} rounded-lg p-1.5 text-center`}>
-                                        <p className={`text-[9px] font-bold ${val.color}`}>{val.label}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="text-center">
-                                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={goToChallenge}
-                                    className="bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-bold py-2.5 px-6 rounded-full shadow-lg hover:shadow-violet-500/25 transition-all flex items-center gap-2 mx-auto text-sm"
-                                >
-                                    Start Challenge <Play className="h-4 w-4 fill-white" />
-                                </motion.button>
-                            </div>
-                        </motion.div>
-                    )}
-
-                    {/* ─── CHALLENGE ─── */}
-                    {phase === "challenge" && (
-                        <motion.div key="challenge" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-3">
-                            {/* Prompt */}
-                            <div className="bg-gradient-to-r from-violet-500/10 to-indigo-500/10 border border-violet-500/20 rounded-xl p-3">
-                                <div className="flex items-start gap-2">
-                                    <Workflow className="h-4 w-4 text-violet-500 mt-0.5 shrink-0" />
-                                    <div>
-                                        <p className="text-[10px] font-bold text-violet-400 uppercase">Build This Automation:</p>
-                                        <p className="text-sm font-medium text-foreground mt-0.5">{level.challenge.prompt}</p>
-                                    </div>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-center gap-2">
+                                                <p className="font-bold text-sm text-foreground">{lv.title}</p>
+                                                <span className="text-[10px] font-mono text-muted-foreground bg-muted px-1.5 py-0.5 rounded">+{lv.xpReward}XP</span>
+                                            </div>
+                                            <p className="text-xs text-muted-foreground truncate">{lv.description}</p>
+                                        </div>
+                                        {done && (
+                                            <div className="flex gap-0.5 shrink-0">{[1, 2, 3].map(s => (<Star key={s} className={`h-3.5 w-3.5 ${s <= stars ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/30"}`} />))}</div>
+                                        )}
+                                        {!locked && !done && <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-violet-500 transition-colors shrink-0" />}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        {completedLevels.length > 0 && (
+                            <div className="text-center pt-1">
+                                <div className="inline-flex items-center gap-2 bg-muted/50 rounded-full px-4 py-1.5">
+                                    <TrendingUp className="h-3.5 w-3.5 text-emerald-500" />
+                                    <span className="text-xs text-muted-foreground">{completedLevels.length}/{levels.length} complete · {totalXp} XP earned</span>
                                 </div>
                             </div>
+                        )}
+                    </div>
+                )}
 
-                            {/* Pipeline */}
-                            <div className="bg-muted/20 border border-border rounded-xl p-3 min-h-[52px]">
-                                <p className="text-[9px] font-bold text-muted-foreground uppercase mb-2">Your Pipeline:</p>
-                                {selectedBlocks.length === 0 ? (
-                                    <p className="text-xs text-muted-foreground text-center py-2 italic opacity-60">👇 Tap blocks to build your automation flow</p>
-                                ) : (
-                                    <div className="flex flex-wrap items-center gap-1.5">
-                                        {selectedBlocks.map((blockId, i) => {
-                                            const block = level.challenge.blocks.find(b => b.id === blockId)!;
-                                            const tc = typeConfig[block.type];
-                                            return (
-                                                <motion.div key={blockId} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} className="flex items-center gap-1">
-                                                    {i > 0 && (
-                                                        <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                                                            <ArrowRight className="h-3 w-3 text-violet-400" />
-                                                        </motion.div>
-                                                    )}
-                                                    <button onClick={() => toggleBlock(blockId)} className={`${tc.bg} border ${tc.border} rounded-lg px-2 py-1 flex items-center gap-1 hover:opacity-70 transition-opacity shadow-sm`}>
-                                                        <span className="text-xs">{block.emoji}</span>
-                                                        <span className={`text-[10px] font-bold ${tc.color}`}>{block.label}</span>
-                                                    </button>
-                                                </motion.div>
-                                            );
-                                        })}
-                                    </div>
-                                )}
+                {/* ─── LESSON ─── */}
+                {phase === "lesson" && (
+                    <div key="lesson" className="space-y-4 animate-fade-in-up">
+                        <div className="text-center">
+                            <span className="text-4xl">{level.emoji}</span>
+                            <h4 className="text-lg font-bold text-foreground mt-2">Level {level.id}: {level.title}</h4>
+                            <div className="mt-2 inline-block bg-violet-500/10 border border-violet-500/20 rounded-lg px-3 py-1.5">
+                                <p className="text-xs font-medium text-violet-400">{level.concept}</p>
                             </div>
+                        </div>
 
-                            {/* Available blocks */}
-                            <div>
-                                <p className="text-[9px] font-bold text-muted-foreground uppercase mb-2">Available Blocks:</p>
-                                <div className="grid grid-cols-2 gap-2">
-                                    {level.challenge.blocks.map((block) => {
-                                        const selected = selectedBlocks.includes(block.id);
+                        {/* Real-world scenario */}
+                        <div className="bg-gradient-to-r from-blue-500/5 to-cyan-500/5 border border-blue-500/20 rounded-xl p-3">
+                            <div className="flex items-start gap-2">
+                                <span className="text-sm mt-0.5">🏢</span>
+                                <div>
+                                    <p className="text-[10px] font-bold uppercase text-blue-400 mb-1">Real-World Scenario</p>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">{level.scenario}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Lesson points */}
+                        <div className="bg-muted/40 rounded-xl p-3 space-y-2">
+                            <div className="flex items-center gap-1.5">
+                                <Lightbulb className="h-3.5 w-3.5 text-amber-500" />
+                                <p className="text-xs font-bold text-foreground">Key Concepts</p>
+                            </div>
+                            {level.lesson.map((line, i) => (
+                                <div key={i} className="flex items-start gap-2 pl-1 animate-fade-in-up"
+                                    style={{ animationDelay: `${200 + i * 150}ms` }}
+                                >
+                                    <div className="w-5 h-5 rounded-md bg-violet-500/15 flex items-center justify-center shrink-0 mt-0.5">
+                                        <span className="text-[10px] font-bold text-violet-400">{i + 1}</span>
+                                    </div>
+                                    <p className="text-xs text-muted-foreground leading-relaxed">{line}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Block legend */}
+                        <div className="grid grid-cols-4 gap-1.5">
+                            {Object.entries(typeConfig).map(([key, val]) => (
+                                <div key={key} className={`${val.bg} border ${val.border} rounded-lg p-1.5 text-center`}>
+                                    <p className={`text-[9px] font-bold ${val.color}`}>{val.label}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="text-center">
+                            <button onClick={goToChallenge}
+                                className="bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-bold py-2.5 px-6 rounded-full shadow-lg hover:shadow-violet-500/25 transition-all flex items-center gap-2 mx-auto text-sm hover:scale-105 active:scale-95 transform"
+                            >
+                                Start Challenge <Play className="h-4 w-4 fill-white" />
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* ─── CHALLENGE ─── */}
+                {phase === "challenge" && (
+                    <div key="challenge" className="space-y-3 animate-fade-in">
+                        {/* Prompt */}
+                        <div className="bg-gradient-to-r from-violet-500/10 to-indigo-500/10 border border-violet-500/20 rounded-xl p-3">
+                            <div className="flex items-start gap-2">
+                                <Workflow className="h-4 w-4 text-violet-500 mt-0.5 shrink-0" />
+                                <div>
+                                    <p className="text-[10px] font-bold text-violet-400 uppercase">Build This Automation:</p>
+                                    <p className="text-sm font-medium text-foreground mt-0.5">{level.challenge.prompt}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Pipeline */}
+                        <div className="bg-muted/20 border border-border rounded-xl p-3 min-h-[52px]">
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase mb-2">Your Pipeline:</p>
+                            {selectedBlocks.length === 0 ? (
+                                <p className="text-xs text-muted-foreground text-center py-2 italic opacity-60">👇 Tap blocks to build your automation flow</p>
+                            ) : (
+                                <div className="flex flex-wrap items-center gap-1.5">
+                                    {selectedBlocks.map((blockId, i) => {
+                                        const block = level.challenge.blocks.find(b => b.id === blockId)!;
                                         const tc = typeConfig[block.type];
-                                        const Icon = block.icon;
                                         return (
-                                            <motion.button key={block.id} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => toggleBlock(block.id)}
-                                                className={`p-2.5 rounded-xl border-2 text-left transition-all ${selected ? `${tc.border} ${tc.bg} opacity-50 scale-95` : `border-border hover:${tc.border} bg-card hover:${tc.bg}`}`}
-                                            >
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <div className={`w-7 h-7 rounded-lg ${block.bgColor} flex items-center justify-center shadow-sm`}>
-                                                        <Icon className={`h-3.5 w-3.5 ${block.color}`} />
+                                            <div key={blockId} className="flex items-center gap-1 animate-fade-in-up">
+                                                {i > 0 && (
+                                                    <div className="animate-pulse">
+                                                        <ArrowRight className="h-3 w-3 text-violet-400" />
                                                     </div>
-                                                    <div className="min-w-0">
-                                                        <p className="text-xs font-bold text-foreground truncate">{block.label}</p>
-                                                        <p className={`text-[8px] font-bold uppercase ${tc.color}`}>{tc.label}</p>
-                                                    </div>
-                                                </div>
-                                                <p className="text-[10px] text-muted-foreground leading-tight">{block.description}</p>
-                                                {selected && <p className="text-[9px] text-violet-400 font-bold mt-1">✓ In pipeline</p>}
-                                            </motion.button>
+                                                )}
+                                                <button onClick={() => toggleBlock(blockId)} className={`${tc.bg} border ${tc.border} rounded-lg px-2 py-1 flex items-center gap-1 hover:opacity-70 transition-opacity shadow-sm`}>
+                                                    <span className="text-xs">{block.emoji}</span>
+                                                    <span className={`text-[10px] font-bold ${tc.color}`}>{block.label}</span>
+                                                </button>
+                                            </div>
                                         );
                                     })}
                                 </div>
-                            </div>
-
-                            {/* Hint */}
-                            {showHint && (
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-2.5 flex items-start gap-2">
-                                    <Lightbulb className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
-                                    <p className="text-[11px] text-amber-600 dark:text-amber-400">{level.challenge.hint}</p>
-                                </motion.div>
                             )}
+                        </div>
 
-                            {/* Wrong answer feedback */}
-                            <AnimatePresence>
-                                {showResult && !isCorrect && (
-                                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="bg-red-500/10 border-2 border-red-500/30 rounded-xl p-3 text-center">
-                                        <XCircle className="h-6 w-6 text-red-500 mx-auto mb-1" />
-                                        <p className="font-bold text-sm text-red-600 dark:text-red-400">Not quite right!</p>
-                                        <p className="text-[11px] text-muted-foreground mt-0.5">Check the order and remove wrong blocks</p>
-                                        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={retry}
-                                            className="mt-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-bold py-1.5 px-5 rounded-full text-xs"
-                                        >
-                                            Try Again
-                                        </motion.button>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-
-                            {/* Check button */}
-                            {!showResult && selectedBlocks.length > 0 && (
-                                <div className="text-center pt-1">
-                                    <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={checkAnswer}
-                                        className="bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-bold py-2.5 px-8 rounded-full shadow-lg hover:shadow-violet-500/25 transition-all text-sm"
-                                    >
-                                        ▶ Run Workflow
-                                    </motion.button>
-                                </div>
-                            )}
-                        </motion.div>
-                    )}
-
-                    {/* ─── EXECUTING ─── */}
-                    {phase === "executing" && (
-                        <motion.div key="executing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-                            <div className="text-center mb-2">
-                                <h4 className="text-lg font-bold text-foreground">⚙️ Running Workflow...</h4>
-                                <p className="text-xs text-muted-foreground">Watch your automation execute in real-time</p>
-                            </div>
-
-                            <div className="space-y-1">
-                                {selectedBlocks.map((blockId, i) => {
-                                    const block = level.challenge.blocks.find(b => b.id === blockId)!;
+                        {/* Available blocks */}
+                        <div>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase mb-2">Available Blocks:</p>
+                            <div className="grid grid-cols-2 gap-2">
+                                {level.challenge.blocks.map((block) => {
+                                    const selected = selectedBlocks.includes(block.id);
                                     const tc = typeConfig[block.type];
-                                    const isActive = executingStep === i;
-                                    const isDone = executingStep > i;
-
+                                    const Icon = block.icon;
                                     return (
-                                        <motion.div key={blockId} initial={{ opacity: 0.3, x: -10 }} animate={{ opacity: isDone || isActive ? 1 : 0.3, x: 0 }} transition={{ duration: 0.4 }}>
-                                            {i > 0 && (
-                                                <div className="flex justify-center py-1">
-                                                    <motion.div animate={isDone ? { scaleY: 1, opacity: 1 } : { scaleY: 0.5, opacity: 0.3 }} className="w-0.5 h-4 bg-violet-500 rounded-full origin-top" />
+                                        <button key={block.id} onClick={() => toggleBlock(block.id)}
+                                            className={`p-2.5 rounded-xl border-2 text-left transition-all hover:scale-[1.02] active:scale-[0.98] ${selected ? `${tc.border} ${tc.bg} opacity-50 scale-95` : `border-border hover:${tc.border} bg-card hover:${tc.bg}`}`}
+                                        >
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <div className={`w-7 h-7 rounded-lg ${block.bgColor} flex items-center justify-center shadow-sm`}>
+                                                    <Icon className={`h-3.5 w-3.5 ${block.color}`} />
                                                 </div>
-                                            )}
-                                            <div className={`rounded-xl p-3 border-2 transition-all duration-500 ${isActive ? `${tc.border} ${tc.bg} shadow-lg ${tc.glow}` : isDone ? "border-emerald-500/40 bg-emerald-500/5" : "border-border bg-muted/20"}`}>
-                                                <div className="flex items-center gap-3">
-                                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? block.bgColor : isDone ? "bg-emerald-500/20" : "bg-muted"}`}>
-                                                        {isDone ? <CheckCircle2 className="h-4 w-4 text-emerald-500" /> : <span className="text-lg">{block.emoji}</span>}
-                                                    </div>
-                                                    <div className="flex-1">
-                                                        <div className="flex items-center gap-2">
-                                                            <p className={`text-xs font-bold ${isDone ? "text-emerald-500" : isActive ? tc.color : "text-muted-foreground"}`}>{block.label}</p>
-                                                            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${tc.bg} ${tc.color}`}>{tc.label}</span>
-                                                        </div>
-                                                        {(isActive || isDone) && (
-                                                            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={`text-[11px] mt-0.5 font-mono ${isDone ? "text-emerald-400" : "text-muted-foreground"}`}>
-                                                                {block.executionText}
-                                                            </motion.p>
-                                                        )}
-                                                    </div>
-                                                    {isActive && (
-                                                        <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }}>
-                                                            <Cpu className="h-4 w-4 text-violet-400" />
-                                                        </motion.div>
-                                                    )}
+                                                <div className="min-w-0">
+                                                    <p className="text-xs font-bold text-foreground truncate">{block.label}</p>
+                                                    <p className={`text-[8px] font-bold uppercase ${tc.color}`}>{tc.label}</p>
                                                 </div>
                                             </div>
-                                        </motion.div>
+                                            <p className="text-[10px] text-muted-foreground leading-tight">{block.description}</p>
+                                            {selected && <p className="text-[9px] text-violet-400 font-bold mt-1">✓ In pipeline</p>}
+                                        </button>
                                     );
                                 })}
                             </div>
-                        </motion.div>
-                    )}
+                        </div>
 
-                    {/* ─── RESULT (SUCCESS) ─── */}
-                    {phase === "result" && isCorrect && (
-                        <motion.div key="result" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center min-h-[380px] text-center space-y-3">
-                            <motion.div animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 0.8, repeat: 2 }} className="text-5xl">🎉</motion.div>
-                            <h4 className="text-xl font-bold text-foreground">Workflow Complete!</h4>
-                            <p className="text-sm text-muted-foreground">Level {level.id} automation running perfectly</p>
-
-                            {/* Stars */}
-                            <div className="flex items-center gap-2 py-2">
-                                {[1, 2, 3].map(s => {
-                                    const earned = attempts === 1 ? 3 : attempts === 2 ? 2 : 1;
-                                    return (
-                                        <motion.div key={s} initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: s * 0.2, type: "spring" }}>
-                                            <Star className={`h-8 w-8 ${s <= earned ? "text-yellow-400 fill-yellow-400 drop-shadow-[0_0_6px_rgba(250,204,21,0.4)]" : "text-muted-foreground/20"}`} />
-                                        </motion.div>
-                                    );
-                                })}
+                        {/* Hint */}
+                        {showHint && (
+                            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-2.5 flex items-start gap-2 animate-fade-in-up">
+                                <Lightbulb className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
+                                <p className="text-[11px] text-amber-600 dark:text-amber-400">{level.challenge.hint}</p>
                             </div>
+                        )}
 
-                            <div className="bg-muted/30 rounded-xl p-3 w-full max-w-xs space-y-1.5">
-                                <div className="flex justify-between text-xs"><span className="text-muted-foreground">XP Earned</span><span className="font-bold text-violet-400">+{level.xpReward}</span></div>
-                                <div className="flex justify-between text-xs"><span className="text-muted-foreground">Time</span><span className="font-bold">{timer}s</span></div>
-                                <div className="flex justify-between text-xs"><span className="text-muted-foreground">Attempts</span><span className="font-bold">{attempts}</span></div>
-                                {streak > 1 && <div className="flex justify-between text-xs"><span className="text-muted-foreground">Streak</span><span className="font-bold text-orange-400">🔥 {streak}</span></div>}
-                            </div>
-
-                            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={advance}
-                                className="bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold py-2.5 px-6 rounded-full text-sm flex items-center gap-2 shadow-lg"
-                            >
-                                {currentLevel >= levels.length - 1 ? "🏆 See Results" : "Next Mission"} <ChevronRight className="h-4 w-4" />
-                            </motion.button>
-                        </motion.div>
-                    )}
-
-                    {/* ─── VICTORY ─── */}
-                    {phase === "victory" && (
-                        <motion.div key="victory" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center min-h-[400px] text-center space-y-4">
-                            <motion.div animate={{ scale: [1, 1.15, 1], rotate: [0, 5, -5, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-6xl">🏆</motion.div>
-                            <h4 className="text-2xl font-bold text-foreground">Automation Master!</h4>
-                            <p className="text-sm text-muted-foreground max-w-xs">You&apos;ve mastered all 5 levels of AI workflow automation!</p>
-
-                            <div className="bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-indigo-500/10 border border-violet-500/20 rounded-xl p-4 w-full max-w-xs">
-                                <div className="flex items-center justify-center gap-2 mb-3">
-                                    <Flame className="h-5 w-5 text-orange-400" />
-                                    <span className="text-2xl font-bold text-foreground">{totalXp} XP</span>
-                                </div>
-                                <div className="grid grid-cols-5 gap-1 mb-3">
-                                    {levels.map((_, i) => (
-                                        <div key={i} className="flex justify-center gap-0.5">
-                                            {[1, 2, 3].map(s => (<Star key={s} className={`h-2.5 w-2.5 ${s <= (levelStars[i] || 0) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/20"}`} />))}
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="space-y-0.5 text-[11px] text-muted-foreground">
-                                    <p>✅ Triggers & Actions</p>
-                                    <p>✅ Smart Conditions</p>
-                                    <p>✅ Multi-Step Pipelines</p>
-                                    <p>✅ AI-Powered Agents</p>
-                                    <p>✅ Master Pipeline</p>
-                                </div>
-                            </div>
-
-                            <p className="text-xs text-muted-foreground max-w-xs">Now you understand how <span className="font-bold text-primary">Atul Automation</span> builds real-world AI workflows!</p>
-
-                            <div className="flex gap-2">
-                                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={reset}
-                                    className="bg-gradient-to-r from-violet-500 to-purple-600 text-white font-bold py-2 px-5 rounded-full flex items-center gap-1.5 text-sm"
+                        {/* Wrong answer feedback */}
+                        {showResult && !isCorrect && (
+                            <div className="bg-red-500/10 border-2 border-red-500/30 rounded-xl p-3 text-center animate-fade-in-up">
+                                <XCircle className="h-6 w-6 text-red-500 mx-auto mb-1" />
+                                <p className="font-bold text-sm text-red-600 dark:text-red-400">Not quite right!</p>
+                                <p className="text-[11px] text-muted-foreground mt-0.5">Check the order and remove wrong blocks</p>
+                                <button onClick={retry}
+                                    className="mt-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-bold py-1.5 px-5 rounded-full text-xs hover:scale-105 active:scale-95 transition-transform"
                                 >
-                                    <RotateCcw className="h-3.5 w-3.5" /> Play Again
-                                </motion.button>
+                                    Try Again
+                                </button>
                             </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        )}
+
+                        {/* Check button */}
+                        {!showResult && selectedBlocks.length > 0 && (
+                            <div className="text-center pt-1">
+                                <button onClick={checkAnswer}
+                                    className="bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-bold py-2.5 px-8 rounded-full shadow-lg hover:shadow-violet-500/25 transition-all text-sm hover:scale-105 active:scale-95 transform"
+                                >
+                                    ▶ Run Workflow
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* ─── EXECUTING ─── */}
+                {phase === "executing" && (
+                    <div key="executing" className="space-y-4 animate-fade-in">
+                        <div className="text-center mb-2">
+                            <h4 className="text-lg font-bold text-foreground">⚙️ Running Workflow...</h4>
+                            <p className="text-xs text-muted-foreground">Watch your automation execute in real-time</p>
+                        </div>
+
+                        <div className="space-y-1">
+                            {selectedBlocks.map((blockId, i) => {
+                                const block = level.challenge.blocks.find(b => b.id === blockId)!;
+                                const tc = typeConfig[block.type];
+                                const isActive = executingStep === i;
+                                const isDone = executingStep > i;
+
+                                return (
+                                    <div key={blockId} className={`transition-all duration-300 ${isDone || isActive ? "opacity-100 translate-x-0" : "opacity-30 -translate-x-2"}`}>
+                                        {i > 0 && (
+                                            <div className="flex justify-center py-1">
+                                                <div className={`w-0.5 h-4 bg-violet-500 rounded-full origin-top transition-all duration-300 ${isDone ? "opacity-100 scale-y-100" : "opacity-30 scale-y-50"}`} />
+                                            </div>
+                                        )}
+                                        <div className={`rounded-xl p-3 border-2 transition-all duration-500 ${isActive ? `${tc.border} ${tc.bg} shadow-lg ${tc.glow}` : isDone ? "border-emerald-500/40 bg-emerald-500/5" : "border-border bg-muted/20"}`}>
+                                            <div className="flex items-center gap-3">
+                                                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isActive ? block.bgColor : isDone ? "bg-emerald-500/20" : "bg-muted"}`}>
+                                                    {isDone ? <CheckCircle2 className="h-4 w-4 text-emerald-500" /> : <span className="text-lg">{block.emoji}</span>}
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-2">
+                                                        <p className={`text-xs font-bold ${isDone ? "text-emerald-500" : isActive ? tc.color : "text-muted-foreground"}`}>{block.label}</p>
+                                                        <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${tc.bg} ${tc.color}`}>{tc.label}</span>
+                                                    </div>
+                                                    {(isActive || isDone) && (
+                                                        <p className={`text-[11px] mt-0.5 font-mono animate-fade-in ${isDone ? "text-emerald-400" : "text-muted-foreground"}`}>
+                                                            {block.executionText}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                                {isActive && (
+                                                    <div className="animate-spin">
+                                                        <Cpu className="h-4 w-4 text-violet-400" />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+
+                {/* ─── RESULT (SUCCESS) ─── */}
+                {phase === "result" && isCorrect && (
+                    <div key="result" className="flex flex-col items-center justify-center min-h-[380px] text-center space-y-3 animate-fade-in-up">
+                        <div className="text-5xl animate-bounce">🎉</div>
+                        <h4 className="text-xl font-bold text-foreground">Workflow Complete!</h4>
+                        <p className="text-sm text-muted-foreground">Level {level.id} automation running perfectly</p>
+
+                        {/* Stars */}
+                        <div className="flex items-center gap-2 py-2">
+                            {[1, 2, 3].map(s => {
+                                const earned = attempts === 1 ? 3 : attempts === 2 ? 2 : 1;
+                                return (
+                                    <div key={s} className="transform transition-all" style={{ transitionDelay: `${s * 200}ms` }}>
+                                        <Star className={`h-8 w-8 ${s <= earned ? "text-yellow-400 fill-yellow-400 drop-shadow-[0_0_6px_rgba(250,204,21,0.4)]" : "text-muted-foreground/20"}`} />
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        <div className="bg-muted/30 rounded-xl p-3 w-full max-w-xs space-y-1.5">
+                            <div className="flex justify-between text-xs"><span className="text-muted-foreground">XP Earned</span><span className="font-bold text-violet-400">+{level.xpReward}</span></div>
+                            <div className="flex justify-between text-xs"><span className="text-muted-foreground">Time</span><span className="font-bold">{timer}s</span></div>
+                            <div className="flex justify-between text-xs"><span className="text-muted-foreground">Attempts</span><span className="font-bold">{attempts}</span></div>
+                            {streak > 1 && <div className="flex justify-between text-xs"><span className="text-muted-foreground">Streak</span><span className="font-bold text-orange-400">🔥 {streak}</span></div>}
+                        </div>
+
+                        <button onClick={advance}
+                            className="bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold py-2.5 px-6 rounded-full text-sm flex items-center gap-2 shadow-lg hover:scale-105 active:scale-95 transition-transform"
+                        >
+                            {currentLevel >= levels.length - 1 ? "🏆 See Results" : "Next Mission"} <ChevronRight className="h-4 w-4" />
+                        </button>
+                    </div>
+                )}
+
+                {/* ─── VICTORY ─── */}
+                {phase === "victory" && (
+                    <div key="victory" className="flex flex-col items-center justify-center min-h-[400px] text-center space-y-4 animate-fade-in-up">
+                        <div className="text-6xl animate-bounce">🏆</div>
+                        <h4 className="text-2xl font-bold text-foreground">Automation Master!</h4>
+                        <p className="text-sm text-muted-foreground max-w-xs">You&apos;ve mastered all 5 levels of AI workflow automation!</p>
+
+                        <div className="bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-indigo-500/10 border border-violet-500/20 rounded-xl p-4 w-full max-w-xs">
+                            <div className="flex items-center justify-center gap-2 mb-3">
+                                <Flame className="h-5 w-5 text-orange-400" />
+                                <span className="text-2xl font-bold text-foreground">{totalXp} XP</span>
+                            </div>
+                            <div className="grid grid-cols-5 gap-1 mb-3">
+                                {levels.map((_, i) => (
+                                    <div key={i} className="flex justify-center gap-0.5">
+                                        {[1, 2, 3].map(s => (<Star key={s} className={`h-2.5 w-2.5 ${s <= (levelStars[i] || 0) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/20"}`} />))}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="space-y-0.5 text-[11px] text-muted-foreground">
+                                <p>✅ Triggers & Actions</p>
+                                <p>✅ Smart Conditions</p>
+                                <p>✅ Multi-Step Pipelines</p>
+                                <p>✅ AI-Powered Agents</p>
+                                <p>✅ Master Pipeline</p>
+                            </div>
+                        </div>
+
+                        <p className="text-xs text-muted-foreground max-w-xs">Now you understand how <span className="font-bold text-primary">Atul Automation</span> builds real-world AI workflows!</p>
+
+                        <div className="flex gap-2">
+                            <button onClick={reset}
+                                className="bg-gradient-to-r from-violet-500 to-purple-600 text-white font-bold py-2 px-5 rounded-full flex items-center gap-1.5 text-sm hover:scale-105 active:scale-95 transition-transform"
+                            >
+                                <RotateCcw className="h-3.5 w-3.5" /> Play Again
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

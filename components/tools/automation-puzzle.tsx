@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Check, X, RefreshCw, ChevronRight, Zap, Trophy } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 type GateType = "AND" | "OR" | "XOR" | "NAND";
 
@@ -80,9 +79,9 @@ export function AutomationPuzzle() {
     if (allDone) {
         return (
             <div className="border border-border rounded-2xl bg-card p-6 flex flex-col items-center justify-center text-center min-h-[300px]">
-                <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                <div className="animate-bounce">
                     <Trophy className="h-12 w-12 text-yellow-400 mb-3" />
-                </motion.div>
+                </div>
                 <h3 className="font-bold text-lg text-foreground mb-1">All Gates Mastered!</h3>
                 <p className="text-xs text-muted-foreground mb-4">You understand logic gates 🎉</p>
                 <button onClick={resetAll} className="text-xs font-bold text-primary hover:underline flex items-center gap-1">
@@ -122,87 +121,73 @@ export function AutomationPuzzle() {
                     {/* Inputs */}
                     <div className="flex flex-col gap-4">
                         {inputs.map((val, i) => (
-                            <motion.button
+                            <button
                                 key={i}
-                                whileTap={{ scale: 0.9 }}
                                 onClick={() => toggleInput(i)}
-                                className={`w-14 h-14 rounded-xl border-2 flex flex-col items-center justify-center transition-all duration-300 text-xs font-bold gap-0.5 ${val
+                                className={`w-14 h-14 rounded-xl border-2 flex flex-col items-center justify-center transition-all duration-300 transform active:scale-95 text-xs font-bold gap-0.5 ${val
                                     ? "bg-primary/20 border-primary text-primary shadow-[0_0_15px_rgba(249,115,22,0.3)]"
                                     : "bg-muted border-border text-muted-foreground hover:border-primary/40"
                                     }`}
                             >
                                 <Zap className={`h-4 w-4 ${val ? "text-primary" : ""}`} />
                                 {val ? "ON" : "OFF"}
-                            </motion.button>
+                            </button>
                         ))}
                     </div>
 
                     {/* Wires to gate */}
                     <div className="flex flex-col gap-4 relative">
-                        <motion.div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${inputs[0] ? "bg-primary" : "bg-border"}`}
-                            animate={inputs[0] ? { opacity: [0.5, 1, 0.5] } : {}} transition={{ duration: 1, repeat: Infinity }} />
-                        <motion.div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${inputs[1] ? "bg-primary" : "bg-border"}`}
-                            animate={inputs[1] ? { opacity: [0.5, 1, 0.5] } : {}} transition={{ duration: 1, repeat: Infinity }} />
+                        <div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${inputs[0] ? "bg-primary animate-pulse" : "bg-border"}`} />
+                        <div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${inputs[1] ? "bg-primary animate-pulse" : "bg-border"}`} />
                         {/* Joiner */}
                         <div className={`absolute top-0 bottom-0 right-0 w-0.5 transition-colors duration-300 ${output ? "bg-cyan-500" : "bg-border"}`} />
                     </div>
 
                     {/* Gate */}
-                    <motion.div
-                        animate={output ? { scale: [1, 1.08, 1] } : {}}
-                        transition={{ duration: 0.8, repeat: output ? Infinity : 0 }}
+                    <div
                         className={`w-16 h-16 rounded-2xl border-2 flex items-center justify-center font-bold text-sm transition-all duration-300 ${output
-                            ? "bg-cyan-500/20 border-cyan-500 text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+                            ? "bg-cyan-500/20 border-cyan-500 text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)] scale-105"
                             : "bg-card border-border text-muted-foreground"
                             }`}
                     >
                         {puzzle.gate}
-                    </motion.div>
+                    </div>
 
                     {/* Wire to output */}
-                    <motion.div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${output ? "bg-emerald-500" : "bg-border"}`}
-                        animate={output ? { opacity: [0.5, 1, 0.5] } : {}} transition={{ duration: 0.8, repeat: Infinity }} />
+                    <div className={`w-8 h-0.5 rounded-full transition-colors duration-300 ${output ? "bg-emerald-500 animate-pulse" : "bg-border"}`} />
 
                     {/* Output */}
-                    <motion.div
-                        animate={output ? { scale: [1, 1.05, 1] } : {}}
-                        transition={{ duration: 0.6, repeat: output ? Infinity : 0 }}
+                    <div
                         className={`w-14 h-14 rounded-xl border-2 flex items-center justify-center transition-all duration-300 ${output
-                            ? "bg-emerald-500/20 border-emerald-500 text-emerald-400 shadow-[0_0_15px_rgba(34,197,94,0.4)]"
+                            ? "bg-emerald-500/20 border-emerald-500 text-emerald-400 shadow-[0_0_15px_rgba(34,197,94,0.4)] scale-105"
                             : "bg-muted border-border text-muted-foreground"
                             }`}
                     >
                         {output ? <Check className="h-6 w-6" /> : <X className="h-6 w-6" />}
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Success message or hint */}
-                <div className="mt-4 h-10 flex items-center">
-                    <AnimatePresence mode="wait">
-                        {showSuccess ? (
-                            <motion.p key="success" initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="text-emerald-500 font-bold text-sm flex items-center gap-1">
-                                <Check className="h-4 w-4" /> Automation Fired! 🎉
-                            </motion.p>
-                        ) : (
-                            <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[11px] text-muted-foreground text-center">
-                                💡 {puzzle.truthTable}
-                            </motion.p>
-                        )}
-                    </AnimatePresence>
+                <div className="mt-4 h-10 flex items-center justify-center w-full">
+                    {showSuccess ? (
+                        <p className="text-emerald-500 font-bold text-sm flex items-center gap-1 animate-fade-in-up">
+                            <Check className="h-4 w-4" /> Automation Fired! 🎉
+                        </p>
+                    ) : (
+                        <p className="text-[11px] text-muted-foreground text-center animate-fade-in">
+                            💡 {puzzle.truthTable}
+                        </p>
+                    )}
                 </div>
 
                 {/* Next puzzle button */}
                 {solved && (
-                    <motion.button
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                    <button
                         onClick={nextPuzzle}
-                        className="mt-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold text-xs py-2 px-5 rounded-full flex items-center gap-1"
+                        className="mt-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold text-xs py-2 px-5 rounded-full flex items-center gap-1 hover:scale-105 active:scale-95 transition-transform animate-fade-in-up"
                     >
                         Next Puzzle <ChevronRight className="h-3.5 w-3.5" />
-                    </motion.button>
+                    </button>
                 )}
             </div>
         </div>

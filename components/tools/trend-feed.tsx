@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { TrendingUp, Clock, ArrowRight, ExternalLink, MessageSquare, Heart, Flame, Sparkles, Bot, Zap, Code } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 type Category = "all" | "ai" | "tools" | "guides";
 
@@ -78,43 +77,37 @@ export function TrendFeed() {
 
             {/* Feed */}
             <div className="flex-1 overflow-y-auto max-h-[320px] p-2.5 space-y-1.5">
-                <AnimatePresence mode="popLayout">
-                    {filtered.map((item, i) => (
-                        <motion.div
-                            key={item.id}
-                            layout
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ delay: i * 0.05 }}
-                            className="group p-2.5 rounded-xl border border-transparent hover:border-border hover:bg-muted/30 transition-all cursor-pointer"
-                        >
-                            <div className="flex items-start gap-2.5">
-                                <div className="text-lg mt-0.5">{item.emoji}</div>
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-1.5 mb-0.5">
-                                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${item.tagColor}`}>
-                                            {item.tag}
+                {filtered.map((item, i) => (
+                    <div
+                        key={item.id}
+                        className="group p-2.5 rounded-xl border border-transparent hover:border-border hover:bg-muted/30 transition-all cursor-pointer animate-fade-in"
+                        style={{ animationDelay: `${i * 50}ms` }}
+                    >
+                        <div className="flex items-start gap-2.5">
+                            <div className="text-lg mt-0.5">{item.emoji}</div>
+                            <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5 mb-0.5">
+                                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${item.tagColor}`}>
+                                        {item.tag}
+                                    </span>
+                                    {item.hot && (
+                                        <span className="text-[9px] font-bold text-orange-400 flex items-center gap-0.5">
+                                            <Flame className="h-3 w-3" /> HOT
                                         </span>
-                                        {item.hot && (
-                                            <span className="text-[9px] font-bold text-orange-400 flex items-center gap-0.5">
-                                                <Flame className="h-3 w-3" /> HOT
-                                            </span>
-                                        )}
-                                    </div>
-                                    <h4 className="text-xs font-medium text-foreground group-hover:text-primary transition-colors leading-snug line-clamp-2">
-                                        {item.title}
-                                    </h4>
-                                    <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
-                                        <span className="flex items-center gap-0.5"><Clock className="h-3 w-3" /> {item.time}</span>
-                                        <span className="flex items-center gap-0.5"><Heart className="h-3 w-3" /> {item.likes}</span>
-                                        <span className="flex items-center gap-0.5"><MessageSquare className="h-3 w-3" /> {item.comments}</span>
-                                    </div>
+                                    )}
+                                </div>
+                                <h4 className="text-xs font-medium text-foreground group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                                    {item.title}
+                                </h4>
+                                <div className="flex items-center gap-3 mt-1.5 text-[10px] text-muted-foreground">
+                                    <span className="flex items-center gap-0.5"><Clock className="h-3 w-3" /> {item.time}</span>
+                                    <span className="flex items-center gap-0.5"><Heart className="h-3 w-3" /> {item.likes}</span>
+                                    <span className="flex items-center gap-0.5"><MessageSquare className="h-3 w-3" /> {item.comments}</span>
                                 </div>
                             </div>
-                        </motion.div>
-                    ))}
-                </AnimatePresence>
+                        </div>
+                    </div>
+                ))}
             </div>
 
             {/* Footer */}

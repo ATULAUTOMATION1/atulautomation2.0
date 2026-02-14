@@ -3,7 +3,6 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Check, Download, ExternalLink, Play, Mail, Brain, Database, UserCheck, MessageSquare, BarChart, Zap, Globe, Cog, MousePointer, Building, Search, Eye, TrendingUp } from "lucide-react";
-import { motion } from "framer-motion";
 import { WorkflowBuilder } from "@/components/modules/workflow-builder";
 import { WorkflowVisualizer } from "@/components/modules/workflow-visualizer";
 
@@ -195,11 +194,7 @@ export default function ServiceDetailPage() {
                     <Link href="/capabilities" className="inline-flex items-center text-muted-foreground hover:text-primary mb-6 transition-colors">
                         <ArrowLeft className="h-4 w-4 mr-2" /> Back to All Services
                     </Link>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
+                    <div className="animate-fade-in-up">
                         <h1 className="text-4xl md:text-6xl font-bold mb-4">{data.title}</h1>
                         <p className="text-xl md:text-2xl text-primary font-medium mb-6">{data.subtitle}</p>
                         <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed mb-6">
@@ -215,7 +210,7 @@ export default function ServiceDetailPage() {
                                 View Pricing
                             </a>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Workflow Visualization Section */}
