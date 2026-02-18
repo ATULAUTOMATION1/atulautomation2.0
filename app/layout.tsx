@@ -39,6 +39,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Use environment variable or fallback to the provided ID
+const GOOGLE_ADSENSE_ID = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || "pub-5677457553651550";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -48,10 +51,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
         {/* Google AdSense */}
-        {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID && (
+        {GOOGLE_ADSENSE_ID && (
           <Script
             async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID}`}
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${GOOGLE_ADSENSE_ID}`}
             crossOrigin="anonymous"
             strategy="afterInteractive"
           />
