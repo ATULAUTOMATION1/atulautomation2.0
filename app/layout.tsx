@@ -46,14 +46,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <head>
-        {/* Google AdSense — appears in raw HTML source for verification */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
-          crossOrigin="anonymous"
-        />
-      </head>
+      <head />
+      {/* Google AdSense — beforeInteractive renders in initial HTML like _document.js */}
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
+        crossOrigin="anonymous"
+        strategy="beforeInteractive"
+      />
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <ThemeProvider
           attribute="class"
