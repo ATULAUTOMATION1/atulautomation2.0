@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter, Outfit } from 'next/font/google';
-import Script from 'next/script';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/layout/navbar';
@@ -19,11 +18,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Atul Automation | The Future of Work',
     description: 'Transform your business with autonomous AI agents.',
-    url: 'https://atulautomation.com', // Placeholder URL
+    url: 'https://atulautomation.com',
     siteName: 'Atul Automation',
     images: [
       {
-        url: '/og-image.jpg', // Placeholder
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
       },
@@ -46,14 +45,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <head />
-      {/* Google AdSense — beforeInteractive renders in initial HTML like _document.js */}
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
-        crossOrigin="anonymous"
-        strategy="beforeInteractive"
-      />
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <ThemeProvider
           attribute="class"
