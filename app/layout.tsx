@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Outfit } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/layout/navbar';
@@ -11,30 +12,117 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
 export const metadata: Metadata = {
-  title: 'Atul Automation | AI Agents & Workflow Automation',
-  description: 'Deploy intelligent AI agents, automate workflows, and scale your business with Atul Automation using the power of ChatGPT, Claude, and custom LLMs.',
-  keywords: ['AI Automation', 'Workflow Automation', 'ChatGPT Agents', 'Business Automation', 'No-code AI'],
-  authors: [{ name: 'Atul Automation' }],
+  metadataBase: new URL('https://atulautomation.in'),
+  title: {
+    default: 'Atul Automation | AI Agents & Workflow Automation Agency',
+    template: '%s | Atul Automation',
+  },
+  description: 'India\'s leading AI automation agency. We build intelligent AI agents, chatbots, workflow automation, and data-driven marketing solutions. Deploy GPT-4, Claude & custom LLMs to automate your business operations 24/7.',
+  keywords: [
+    'AI Automation', 'Workflow Automation', 'ChatGPT Agents', 'Business Automation',
+    'No-code AI', 'AI Chatbot Development', 'Marketing Automation', 'CRM Automation',
+    'AI Agency India', 'Atul Automation', 'GPT-4 Integration', 'Claude AI',
+    'Lead Generation AI', 'Sales Automation', 'WhatsApp Bot', 'Customer Support AI',
+    'Real Estate Automation', 'E-commerce Automation', 'Digital Marketing AI',
+  ],
+  authors: [{ name: 'Atul Automation', url: 'https://atulautomation.in' }],
+  creator: 'Atul Automation',
+  publisher: 'Atul Automation',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'Atul Automation | The Future of Work',
-    description: 'Transform your business with autonomous AI agents.',
-    url: 'https://atulautomation.com',
+    title: 'Atul Automation | AI Agents & Workflow Automation Agency',
+    description: 'Deploy intelligent AI agents that automate your marketing, sales & support 24/7. Transform your business with the power of AI.',
+    url: 'https://atulautomation.in',
     siteName: 'Atul Automation',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
+        alt: 'Atul Automation - AI Agents & Workflow Automation',
       },
     ],
-    locale: 'en_US',
+    locale: 'en_IN',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Atul Automation',
-    description: 'AI Agents & Workflow Automation',
+    title: 'Atul Automation | AI Automation Agency',
+    description: 'AI Agents, Chatbots & Workflow Automation for businesses. Automate everything.',
     creator: '@atulautomation',
+    images: ['/og-image.jpg'],
+  },
+  alternates: {
+    canonical: 'https://atulautomation.in',
+  },
+  verification: {
+    google: 'your-google-verification-code', // Replace when you have it
+  },
+  category: 'Technology',
+};
+
+// Structured Data (JSON-LD) for rich search results
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Atul Automation',
+  url: 'https://atulautomation.in',
+  logo: 'https://atulautomation.in/og-image.jpg',
+  description: 'AI Automation Agency specializing in AI agents, chatbots, workflow automation, and data-driven marketing.',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'hello@atulautomation.com',
+    contactType: 'customer service',
+    availableLanguage: ['English', 'Hindi'],
+  },
+  sameAs: [
+    'https://twitter.com/atulautomation',
+    'https://linkedin.com/company/atulautomation',
+    'https://instagram.com/atulautomation',
+  ],
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'INR',
+    lowPrice: '4999',
+    highPrice: '49999',
+    offerCount: '6',
+  },
+};
+
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'AI Automation & Chatbot Development',
+  provider: {
+    '@type': 'Organization',
+    name: 'Atul Automation',
+    url: 'https://atulautomation.in',
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'India',
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'AI Automation Services',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Agents' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Chatbot Development' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Workflow Automation' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Marketing' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'CRM Integration' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Real Estate Automation' } },
+    ],
   },
 };
 
@@ -46,13 +134,24 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
+        {/* Structured Data for SEO */}
         <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
-          crossOrigin="anonymous"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
         />
       </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
+        {/* Google AdSense — loads safely after page is interactive (no crash) */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
