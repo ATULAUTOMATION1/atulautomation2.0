@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/ads.txt",
-        destination: "https://monetumo.com/ads-txt/atulautomation-com",
+        destination: "/api/ads-txt",
       },
     ];
   },
