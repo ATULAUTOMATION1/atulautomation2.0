@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter, Outfit } from 'next/font/google';
-import Script from 'next/script';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/layout/navbar';
@@ -12,7 +11,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://atulautomation.in'),
+  metadataBase: new URL('https://atulautomation.com'),
   title: {
     default: 'Atul Automation | AI Agents & Workflow Automation Agency',
     template: '%s | Atul Automation',
@@ -25,7 +24,7 @@ export const metadata: Metadata = {
     'Lead Generation AI', 'Sales Automation', 'WhatsApp Bot', 'Customer Support AI',
     'Real Estate Automation', 'E-commerce Automation', 'Digital Marketing AI',
   ],
-  authors: [{ name: 'Atul Automation', url: 'https://atulautomation.in' }],
+  authors: [{ name: 'Atul Automation', url: 'https://atulautomation.com' }],
   creator: 'Atul Automation',
   publisher: 'Atul Automation',
   robots: {
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Atul Automation | AI Agents & Workflow Automation Agency',
     description: 'Deploy intelligent AI agents that automate your marketing, sales & support 24/7. Transform your business with the power of AI.',
-    url: 'https://atulautomation.in',
+    url: 'https://atulautomation.com',
     siteName: 'Atul Automation',
     images: [
       {
@@ -63,7 +62,7 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   alternates: {
-    canonical: 'https://atulautomation.in',
+    canonical: 'https://atulautomation.com',
   },
   verification: {
     google: 'your-google-verification-code', // Replace when you have it
@@ -76,8 +75,8 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Atul Automation',
-  url: 'https://atulautomation.in',
-  logo: 'https://atulautomation.in/og-image.jpg',
+  url: 'https://atulautomation.com',
+  logo: 'https://atulautomation.com/og-image.jpg',
   description: 'AI Automation Agency specializing in AI agents, chatbots, workflow automation, and data-driven marketing.',
   contactPoint: {
     '@type': 'ContactPoint',
@@ -106,7 +105,7 @@ const serviceJsonLd = {
   provider: {
     '@type': 'Organization',
     name: 'Atul Automation',
-    url: 'https://atulautomation.in',
+    url: 'https://atulautomation.com',
   },
   areaServed: {
     '@type': 'Country',
@@ -134,12 +133,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
-        {/* Google AdSense — Raw script tag as requested by user */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
-          crossOrigin="anonymous"
-        />
         {/* Structured Data for SEO */}
         <script
           type="application/ld+json"
@@ -149,6 +142,18 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
         />
+        {/* Monetumo Integration */}
+        <link rel="stylesheet" href="https://b-cdn.monetumo.com/cls-css/atulautomation-com.css" />
+        <script src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js" data-cfasync="false"></script>
+        <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+        <script defer src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js" data-cfasync="false"></script>
+
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <ThemeProvider

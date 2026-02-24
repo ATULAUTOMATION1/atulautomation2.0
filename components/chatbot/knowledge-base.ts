@@ -11,7 +11,7 @@ export interface KBEntry {
 export const COMPANY_INFO = {
     name: "Atul Automation",
     tagline: "AI-Powered Automation for Modern Businesses",
-    website: "atulautomation.in",
+    website: "atulautomation.com",
     email: "hello@atulautomation.com",
     founded: "2024",
     location: "India",
@@ -23,7 +23,7 @@ export const KNOWLEDGE_BASE: KBEntry[] = [
     {
         keywords: ["about you", "about atul", "about us", "what is atul", "tell me about atul", "company", "atul automation", "who are you", "introduce", "your company", "about your company", "what does atul do"],
         intent: "about",
-        response: `**Atul Automation** is a cutting-edge AI automation agency founded in 2024. We help businesses automate their operations, marketing, sales, and customer support using AI-powered solutions.\n\n🚀 **Our Mission:** Make AI accessible to every business — from startups to enterprises.\n\n📍 **Based in:** India | 🌐 **Website:** atulautomation.in\n📧 **Email:** hello@atulautomation.com\n\nWe specialize in AI Agents, Chatbots, Workflow Automation, AI Marketing, CRM Solutions, and Real Estate Automation.`,
+        response: `**Atul Automation** is a cutting-edge AI automation agency founded in 2024. We help businesses automate their operations, marketing, sales, and customer support using AI-powered solutions.\n\n🚀 **Our Mission:** Make AI accessible to every business — from startups to enterprises.\n\n📍 **Based in:** India | 🌐 **Website:** atulautomation.com\n📧 **Email:** hello@atulautomation.com\n\nWe specialize in AI Agents, Chatbots, Workflow Automation, AI Marketing, CRM Solutions, and Real Estate Automation.`,
         followUp: ["What services do you offer?", "How can you help my business?", "Tell me about AI automation"],
     },
 
@@ -111,7 +111,7 @@ export const KNOWLEDGE_BASE: KBEntry[] = [
     {
         keywords: ["contact", "reach", "call", "email", "phone", "get in touch", "book", "consultation", "meeting", "talk", "connect", "hire"],
         intent: "contact",
-        response: `**Get in Touch with Us!** 📞\n\n📧 **Email:** hello@atulautomation.com\n🌐 **Website:** atulautomation.in\n\n**How to Reach Us:**\n1️⃣ Fill out the **Contact Form** on our website (scroll to the contact section)\n2️⃣ Email us directly at hello@atulautomation.com\n3️⃣ Send us a message on WhatsApp\n\n🕐 **Response Time:** We typically respond within 2-4 hours during business hours.\n\n📋 **What to Include:**\n• Your business / industry\n• What you want to automate\n• Your approximate budget\n• Timeline expectations\n\nWe offer a **free 30-minute consultation** to understand your needs and propose the best solution!`,
+        response: `**Get in Touch with Us!** 📞\n\n📧 **Email:** hello@atulautomation.com\n🌐 **Website:** atulautomation.com\n\n**How to Reach Us:**\n1️⃣ Fill out the **Contact Form** on our website (scroll to the contact section)\n2️⃣ Email us directly at hello@atulautomation.com\n3️⃣ Send us a message on WhatsApp\n\n🕐 **Response Time:** We typically respond within 2-4 hours during business hours.\n\n📋 **What to Include:**\n• Your business / industry\n• What you want to automate\n• Your approximate budget\n• Timeline expectations\n\nWe offer a **free 30-minute consultation** to understand your needs and propose the best solution!`,
         followUp: ["What services do you offer?", "Tell me about pricing", "Where are you located?"],
     },
 

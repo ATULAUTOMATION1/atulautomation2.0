@@ -117,7 +117,7 @@ WHY CHOOSE ATUL AUTOMATION:
 
 CONTACT INFORMATION:
 - Email: hello@atulautomation.com
-- Website: atulautomation.in
+- Website: atulautomation.com
 - Response time: 2-4 hours during business hours
 - Free 30-minute consultation available
 - Contact form available on the website
