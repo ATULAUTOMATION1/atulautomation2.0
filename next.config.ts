@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       {
         source: "/ads.txt",
         destination: "https://monetumo.com/ads-txt/atulautomation-com",
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },
