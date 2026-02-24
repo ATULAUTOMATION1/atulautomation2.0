@@ -1,0 +1,27 @@
+name: Remote Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Hostinger via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: 22
+          script: |
+            cd ~/domains/atulautomation.com/nodejs || cd ~/atul-automation-new
+            git pull origin main
+            npm install
+            npm run build
+            pm2 restart atul-automation || pm2 start ecosystem.config.js --name atul-automation
