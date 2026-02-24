@@ -5,12 +5,11 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  async redirects() {
+  async rewrites() {
     return [
       {
         source: "/ads.txt",
         destination: "https://monetumo.com/ads-txt/atulautomation-com",
-        statusCode: 301,
       },
     ];
   },
