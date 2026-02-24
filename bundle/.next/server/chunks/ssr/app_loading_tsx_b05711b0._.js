@@ -1,0 +1,3 @@
+module.exports=[63588,a=>{"use strict";var b=a.i(7997);function c(){return(0,b.jsx)("div",{className:"flex items-center justify-center min-h-screen",children:(0,b.jsxs)("div",{className:"relative h-12 w-12",children:[(0,b.jsx)("div",{className:"absolute inset-0 rounded-full border-4 border-primary/20"}),(0,b.jsx)("div",{className:"absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin"})]})})}a.s(["default",()=>c])}];
+
+//# sourceMappingURL=app_loading_tsx_b05711b0._.js.map

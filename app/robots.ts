@@ -17,6 +17,6 @@ export default function robots(): MetadataRoute.Robots {
                 allow: '/',
             },
         ],
-        sitemap: 'https://atulautomation.in/sitemap.xml',
+        sitemap: 'https://atulautomation.com/sitemap.xml',
     };
 }

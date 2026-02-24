@@ -1,0 +1,12 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /private/
+
+User-Agent: Mediapartners-Google
+Allow: /
+
+User-Agent: Googlebot
+Allow: /
+
+Sitemap: https://atulautomation.in/sitemap.xml

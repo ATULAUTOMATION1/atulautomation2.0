@@ -1,0 +1,14 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/chat/route": "/api/chat",
+  "/api/contact/route": "/api/contact",
+  "/capabilities/[slug]/page": "/capabilities/[slug]",
+  "/capabilities/page": "/capabilities",
+  "/icon.svg/route": "/icon.svg",
+  "/page": "/",
+  "/privacy/page": "/privacy",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/terms/page": "/terms"
+}

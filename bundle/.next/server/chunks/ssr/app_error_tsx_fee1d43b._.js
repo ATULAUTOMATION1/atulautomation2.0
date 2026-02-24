@@ -1,0 +1,3 @@
+module.exports=[78141,a=>{"use strict";var b=a.i(87924),c=a.i(72131);function d({error:a,reset:d}){return(0,c.useEffect)(()=>{console.error(a)},[a]),(0,b.jsxs)("div",{className:"flex flex-col items-center justify-center min-h-[70vh] text-center px-4",children:[(0,b.jsx)("h2",{className:"text-2xl font-bold mb-4 font-heading",children:"Something went wrong!"}),(0,b.jsx)("p",{className:"text-muted-foreground mb-8 max-w-md",children:"We encountered an issue while processing your request."}),(0,b.jsx)("button",{onClick:()=>d(),className:"btn-primary",children:"Try again"})]})}a.s(["default",()=>d])}];
+
+//# sourceMappingURL=app_error_tsx_fee1d43b._.js.map

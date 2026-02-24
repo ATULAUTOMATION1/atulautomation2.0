@@ -2,6 +2,7 @@
 
 import { Hero } from "@/components/hero/hero";
 import { Services } from "@/components/sections/services";
+import { AdSlot } from "@/components/ui/ad-slot";
 import dynamic from "next/dynamic";
 
 // ── Lazy-load all below-fold sections ──
@@ -83,6 +84,9 @@ export default function Home() {
     <main className="min-h-screen text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
       <Hero />
       <Services />
+      <div className="container-custom">
+        <AdSlot />
+      </div>
       <FeaturedProjects />
       <AIModules />
       <InteractiveDemos />
@@ -92,9 +96,16 @@ export default function Home() {
       {/* <Pricing /> */}{/* DISABLED — re-enable when ready */}
 
       <Branding />
+      <div className="container-custom">
+        <AdSlot />
+      </div>
       <Blog />
+      <div className="container-custom">
+        <AdSlot />
+      </div>
       <Contact />
       <Community />
     </main>
   );
 }
+
