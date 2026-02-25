@@ -2,6 +2,7 @@
 
 import { Hero } from "@/components/hero/hero";
 import { Services } from "@/components/sections/services";
+import { QuizCTA } from "@/components/sections/quiz-cta";
 import { AdSlot } from "@/components/ui/ad-slot";
 import dynamic from "next/dynamic";
 
@@ -84,6 +85,7 @@ export default function Home() {
     <main className="min-h-screen text-foreground overflow-x-hidden selection:bg-primary/20 selection:text-primary">
       <Hero />
       <Services />
+      <QuizCTA />
       <div className="container-custom">
         <AdSlot />
       </div>

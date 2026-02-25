@@ -11,16 +11,17 @@ const footerLinks = {
         { name: "Workflow Automation", href: "/capabilities/workflow" },
         { name: "AI Marketing", href: "/capabilities/marketing" },
     ],
-    Company: [
-        { name: "About Us", href: "/#branding" },
-        { name: "Blog", href: "/#blog" },
-        { name: "Contact", href: "/#contact" },
+    Industries: [
+        { name: "Real Estate", href: "/industries/ai-automation-for-real-estate" },
+        { name: "E-commerce", href: "/industries/ai-automation-for-ecommerce" },
+        { name: "Healthcare", href: "/industries/ai-automation-for-healthcare" },
+        { name: "Education", href: "/industries/ai-automation-for-education" },
     ],
-    Resources: [
-        { name: "Documentation", href: "/#resources" },
-        { name: "Community", href: "/#community" },
-        { name: "Capabilities", href: "/capabilities" },
-        { name: "Projects", href: "/#projects" },
+    Tools: [
+        { name: "ROI Calculator", href: "/tools/roi-calculator" },
+        { name: "AI Readiness Quiz", href: "/tools/ai-readiness-quiz" },
+        { name: "Locations", href: "/locations" },
+        { name: "FAQ", href: "/faq" },
     ],
 };
 

@@ -180,6 +180,15 @@ export default function ROICalculator() {
                                     </p>
                                 </div>
 
+                                <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 flex items-center justify-between gap-4">
+                                    <div className="text-xs text-muted-foreground mr-2">
+                                        <strong className="text-primary">Next Step:</strong> Want to see if your business is actually ready?
+                                    </div>
+                                    <a href="/tools/ai-readiness-quiz" className="text-xs font-bold text-primary flex items-center gap-1 hover:underline whitespace-nowrap">
+                                        Take Readiness Quiz <ArrowRight className="h-3 w-3" />
+                                    </a>
+                                </div>
+
                                 <div className="space-y-3">
                                     <a
                                         href="/#contact"

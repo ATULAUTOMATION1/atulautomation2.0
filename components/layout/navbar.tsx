@@ -10,8 +10,8 @@ const navItems = [
     { name: "Services", href: "/#services" },
     { name: "Industries", href: "/industries" },
     { name: "Locations", href: "/locations" },
+    { name: "AI Quiz", href: "/tools/ai-readiness-quiz" },
     { name: "Blog", href: "/blog" },
-    { name: "FAQ", href: "/faq" },
 ];
 
 export function Navbar() {
