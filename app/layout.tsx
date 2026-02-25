@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/footer';
 import { AnimatedBackground } from '@/components/ui/animated-background';
 import { LazyChat } from '@/components/chatbot/lazy-chat';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
+import { SocialShare } from '@/components/ui/social-share';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
@@ -167,6 +168,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <LazyChat />
+          <SocialShare variant="floating" />
         </ThemeProvider>
       </body>
     </html>
