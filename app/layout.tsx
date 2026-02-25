@@ -8,6 +8,7 @@ import { AnimatedBackground } from '@/components/ui/animated-background';
 import { LazyChat } from '@/components/chatbot/lazy-chat';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import { SocialShare } from '@/components/ui/social-share';
+import { LeadCapturePopup } from '@/components/ui/lead-capture-popup';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
@@ -169,6 +170,7 @@ export default function RootLayout({
           <Footer />
           <LazyChat />
           <SocialShare variant="floating" />
+          <LeadCapturePopup />
         </ThemeProvider>
       </body>
     </html>

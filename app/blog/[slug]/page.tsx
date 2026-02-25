@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog-data';
+import { SocialShare } from '@/components/ui/social-share';
 import { Calendar, Clock, ArrowLeft, Tag, Share2 } from 'lucide-react';
 
 interface BlogPostPageProps {
@@ -253,6 +254,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                 #{tag}
                             </span>
                         ))}
+                    </div>
+                    <div className="mt-6">
+                        <SocialShare
+                            title={post.title}
+                            description={post.excerpt}
+                            url={`https://atulautomation.com/blog/${slug}`}
+                        />
                     </div>
                 </div>
 
