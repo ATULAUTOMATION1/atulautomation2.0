@@ -6,6 +6,7 @@ import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { AnimatedBackground } from '@/components/ui/animated-background';
 import { LazyChat } from '@/components/chatbot/lazy-chat';
+import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
@@ -154,6 +155,7 @@ export default function RootLayout({
         ></script>
       </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
+        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
