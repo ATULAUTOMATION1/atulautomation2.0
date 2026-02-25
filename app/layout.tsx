@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     siteName: 'Atul Automation',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'Atul Automation - AI Agents & Workflow Automation',
@@ -59,14 +59,12 @@ export const metadata: Metadata = {
     title: 'Atul Automation | AI Automation Agency',
     description: 'AI Agents, Chatbots & Workflow Automation for businesses. Automate everything.',
     creator: '@atulautomation',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.svg'],
   },
   alternates: {
     canonical: 'https://atulautomation.com',
   },
-  verification: {
-    google: 'your-google-verification-code', // Replace when you have it
-  },
+  // verification: { google: 'add-your-code-from-search-console' },
   category: 'Technology',
 };
 
@@ -76,7 +74,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'Atul Automation',
   url: 'https://atulautomation.com',
-  logo: 'https://atulautomation.com/og-image.jpg',
+  logo: 'https://atulautomation.com/og-image.svg',
   description: 'AI Automation Agency specializing in AI agents, chatbots, workflow automation, and data-driven marketing.',
   contactPoint: {
     '@type': 'ContactPoint',
