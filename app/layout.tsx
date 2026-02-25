@@ -155,7 +155,7 @@ export default function RootLayout({
         ></script>
       </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
-        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
+        <GoogleAnalytics measurementId="G-6KB8876KLQ" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
