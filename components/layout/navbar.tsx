@@ -10,6 +10,7 @@ const navItems = [
     { name: "Services", href: "/#services" },
     { name: "AI Modules", href: "/#modules-demo" },
     { name: "Playground", href: "/#interactive-demos" },
+    { name: "Blog", href: "/blog" },
     { name: "Community", href: "/#community" },
 ];
 

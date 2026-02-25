@@ -1,7 +1,24 @@
 import type { MetadataRoute } from 'next';
+import { getAllPosts } from '@/lib/blog-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://atulautomation.com';
+    const posts = getAllPosts();
+
+    const blogPages: MetadataRoute.Sitemap = [
+        {
+            url: `${baseUrl}/blog`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        ...posts.map(post => ({
+            url: `${baseUrl}/blog/${post.slug}`,
+            lastModified: new Date(post.date),
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        })),
+    ];
 
     return [
         {
@@ -52,6 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.8,
         },
+        ...blogPages,
         {
             url: `${baseUrl}/privacy`,
             lastModified: new Date(),
