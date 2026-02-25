@@ -66,7 +66,7 @@ export function SocialShare({ url, title, description, variant = 'inline' }: Soc
 
     if (variant === 'floating') {
         return (
-            <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
+            <div className="fixed bottom-6 left-6 z-40 flex flex-col items-start gap-2">
                 {isOpen && (
                     <div className="flex flex-col gap-2 animate-fade-in-up">
                         {shareLinks.map((link) => (
