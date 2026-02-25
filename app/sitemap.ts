@@ -1,11 +1,13 @@
 import type { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog-data';
 import { getAllIndustries } from '@/lib/industry-data';
+import { getAllCities } from '@/lib/city-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://atulautomation.com';
     const posts = getAllPosts();
     const industries = getAllIndustries();
+    const cities = getAllCities();
 
     return [
         // Main pages
@@ -36,8 +38,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         })),
 
+        // Locations (City-based SEO)
+        { url: `${baseUrl}/locations`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+        ...cities.map(city => ({
+            url: `${baseUrl}/locations/${city.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        })),
+
         // Free Tools
         { url: `${baseUrl}/tools/roi-calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/tools/ai-readiness-quiz`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+
+        // Info
+        { url: `${baseUrl}/faq`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
 
         // Legal
         { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },

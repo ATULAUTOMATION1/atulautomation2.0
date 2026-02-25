@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
     { name: "Services", href: "/#services" },
-    { name: "AI Modules", href: "/#modules-demo" },
-    { name: "Playground", href: "/#interactive-demos" },
+    { name: "Industries", href: "/industries" },
+    { name: "Locations", href: "/locations" },
     { name: "Blog", href: "/blog" },
-    { name: "Community", href: "/#community" },
+    { name: "FAQ", href: "/faq" },
 ];
 
 export function Navbar() {

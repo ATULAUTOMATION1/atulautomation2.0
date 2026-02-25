@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: 'Atul Automation | AI Agents & Workflow Automation Agency',
     template: '%s | Atul Automation',
   },
-  description: 'India\'s leading AI automation agency. We build intelligent AI agents, chatbots, workflow automation, and data-driven marketing solutions. Deploy GPT-4, Claude & custom LLMs to automate your business operations 24/7.',
+  description: 'India\'s best AI automation agency. Built to Automate, Designed to Scale. We build intelligent AI agents, chatbots, workflow automation, and data-driven marketing solutions. Deploy GPT-4, Claude & custom LLMs to automate your business operations 24/7.',
   keywords: [
     'AI Automation', 'Workflow Automation', 'ChatGPT Agents', 'Business Automation',
     'No-code AI', 'AI Chatbot Development', 'Marketing Automation', 'CRM Automation',
@@ -68,6 +68,7 @@ export const metadata: Metadata = {
     canonical: 'https://atulautomation.com',
   },
   verification: { google: 'OzGDDmxxpz4DBXk7QIfsoPuTfDutnLDBu1byXYH32KA' },
+  manifest: '/manifest.json',
   category: 'Technology',
 };
 
@@ -78,7 +79,7 @@ const jsonLd = {
   name: 'Atul Automation',
   url: 'https://atulautomation.com',
   logo: 'https://atulautomation.com/og-image.svg',
-  description: 'AI Automation Agency specializing in AI agents, chatbots, workflow automation, and data-driven marketing.',
+  description: 'India\'s Best AI Automation Agency. Specializing in AI agents, chatbots, workflow automation, and data-driven marketing. Built to Automate, Designed to Scale.',
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'hello@atulautomation.com',
@@ -97,6 +98,12 @@ const jsonLd = {
     highPrice: '49999',
     offerCount: '6',
   },
+  slogan: 'Built to Automate, Designed to Scale',
+  areaServed: {
+    '@type': 'Country',
+    name: 'India',
+  },
+  knowsAbout: ['AI Automation', 'Chatbots', 'Workflow Automation', 'AI Agents', 'CRM Automation', 'Digital Marketing'],
 };
 
 const serviceJsonLd = {
