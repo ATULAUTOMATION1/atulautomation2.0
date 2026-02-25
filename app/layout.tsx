@@ -81,6 +81,9 @@ export const metadata: Metadata = {
   verification: { google: 'OzGDDmxxpz4DBXk7QIfsoPuTfDutnLDBu1byXYH32KA' },
   manifest: '/manifest.json',
   category: 'Technology',
+  icons: {
+    apple: '/icon.svg',
+  },
 };
 
 const jsonLd = {

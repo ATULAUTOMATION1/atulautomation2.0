@@ -8,6 +8,7 @@ export function LeadCapturePopup() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
         // Check if user already dismissed or subscribed
@@ -41,9 +42,24 @@ export function LeadCapturePopup() {
         localStorage.setItem('leadPopupDismissed', Date.now().toString());
     };
 
+    const validateForm = () => {
+        if (!name.trim()) {
+            setErrorMsg('Please enter your name');
+            return false;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setErrorMsg('Please enter a valid email address');
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!email) return;
+        setErrorMsg('');
+
+        if (!validateForm()) return;
 
         setStatus('loading');
 
@@ -54,15 +70,19 @@ export function LeadCapturePopup() {
                 body: JSON.stringify({ name, email }),
             });
 
+            const data = await res.json();
+
             if (res.ok) {
                 setStatus('success');
                 localStorage.setItem('leadPopupDismissed', 'subscribed');
                 setTimeout(() => setIsOpen(false), 3000);
             } else {
                 setStatus('error');
+                setErrorMsg(data.error || 'Something went wrong. Please try again.');
             }
         } catch {
             setStatus('error');
+            setErrorMsg('Network error. Please check your connection.');
         }
     };
 
@@ -143,7 +163,7 @@ export function LeadCapturePopup() {
                             </button>
 
                             {status === 'error' && (
-                                <p className="text-red-500 text-xs text-center">Something went wrong. Please try again.</p>
+                                <p className="text-red-500 text-xs text-center font-medium">{errorMsg || 'Something went wrong. Please try again.'}</p>
                             )}
 
                             <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2">
