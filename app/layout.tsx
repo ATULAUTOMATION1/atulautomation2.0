@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://atulautomation.com',
   },
-  // verification: { google: 'add-your-code-from-search-console' },
+  verification: { google: 'OzGDDmxxpz4DBXk7QIfsoPuTfDutnLDBu1byXYH32KA' },
   category: 'Technology',
 };
 
