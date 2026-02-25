@@ -52,15 +52,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Rewrite /ads.txt to API route
-  async rewrites() {
-    return [
-      {
-        source: "/ads.txt",
-        destination: "/api/ads-txt",
-      },
-    ];
-  },
 };
 
 export default nextConfig;
