@@ -57,18 +57,18 @@ export function Hero() {
                         </div>
 
                         {/* Title */}
-                        <h1 className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-heading font-extrabold tracking-tight leading-[1.08] mb-6 opacity-0 animate-fade-in-up delay-100">
+                        <h1 className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-heading font-extrabold tracking-tight leading-[1.08] mb-6 opacity-0 animate-fade-in-up">
                             Build to <span className="text-primary">Automate</span>,
                             <br />
                             Design to <span className="text-primary">Scale</span>.
                         </h1>
 
-                        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-md opacity-0 animate-fade-in-up delay-200">
+                        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-md opacity-0 animate-fade-in-up delay-75">
                             We deploy AI agents that handle your marketing, sales & support —
                             so you can focus on growth.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-3 mb-10 opacity-0 animate-fade-in-up delay-300">
+                        <div className="flex flex-col sm:flex-row gap-3 mb-10 opacity-0 animate-fade-in-up delay-150">
                             <Link href="#contact" className="btn-primary group shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:shadow-xl transition-all">
                                 Start Automating
                                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />

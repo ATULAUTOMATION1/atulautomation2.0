@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Inter, Outfit } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -6,12 +7,22 @@ import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { AnimatedBackground } from '@/components/ui/animated-background';
 import { LazyChat } from '@/components/chatbot/lazy-chat';
-import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import { SocialShare } from '@/components/ui/social-share';
 import { LeadCapturePopup } from '@/components/ui/lead-capture-popup';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+  display: 'swap'
+});
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  weight: ['700', '800'],
+  display: 'swap'
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://atulautomation.com'),
@@ -72,7 +83,6 @@ export const metadata: Metadata = {
   category: 'Technology',
 };
 
-// Structured Data (JSON-LD) for rich search results
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -141,7 +151,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
-        {/* Structured Data for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -150,21 +159,36 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
         />
-        {/* Monetumo Integration */}
-        <link rel="stylesheet" href="https://b-cdn.monetumo.com/cls-css/atulautomation-com.css" />
-        <script src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js" data-cfasync="false"></script>
-        <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-        <script defer src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js" data-cfasync="false"></script>
 
-        {/* Google AdSense */}
-        <script
+        {/* AdSense (Lazy) */}
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
           crossOrigin="anonymous"
-        ></script>
+          strategy="lazyOnload"
+        />
+
+        {/* Monetumo Integration (Optimized) */}
+        <link rel="stylesheet" href="https://b-cdn.monetumo.com/cls-css/atulautomation-com.css" />
+        <Script src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js" strategy="afterInteractive" data-cfasync="false" />
+        <Script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" strategy="afterInteractive" />
+        <Script src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js" strategy="lazyOnload" data-cfasync="false" />
       </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
-        <GoogleAnalytics measurementId="G-6KB8876KLQ" />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-6KB8876KLQ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6KB8876KLQ', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
