@@ -9,6 +9,15 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Enable gzip compression
   compress: true,
+  async redirects() {
+    return [
+      {
+        source: '/ads.txt',
+        destination: 'https://monetumo.com/ads-txt/atulautomation-com',
+        permanent: true,
+      },
+    ];
+  },
   // Security + Performance headers
   async headers() {
     return [
