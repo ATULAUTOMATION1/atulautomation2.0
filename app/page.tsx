@@ -12,52 +12,52 @@ import dynamic from "next/dynamic";
 
 const FeaturedProjects = dynamic(
   () => import("@/components/sections/featured-projects").then(mod => ({ default: mod.FeaturedProjects })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const AIModules = dynamic(
   () => import("@/components/sections/ai-modules").then(mod => ({ default: mod.AIModules })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const InteractiveDemos = dynamic(
   () => import("@/components/sections/interactive-demos").then(mod => ({ default: mod.InteractiveDemos })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const WorkflowBuilder = dynamic(
   () => import("@/components/modules/workflow-builder").then(mod => ({ default: mod.WorkflowBuilder })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const ROICalculator = dynamic(
   () => import("@/components/tools/roi-calculator").then(mod => ({ default: mod.ROICalculator })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const DocsHub = dynamic(
   () => import("@/components/sections/docs-hub").then(mod => ({ default: mod.DocsHub })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const Branding = dynamic(
   () => import("@/components/sections/branding").then(mod => ({ default: mod.Branding })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const Blog = dynamic(
   () => import("@/components/sections/blog").then(mod => ({ default: mod.Blog })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const Contact = dynamic(
   () => import("@/components/sections/contact").then(mod => ({ default: mod.Contact })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 const Community = dynamic(
   () => import("@/components/sections/community").then(mod => ({ default: mod.Community })),
-  { ssr: false, loading: () => <SectionSkeleton /> }
+  { loading: () => <SectionSkeleton /> }
 );
 
 // ── Lightweight skeleton for loading states ──
