@@ -62,12 +62,11 @@ export async function POST(request: Request) {
         // 2. Save to Google Sheets
         let sheetsError = false;
         try {
-            const auth = new google.auth.JWT(
-                GOOGLE_CREDENTIALS.client_email,
-                undefined,
-                GOOGLE_CREDENTIALS.private_key,
-                ['https://www.googleapis.com/auth/spreadsheets']
-            );
+            const auth = new google.auth.JWT({
+                email: GOOGLE_CREDENTIALS.client_email,
+                key: GOOGLE_CREDENTIALS.private_key,
+                scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+            });
 
             const sheets = google.sheets({ version: 'v4', auth });
             const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
