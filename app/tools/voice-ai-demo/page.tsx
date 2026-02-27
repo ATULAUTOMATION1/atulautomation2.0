@@ -157,78 +157,80 @@ export default function VoiceAIDemo() {
     };
 
     return (
-        <main className="min-h-screen pt-24 md:pt-32 pb-24 overflow-hidden relative bg-black text-white selection:bg-primary selection:text-white">
+        <main className="min-h-screen pt-24 md:pt-32 pb-24 overflow-hidden relative bg-background text-foreground selection:bg-primary/20 selection:text-primary">
             {/* Background Animations */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] -z-10 mix-blend-screen opacity-50" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10 mix-blend-screen opacity-50" />
             {(isListening || isSpeaking) && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/40 rounded-full blur-[80px] -z-10 mix-blend-screen animate-pulse" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/20 rounded-full blur-[80px] -z-10 mix-blend-screen animate-pulse" />
             )}
 
             <section className="container-custom max-w-4xl relative z-10 flex flex-col items-center">
 
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-bold tracking-widest uppercase mb-6 border border-primary/30">
-                        <Mic className="w-4 h-4 animate-pulse" />
+                    <span className="section-badge mb-6">
+                        <Mic className="w-4 h-4 animate-pulse mr-1" />
                         Live Voice Demo
                     </span>
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight">
                         Talk to <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">Sarah</span>
                     </h1>
-                    <p className="text-lg text-white/60 max-w-xl mx-auto">
+                    <p className="text-lg text-muted-foreground max-w-xl mx-auto">
                         Experience our interactive Voice AI Agent. Tap the green button to start a phone call right in your browser. (Make sure your microphone is allowed).
                     </p>
                 </div>
 
                 {/* Call Interface Box */}
-                <div className="w-full max-w-md bg-zinc-900/80 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-8 shadow-2xl shadow-primary/20 flex flex-col items-center justify-between min-h-[500px] relative overflow-hidden">
+                <div className="w-full max-w-md bg-card/80 backdrop-blur-2xl border border-border rounded-[3rem] p-8 shadow-2xl flex flex-col items-center justify-between min-h-[500px] relative overflow-hidden">
 
                     {/* Top Status */}
                     <div className="w-full flex justify-between items-center mb-8 px-2">
                         <div className="flex items-center gap-2">
                             <div className="relative">
                                 <Bot className="w-8 h-8 text-primary" />
-                                <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-zinc-900"></div>
+                                <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-card"></div>
                             </div>
                             <div>
-                                <h3 className="font-bold text-white leading-none">Sarah AI</h3>
-                                <p className="text-xs text-white/50 mt-1">Receptionist Agent</p>
+                                <h3 className="font-bold text-foreground leading-none">Sarah AI</h3>
+                                <p className="text-xs text-muted-foreground mt-1">Receptionist Agent</p>
                             </div>
                         </div>
-                        <div className="text-right">
-                            {isCallActive ? (
-                                <span className="flex items-center gap-1.5 text-xs font-bold text-green-400 bg-green-400/10 px-2 py-1 rounded-lg animate-pulse">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-green-400"></div> 00:00
-                                </span>
-                            ) : (
-                                <span className="text-xs font-bold text-white/40">Offline</span>
-                            )}
+                        <div className="text-right flex-1 flex justify-end">
+                            <div className="w-auto">
+                                {isCallActive ? (
+                                    <span className="flex items-center gap-1.5 text-xs font-bold text-green-600 dark:text-green-400 bg-green-500/10 px-2 py-1 rounded-lg animate-pulse whitespace-nowrap">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div> 00:00
+                                    </span>
+                                ) : (
+                                    <span className="text-xs font-bold text-muted-foreground bg-muted px-2 py-1 rounded-lg border border-border">Offline</span>
+                                )}
+                            </div>
                         </div>
                     </div>
 
                     {/* Central Circle Animation */}
                     <div className="relative flex-1 flex flex-col items-center justify-center w-full">
                         <div className={`relative flex items-center justify-center w-48 h-48 rounded-full border-2 
-                            ${!isCallActive ? 'border-white/10' :
-                                isSpeaking ? 'border-primary shadow-[0_0_50px_rgba(255,87,34,0.4)]' :
-                                    isListening ? 'border-green-500 shadow-[0_0_50px_rgba(34,197,94,0.4)]' : 'border-primary/50'}
+                            ${!isCallActive ? 'border-border' :
+                                isSpeaking ? 'border-primary shadow-[0_0_50px_rgba(255,87,34,0.2)]' :
+                                    isListening ? 'border-green-500 shadow-[0_0_50px_rgba(34,197,94,0.2)]' : 'border-primary/50'}
                             transition-all duration-500 ease-out`}
                         >
                             {/* Inner pulsing ripples if active */}
                             {isCallActive && (
                                 <>
-                                    <div className={`absolute inset-0 rounded-full bg-primary/10 ${isSpeaking ? 'animate-ping' : ''}`}></div>
-                                    <div className={`absolute inset-4 rounded-full bg-primary/20 ${isListening ? 'animate-pulse' : ''}`}></div>
+                                    <div className={`absolute inset-0 rounded-full bg-primary/5 ${isSpeaking ? 'animate-ping' : ''}`}></div>
+                                    <div className={`absolute inset-4 rounded-full bg-primary/10 ${isListening ? 'animate-pulse' : ''}`}></div>
                                 </>
                             )}
 
-                            <div className="z-10 bg-zinc-800 w-32 h-32 rounded-full flex items-center justify-center shadow-inner">
+                            <div className="z-10 bg-muted/80 backdrop-blur-sm w-32 h-32 border border-border rounded-full flex items-center justify-center shadow-inner">
                                 {!isCallActive ? (
-                                    <Bot className="w-12 h-12 text-white/30" />
+                                    <Bot className="w-12 h-12 text-muted-foreground/50" />
                                 ) : isSpeaking ? (
                                     <Volume2 className="w-12 h-12 text-primary animate-pulse" />
                                 ) : isListening ? (
-                                    <Mic className="w-12 h-12 text-green-400 animate-bounce" />
+                                    <Mic className="w-12 h-12 text-green-500 animate-bounce" />
                                 ) : (
                                     <Loader2 className="w-12 h-12 text-primary animate-spin" />
                                 )}
@@ -238,15 +240,15 @@ export default function VoiceAIDemo() {
                         {/* Status Text Under Circle */}
                         <div className="mt-8 text-center h-16 w-full flex items-center justify-center px-4">
                             {!isCallActive ? (
-                                <p className="text-white/40 text-sm font-medium">Ready when you are.</p>
+                                <p className="text-muted-foreground text-sm font-medium">Ready when you are.</p>
                             ) : isSpeaking ? (
                                 <p className="text-primary font-bold">Sarah is speaking...</p>
                             ) : isListening ? (
-                                <p className="text-green-400 font-bold overflow-hidden text-ellipsis whitespace-nowrap px-4 bg-green-400/10 rounded-full py-2">
-                                    {transcript ? `"${transcript}"` : "Listening to you..."}
+                                <p className="text-green-600 dark:text-green-400 font-bold overflow-hidden text-ellipsis whitespace-nowrap px-4 bg-green-500/10 rounded-full py-2">
+                                    {transcript ? `"${transcript}"` : "Listening..."}
                                 </p>
                             ) : (
-                                <p className="text-white/60 text-sm animate-pulse flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Thinking...</p>
+                                <p className="text-muted-foreground text-sm animate-pulse flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Thinking...</p>
                             )}
                         </div>
                     </div>
@@ -258,29 +260,29 @@ export default function VoiceAIDemo() {
                                 onClick={startCall}
                                 className="group flex flex-col items-center gap-3"
                             >
-                                <div className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-400 flex items-center justify-center text-zinc-900 transition-all shadow-lg hover:shadow-green-500/50 hover:scale-110 active:scale-95 cursor-pointer">
+                                <div className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center text-white transition-all shadow-lg hover:shadow-green-500/30 hover:scale-110 active:scale-95 cursor-pointer">
                                     <Phone className="w-7 h-7 fill-current" />
                                 </div>
-                                <span className="text-xs font-bold text-green-500 group-hover:text-green-400">Connect to AI</span>
+                                <span className="text-xs font-bold text-green-600 dark:text-green-500 group-hover:text-green-700 dark:group-hover:text-green-400">Connect to AI</span>
                             </button>
                         ) : (
                             <button
                                 onClick={endCall}
                                 className="group flex flex-col items-center gap-3"
                             >
-                                <div className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-400 flex items-center justify-center text-white transition-all shadow-lg hover:shadow-red-500/50 hover:scale-110 active:scale-95 cursor-pointer">
+                                <div className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center text-white transition-all shadow-lg hover:shadow-red-500/30 hover:scale-110 active:scale-95 cursor-pointer">
                                     <PhoneOff className="w-7 h-7" />
                                 </div>
-                                <span className="text-xs font-bold text-red-500 group-hover:text-red-400">End Call</span>
+                                <span className="text-xs font-bold text-red-600 dark:text-red-500 group-hover:text-red-700 dark:group-hover:text-red-400">End Call</span>
                             </button>
                         )}
                     </div>
                 </div>
 
                 {/* Subtext info */}
-                <div className="mt-12 text-center text-white/50 text-sm max-w-lg bg-white/5 rounded-2xl p-4 border border-white/10 flex items-center gap-3">
+                <div className="mt-12 text-center text-muted-foreground text-sm max-w-lg bg-muted/50 rounded-2xl p-4 border border-border flex flex-col sm:flex-row items-center gap-3">
                     <Sparkles className="w-8 h-8 text-primary shrink-0" />
-                    <p>This is a simulated browser demo. A real production Voice Agent (like Vapi or Retell AI) can route live phone lines, book calendars, integrate directly with your CRM, and achieve <span className="delay-none">&lt;</span>500ms latency.</p>
+                    <p className="text-left leading-relaxed">This is a simulated browser demo. A real production Voice Agent (like Vapi or Retell AI) can route live phone lines, book calendars, integrate directly with your CRM, and achieve &lt;500ms latency.</p>
                 </div>
 
             </section>
