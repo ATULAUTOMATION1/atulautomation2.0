@@ -7,6 +7,7 @@ import {
     BarChart, ExternalLink, Filter, TrendingUp
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface Resource {
     title: string;
@@ -247,9 +248,9 @@ export function DocsHub() {
                             <h4 className="font-bold text-lg mb-1">Want a custom learning path?</h4>
                             <p className="text-sm text-muted-foreground">Tell us your industry and we&apos;ll build a personalized automation roadmap for you.</p>
                         </div>
-                        <a href="/#contact" className="btn-primary group whitespace-nowrap">
+                        <Link href="/#contact" className="btn-primary group whitespace-nowrap">
                             Build My Roadmap <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

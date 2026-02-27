@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Calculator, TrendingUp, Clock, DollarSign, ArrowRight, RotateCcw } from 'lucide-react';
 import { SocialShare } from '@/components/ui/social-share';
 
@@ -184,18 +185,18 @@ export default function ROICalculator() {
                                     <div className="text-xs text-muted-foreground mr-2">
                                         <strong className="text-primary">Next Step:</strong> Want to see if your business is actually ready?
                                     </div>
-                                    <a href="/tools/ai-readiness-quiz" className="text-xs font-bold text-primary flex items-center gap-1 hover:underline whitespace-nowrap">
+                                    <Link href="/tools/ai-readiness-quiz" className="text-xs font-bold text-primary flex items-center gap-1 hover:underline whitespace-nowrap">
                                         Take Readiness Quiz <ArrowRight className="h-3 w-3" />
-                                    </a>
+                                    </Link>
                                 </div>
 
                                 <div className="space-y-3">
-                                    <a
+                                    <Link
                                         href="/#contact"
                                         className="btn-primary w-full text-center"
                                     >
                                         Get Free Automation Consultation
-                                    </a>
+                                    </Link>
                                     <a
                                         href={`https://wa.me/918518824480?text=Hi! I used the ROI calculator and my potential savings are ${formatCurrency(results.yearlySaved)}/year. I'd like to learn more about AI automation.`}
                                         target="_blank"

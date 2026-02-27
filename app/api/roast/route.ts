@@ -47,7 +47,7 @@ Make the roast highly engaging, funny, a bit savage but ultimately professional 
         const responseText = result.response.text();
 
         // Strip markdown code block wrappers if any
-        let cleanJson = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+        const cleanJson = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
 
         try {
             const parsed = JSON.parse(cleanJson);

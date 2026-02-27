@@ -1,0 +1,185 @@
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\api\chat\route.ts
+  223:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\api\contact\route.ts
+   3:13  warning  'fs' is defined but never used            @typescript-eslint/no-unused-vars
+   4:13  warning  'path' is defined but never used          @typescript-eslint/no-unused-vars
+  92:30  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\api\roast\route.ts
+  55:18  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\blog\[slug]\page.tsx
+  6:43  warning  'Share2' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\capabilities\[slug]\page.tsx
+    5:28   warning  'Download' is defined but never used                                                                                                                   @typescript-eslint/no-unused-vars
+    5:38   warning  'ExternalLink' is defined but never used                                                                                                               @typescript-eslint/no-unused-vars
+    5:58   warning  'Mail' is defined but never used                                                                                                                       @typescript-eslint/no-unused-vars
+    5:64   warning  'Brain' is defined but never used                                                                                                                      @typescript-eslint/no-unused-vars
+    5:71   warning  'Database' is defined but never used                                                                                                                   @typescript-eslint/no-unused-vars
+    5:81   warning  'UserCheck' is defined but never used                                                                                                                  @typescript-eslint/no-unused-vars
+    5:107  warning  'BarChart' is defined but never used                                                                                                                   @typescript-eslint/no-unused-vars
+    5:117  warning  'Zap' is defined but never used                                                                                                                        @typescript-eslint/no-unused-vars
+    5:122  warning  'Globe' is defined but never used                                                                                                                      @typescript-eslint/no-unused-vars
+    5:129  warning  'Cog' is defined but never used                                                                                                                        @typescript-eslint/no-unused-vars
+    5:134  warning  'MousePointer' is defined but never used                                                                                                               @typescript-eslint/no-unused-vars
+    5:148  warning  'Building' is defined but never used                                                                                                                   @typescript-eslint/no-unused-vars
+    5:158  warning  'Search' is defined but never used                                                                                                                     @typescript-eslint/no-unused-vars
+    5:166  warning  'Eye' is defined but never used                                                                                                                        @typescript-eslint/no-unused-vars
+    5:171  warning  'TrendingUp' is defined but never used                                                                                                                 @typescript-eslint/no-unused-vars
+   51:36   error    Unexpected any. Specify a different type                                                                                                               @typescript-eslint/no-explicit-any
+  209:29   error    Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+  243:62   error    Unexpected any. Specify a different type                                                                                                               @typescript-eslint/no-explicit-any
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\industries\[slug]\page.tsx
+  6:35  warning  'ArrowLeft' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\locations\[slug]\page.tsx
+  6:22  warning  'CheckCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\tools\roast-my-workflow\page.tsx
+   42:23   error  Unexpected any. Specify a different type                                                                                                               @typescript-eslint/no-explicit-any
+  174:100  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                        react/no-unescaped-entities
+  178:49   error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\tools\roi-calculator\page.tsx
+  193:37  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\tools\voice-ai-demo\page.tsx
+   4:65  warning  'MessageCircle' is defined but never used                                                                           @typescript-eslint/no-unused-vars
+   5:10  warning  'SocialShare' is defined but never used                                                                             @typescript-eslint/no-unused-vars
+  10:28  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  11:34  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  20:12  warning  'chatHistory' is assigned a value but never used                                                                    @typescript-eslint/no-unused-vars
+  22:35  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  39:48  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  57:61  warning  'e' is defined but never used                                                                                       @typescript-eslint/no-unused-vars
+  61:47  error    Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  71:8   warning  React Hook useEffect has a missing dependency: 'handleUserQuery'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\games\eco-automation-game.tsx
+   6:11  warning  'Trophy' is defined but never used       @typescript-eslint/no-unused-vars
+  10:5   warning  'ChevronDown' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\hero\hero.tsx
+  2:56  warning  'Bot' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\layout\footer.tsx
+   4:28  warning  'Heart' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+  40:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\layout\footer.tsx:40:9
+  38 |     const [year, setYear] = useState("2026");
+  39 |     useEffect(() => {
+> 40 |         setYear(new Date().getFullYear().toString());
+     |         ^^^^^^^ Avoid calling setState() directly within an effect
+  41 |     }, []);
+  42 |
+  43 |     return (  react-hooks/set-state-in-effect
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\layout\navbar.tsx
+  5:19  warning  'Terminal' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\modules\demos\real-estate-lead.tsx
+  40:29   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  40:121  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\modules\demos\whatsapp-bot.tsx
+  4:16  warning  'User' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\modules\workflow-builder.tsx
+  3:20  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\modules\workflow-visualizer.tsx
+   9:11  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  12:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  32:56  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\sections\community.tsx
+  45:25  error  Do not use an `<a>` element to navigate to `/blog/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\sections\docs-hub.tsx
+    7:5   warning  'BarChart' is defined but never used                                                                                                                   @typescript-eslint/no-unused-vars
+  250:25  error    Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\sections\featured-projects.tsx
+  4:119  warning  'TrendingUp' is defined but never used  @typescript-eslint/no-unused-vars
+  4:138  warning  'Users' is defined but never used       @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\sections\quiz-cta.tsx
+  27:66  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  27:90  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\theme-toggle.tsx
+  14:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\theme-toggle.tsx:14:9
+  12 |
+  13 |     useEffect(() => {
+> 14 |         setMounted(true);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  15 |     }, []);
+  16 |
+  17 |     if (!mounted) {  react-hooks/set-state-in-effect
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\tools\automation-puzzle.tsx
+  46:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\tools\automation-puzzle.tsx:46:13
+  44 |     useEffect(() => {
+  45 |         if (output && !solved) {
+> 46 |             setSolved(true);
+     |             ^^^^^^^^^ Avoid calling setState() directly within an effect
+  47 |             setShowSuccess(true);
+  48 |             if (!solvedPuzzles.includes(currentPuzzle)) {
+  49 |                 setSolvedPuzzles(prev => [...prev, currentPuzzle]);  react-hooks/set-state-in-effect
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\tools\trend-feed.tsx
+  4:41  warning  'ExternalLink' is defined but never used  @typescript-eslint/no-unused-vars
+  4:99  warning  'Zap' is defined but never used           @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\ui\ad-slot.tsx
+  14:13  error  Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free  @typescript-eslint/ban-ts-comment
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\ui\animated-background.tsx
+  9:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\ui\animated-background.tsx:9:9
+   7 |
+   8 |     useEffect(() => {
+>  9 |         setMounted(true);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  10 |     }, []);
+  11 |
+  12 |     if (!mounted) return null;  react-hooks/set-state-in-effect
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\ui\lead-capture-popup.tsx
+  4:18  warning  'Mail' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 67 problems (28 errors, 39 warnings)

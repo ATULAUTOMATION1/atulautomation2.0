@@ -1,6 +1,7 @@
 "use client";
 
 import { Users, MessageCircle, Globe, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const STATS = [
     { icon: Users, value: "2,400+", label: "Members", color: "text-primary", bg: "bg-primary/8" },
@@ -42,9 +43,9 @@ export function Community() {
                         <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" className="btn-primary group">
                             Join Discord <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                         </a>
-                        <a href="/blog" className="btn-secondary">
+                        <Link href="/blog" className="btn-secondary">
                             Visit Blog
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

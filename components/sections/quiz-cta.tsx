@@ -24,7 +24,7 @@ export function QuizCTA() {
                             </h2>
 
                             <p className="text-muted-foreground text-lg mb-8 max-w-lg">
-                                Stop guessing. Take our 2-minute "AI Readiness Assessment" to discover your automation potential and get a personalized roadmap instantly.
+                                Stop guessing. Take our 2-minute &quot;AI Readiness Assessment&quot; to discover your automation potential and get a personalized roadmap instantly.
                             </p>
 
                             <div className="flex flex-wrap gap-4">

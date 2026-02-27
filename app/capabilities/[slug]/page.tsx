@@ -206,9 +206,9 @@ export default function ServiceDetailPage() {
                             <a href="#demo" className="btn-primary text-lg px-8 py-3">
                                 Try Demo <Play className="h-4 w-4 ml-2 fill-current" />
                             </a>
-                            <a href="/#pricing" className="px-8 py-3 rounded-md font-medium border border-border hover:bg-muted transition-colors">
+                            <Link href="/#pricing" className="px-8 py-3 rounded-md font-medium border border-border hover:bg-muted transition-colors">
                                 View Pricing
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

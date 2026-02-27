@@ -37,7 +37,7 @@ export function RealEstateLead() {
                             <span className="font-bold">AI Calling Lead...</span>
                         </div>
                         <div className="bg-muted p-3 rounded-lg text-sm italic">
-                            "Hi, this is Sarah from Premier Homes. I saw you were interested in the downtown property..."
+                            &quot;Hi, this is Sarah from Premier Homes. I saw you were interested in the downtown property...&quot;
                         </div>
                         <button onClick={nextStep} className="w-full py-2 bg-secondary text-white rounded-lg text-sm">
                             Lead Answers Call

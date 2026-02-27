@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Bot, Flame, ArrowRight, Loader2, Sparkles, TrendingDown, Clock, MessageSquareX, RotateCcw } from 'lucide-react';
 import { SocialShare } from '@/components/ui/social-share';
 
@@ -175,9 +176,9 @@ export default function RoastMyWorkflow() {
                                             </p>
 
                                             <div className="flex flex-col sm:flex-row gap-4">
-                                                <a href="/#contact" className="flex-1 inline-flex justify-center items-center py-3 px-6 rounded-lg font-bold text-primary-foreground bg-primary hover:bg-primary/90 transition-colors">
+                                                <Link href="/#contact" className="flex-1 inline-flex justify-center items-center py-3 px-6 rounded-lg font-bold text-primary-foreground bg-primary hover:bg-primary/90 transition-colors">
                                                     Get Free Automation Assessment <ArrowRight className="ml-2 w-4 h-4" />
-                                                </a>
+                                                </Link>
                                                 <button onClick={handleReset} className="inline-flex justify-center items-center py-3 px-6 rounded-lg font-semibold text-foreground bg-secondary hover:bg-secondary/80 transition-colors">
                                                     <RotateCcw className="mr-2 w-4 h-4" /> Try Another
                                                 </button>

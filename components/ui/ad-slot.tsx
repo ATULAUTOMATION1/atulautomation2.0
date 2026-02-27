@@ -11,7 +11,7 @@ interface AdSlotProps {
 export function AdSlot({ className = "", id, style }: AdSlotProps) {
     useEffect(() => {
         try {
-            // @ts-ignore
+            // @ts-expect-error
             (window.adsbygoogle = window.adsbygoogle || []).push({});
         } catch (err) {
             console.error("AdSense error:", err);
