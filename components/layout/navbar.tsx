@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Menu, X, Terminal, ArrowRight } from "lucide-react";
+import { Menu, X, Terminal, ArrowRight, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
@@ -10,9 +10,18 @@ const navItems = [
     { name: "Services", href: "/#services" },
     { name: "Industries", href: "/industries" },
     { name: "Locations", href: "/locations" },
-    { name: "AI Quiz", href: "/tools/ai-readiness-quiz" },
-    { name: "Roast Tool 🔥", href: "/tools/roast-my-workflow" },
-    { name: "Voice AI 🎙️", href: "/tools/voice-ai-demo" },
+    {
+        name: "AI Tools",
+        subItems: [
+            { name: "AI Readiness Quiz", href: "/tools/ai-readiness-quiz" },
+            { name: "ROI Calculator", href: "/tools/roi-calculator" },
+            { name: "Voice AI Demo 🎙️", href: "/tools/voice-ai-demo" },
+            { name: "Roast My Workflow 🔥", href: "/tools/roast-my-workflow" },
+            { name: "Live AI Demos", href: "#live-demos" },
+            { name: "Interactive Playground", href: "#playground" },
+            { name: "Build your Workflow", href: "#build-workflow" }
+        ]
+    },
     { name: "Blog", href: "/blog" },
 ];
 
@@ -52,13 +61,35 @@ export function Navbar() {
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-1">
                     {navItems.map((item) => (
-                        <Link
-                            key={item.name}
-                            href={item.href}
-                            className="text-sm font-medium text-muted-foreground hover:text-foreground px-3.5 py-2 rounded-lg hover:bg-muted/50 transition-all"
-                        >
-                            {item.name}
-                        </Link>
+                        item.subItems ? (
+                            <div key={item.name} className="relative group">
+                                <button className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground px-3.5 py-2 rounded-lg hover:bg-muted/50 transition-all">
+                                    {item.name}
+                                    <ChevronDown className="h-3.5 w-3.5" />
+                                </button>
+                                <div className="absolute top-full left-1/2 -translate-x-1/2 w-64 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+                                    <div className="bg-card border border-border rounded-xl shadow-lg p-2 flex flex-col gap-1 relative before:absolute before:-top-2 before:left-1/2 before:-translate-x-1/2 before:border-8 before:border-transparent before:border-b-card">
+                                        {item.subItems.map(subItem => (
+                                            <Link
+                                                key={subItem.name}
+                                                href={subItem.href}
+                                                className="text-sm font-medium text-foreground/70 hover:text-primary hover:bg-primary/5 px-3 py-2.5 rounded-lg transition-colors text-left flex items-center justify-between group/sub"
+                                            >
+                                                {subItem.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <Link
+                                key={item.name}
+                                href={item.href!}
+                                className="text-sm font-medium text-muted-foreground hover:text-foreground px-3.5 py-2 rounded-lg hover:bg-muted/50 transition-all"
+                            >
+                                {item.name}
+                            </Link>
+                        )
                     ))}
                     <div className="ml-2 mr-2">
                         <ThemeToggle />
@@ -98,13 +129,31 @@ export function Navbar() {
                             )}
                             style={{ transitionDelay: `${i * 50}ms` }}
                         >
-                            <Link
-                                href={item.href}
-                                onClick={() => setIsOpen(false)}
-                                className="text-base font-medium text-muted-foreground hover:text-foreground px-4 py-3 hover:bg-muted/50 rounded-xl block transition-colors"
-                            >
-                                {item.name}
-                            </Link>
+                            {item.subItems ? (
+                                <div className="flex flex-col gap-1 mb-2">
+                                    <div className="text-sm font-bold text-foreground px-4 py-2 mt-2 uppercase tracking-wider opacity-50">
+                                        {item.name}
+                                    </div>
+                                    {item.subItems.map(subItem => (
+                                        <Link
+                                            key={subItem.name}
+                                            href={subItem.href}
+                                            onClick={() => setIsOpen(false)}
+                                            className="text-base font-medium text-muted-foreground hover:text-foreground px-4 py-2 hover:bg-muted/50 rounded-xl block transition-colors pl-8"
+                                        >
+                                            {subItem.name}
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <Link
+                                    href={item.href!}
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-base font-medium text-muted-foreground hover:text-foreground px-4 py-3 hover:bg-muted/50 rounded-xl block transition-colors"
+                                >
+                                    {item.name}
+                                </Link>
+                            )}
                         </div>
                     ))}
                     <div className="pt-3 mt-2 border-t border-border">
