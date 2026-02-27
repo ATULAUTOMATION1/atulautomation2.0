@@ -171,11 +171,6 @@ export default function RootLayout({
           strategy="lazyOnload"
         />
 
-        {/* Monetumo Integration (Optimized) */}
-        <link rel="stylesheet" href="https://b-cdn.monetumo.com/cls-css/atulautomation-com.css" />
-        <Script src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js" strategy="afterInteractive" data-cfasync="false" />
-        <Script src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" strategy="afterInteractive" />
-        <Script src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js" strategy="lazyOnload" data-cfasync="false" />
       </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <Script

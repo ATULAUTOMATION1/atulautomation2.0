@@ -11,6 +11,8 @@ const navItems = [
     { name: "Industries", href: "/industries" },
     { name: "Locations", href: "/locations" },
     { name: "AI Quiz", href: "/tools/ai-readiness-quiz" },
+    { name: "Roast Tool 🔥", href: "/tools/roast-my-workflow" },
+    { name: "Voice AI 🎙️", href: "/tools/voice-ai-demo" },
     { name: "Blog", href: "/blog" },
 ];
 

@@ -20,6 +20,11 @@ const industryIcons: Record<string, string> = {
     'Law Firms': '⚖️',
     'Fitness & Gyms': '💪',
     'Travel & Tourism': '✈️',
+    'Accounting & CPA': '📊',
+    'Dental Clinics': '🦷',
+    'Marketing Agencies': '📈',
+    'Home Services & Contractors': '🛠️',
+    'Logistics & Supply Chain': '🚚',
 };
 
 export default function IndustriesPage() {

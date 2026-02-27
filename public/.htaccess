@@ -1,4 +1,0 @@
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteRule ^ads\.txt$ https://monetumo.com/ads-txt/atulautomation-com [R=301,L]
-</IfModule>

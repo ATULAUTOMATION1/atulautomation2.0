@@ -19,7 +19,7 @@ export function AdSlot({ className = "", id, style }: AdSlotProps) {
     }, []);
 
     return (
-        <div className={`monetumo-ad-slot my-8 w-full overflow-hidden ${className}`}>
+        <div className={`my-8 w-full overflow-hidden ${className}`}>
             <ins
                 className="adsbygoogle"
                 style={style || { display: "block", minHeight: "90px" }}
