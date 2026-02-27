@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Phone, PhoneOff, Mic, Volume2, Bot, Loader2, Sparkles, MessageCircle } from 'lucide-react';
+import { Phone, PhoneOff, Mic, Volume2, Bot, Loader2, Sparkles, MessageCircle, AlertCircle } from 'lucide-react';
 import { SocialShare } from '@/components/ui/social-share';
 
 // Types for Web Speech API
@@ -18,17 +18,64 @@ export default function VoiceAIDemo() {
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [transcript, setTranscript] = useState('');
     const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'agent', text: string }[]>([]);
+    const [micError, setMicError] = useState(false);
 
     const recognitionRef = useRef<any>(null);
     const synthesisRef = useRef<SpeechSynthesis | null>(null);
 
-    // Initialize Web Speech APIs
+    // Refs to bypass React closure traps in native event listeners
+    const isCallActiveRef = useRef(isCallActive);
+    const isSpeakingRef = useRef(isSpeaking);
+    const transcriptRef = useRef(transcript);
+
+    // Keep refs in sync with state
+    useEffect(() => {
+        isCallActiveRef.current = isCallActive;
+        isSpeakingRef.current = isSpeaking;
+        transcriptRef.current = transcript;
+    }, [isCallActive, isSpeaking, transcript]);
+
+    // Handle User Query Logic
+    const handleUserQuery = async (queryText: string) => {
+        if (isSpeakingRef.current) return;
+
+        setChatHistory(prev => [...prev, { role: 'user', text: queryText }]);
+        setTranscript('');
+        setIsSpeaking(true); // Simulate thinking wrapper
+
+        try {
+            const res = await fetch('/api/voice-chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: queryText }),
+            });
+
+            const data = await res.json();
+            if (data.error) throw new Error(data.error);
+
+            setChatHistory(prev => [...prev, { role: 'agent', text: data.response }]);
+            speak(data.response);
+
+        } catch (error) {
+            console.error(error);
+            const fallbackMsg = "I'm sorry, I seem to have lost connection. Could you repeat that?";
+            setChatHistory(prev => [...prev, { role: 'agent', text: fallbackMsg }]);
+            speak(fallbackMsg);
+        }
+    };
+
+    const handleUserQueryRef = useRef(handleUserQuery);
+    useEffect(() => {
+        handleUserQueryRef.current = handleUserQuery;
+    }, [handleUserQuery]);
+
+    // Initialize Web Speech APIs exactly ONCE
     useEffect(() => {
         if (typeof window !== 'undefined') {
             synthesisRef.current = window.speechSynthesis;
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-            if (SpeechRecognition) {
+            if (SpeechRecognition && !recognitionRef.current) {
                 const recognition = new SpeechRecognition();
                 recognition.continuous = false;
                 recognition.interimResults = true;
@@ -47,19 +94,24 @@ export default function VoiceAIDemo() {
                 // When user stops speaking, process their query
                 recognition.onend = () => {
                     setIsListening(false);
-                    const finalTranscript = transcript.trim();
+                    const finalTranscript = transcriptRef.current.trim();
 
-                    // If we actually captured audio
-                    if (finalTranscript && isCallActive && !isSpeaking) {
-                        handleUserQuery(finalTranscript);
-                    } else if (isCallActive && !isSpeaking) {
-                        // Automatically restart listening if still in call and not speaking
+                    if (!isCallActiveRef.current) return;
+
+                    if (finalTranscript && !isSpeakingRef.current) {
+                        handleUserQueryRef.current(finalTranscript);
+                    } else if (!isSpeakingRef.current) {
+                        // Automatically restart listening if still in call and not speaking (e.g. they were quiet)
                         try { recognition.start(); } catch (e) { }
                     }
                 };
 
                 recognition.onerror = (event: any) => {
                     console.error("Speech Recognition Error:", event.error);
+                    if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                        setMicError(true);
+                        setIsCallActive(false);
+                    }
                     if (event.error !== 'no-speech' && event.error !== 'aborted') {
                         setIsListening(false);
                     }
@@ -68,10 +120,20 @@ export default function VoiceAIDemo() {
                 recognitionRef.current = recognition;
             }
         }
-    }, [transcript, isCallActive, isSpeaking]);
+    }, []);
 
     // Handle when user hits "Start Call"
-    const startCall = () => {
+    const startCall = async () => {
+        setMicError(false);
+        try {
+            // Explicitly request microphone permissions first
+            await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch (err) {
+            console.error("Microphone access denied:", err);
+            setMicError(true);
+            return;
+        }
+
         setIsCallActive(true);
         setChatHistory([]);
         setTranscript('');
@@ -97,23 +159,19 @@ export default function VoiceAIDemo() {
         if (!synthesisRef.current) return;
 
         setIsSpeaking(true);
-        // Ensure not trying to listen while speaking
         if (recognitionRef.current) recognitionRef.current.stop();
 
         const utterance = new SpeechSynthesisUtterance(text);
-
-        // Try to find a good female voice (Google US English or UK English)
         const voices = synthesisRef.current.getVoices();
         const preferredVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha") || v.name.includes("Female"));
         if (preferredVoice) utterance.voice = preferredVoice;
 
-        utterance.rate = 1.0; // Normal speaking speed
-        utterance.pitch = 1.1; // Slightly friendly pitch
+        utterance.rate = 1.0;
+        utterance.pitch = 1.1;
 
         utterance.onend = () => {
             setIsSpeaking(false);
-            // Once done speaking, immediately start listening again if the call is active
-            if (isCallActive && recognitionRef.current) {
+            if (isCallActiveRef.current && recognitionRef.current) {
                 try {
                     setTranscript('');
                     recognitionRef.current.start();
@@ -122,38 +180,6 @@ export default function VoiceAIDemo() {
         };
 
         synthesisRef.current.speak(utterance);
-    };
-
-    // Process the final voice text through our backend API
-    const handleUserQuery = async (queryText: string) => {
-        // Prevent double booking
-        if (isSpeaking) return;
-
-        // Add to history
-        setChatHistory(prev => [...prev, { role: 'user', text: queryText }]);
-        setTranscript('');
-        setIsSpeaking(true); // Temporarily set speaking flag to simulate "thinking" to avoid overlapping recognition
-
-        try {
-            const res = await fetch('/api/voice-chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: queryText }),
-            });
-
-            const data = await res.json();
-
-            if (data.error) throw new Error(data.error);
-
-            setChatHistory(prev => [...prev, { role: 'agent', text: data.response }]);
-            speak(data.response);
-
-        } catch (error) {
-            console.error(error);
-            const fallbackMsg = "I'm sorry, my connection dropped for a second. Could you repeat that?";
-            setChatHistory(prev => [...prev, { role: 'agent', text: fallbackMsg }]);
-            speak(fallbackMsg);
-        }
     };
 
     return (
@@ -238,7 +264,13 @@ export default function VoiceAIDemo() {
                         </div>
 
                         {/* Status Text Under Circle */}
-                        <div className="mt-8 text-center h-16 w-full flex items-center justify-center px-4">
+                        <div className="mt-8 text-center h-20 w-full flex flex-col items-center justify-center px-4">
+                            {micError && (
+                                <div className="text-red-500 flex items-center gap-2 mb-2 bg-red-500/10 px-4 py-2 rounded-lg text-xs font-bold animate-pulse">
+                                    <AlertCircle className="w-4 h-4 shrink-0" />
+                                    Microphone access denied. Please allow it in your browser settings.
+                                </div>
+                            )}
                             {!isCallActive ? (
                                 <p className="text-muted-foreground text-sm font-medium">Ready when you are.</p>
                             ) : isSpeaking ? (
