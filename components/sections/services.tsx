@@ -1,4 +1,3 @@
-"use client";
 
 import Link from "next/link";
 import { ArrowRight, Cpu, MessageSquare, Zap, BarChart, Building, Users } from "lucide-react";

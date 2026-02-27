@@ -1,4 +1,3 @@
-"use client";
 
 import Link from "next/link";
 import { Brain, ArrowRight, Sparkles } from "lucide-react";
