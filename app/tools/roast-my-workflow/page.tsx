@@ -172,7 +172,7 @@ export default function RoastMyWorkflow() {
                                                 Stop suffering. Start scaling.
                                             </h4>
                                             <p className="text-muted-foreground mb-6">
-                                                Every minute you spend on this is a minute you aren't growing your business. At Atul Automation, we build intelligent AI agents that handle this exact BS while you sleep.
+                                                Every minute you spend on this is a minute you aren&apos;t growing your business. At Atul Automation, we build intelligent AI agents that handle this exact BS while you sleep.
                                             </p>
 
                                             <div className="flex flex-col sm:flex-row gap-4">
