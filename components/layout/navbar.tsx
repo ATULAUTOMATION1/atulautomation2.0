@@ -16,10 +16,7 @@ const navItems = [
             { name: "AI Readiness Quiz", href: "/tools/ai-readiness-quiz" },
             { name: "ROI Calculator", href: "/tools/roi-calculator" },
             { name: "Voice AI Demo 🎙️", href: "/tools/voice-ai-demo" },
-            { name: "Roast My Workflow 🔥", href: "/tools/roast-my-workflow" },
-            { name: "Live AI Demos", href: "#live-demos" },
-            { name: "Interactive Playground", href: "#playground" },
-            { name: "Build your Workflow", href: "#build-workflow" }
+            { name: "Roast My Workflow 🔥", href: "/tools/roast-my-workflow" }
         ]
     },
     { name: "Blog", href: "/blog" },
