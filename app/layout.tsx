@@ -163,6 +163,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
         />
 
+
+
+      </head>
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         {/* AdSense (Lazy) */}
         <Script
           async
@@ -170,9 +174,6 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="lazyOnload"
         />
-
-      </head>
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-6KB8876KLQ"
           strategy="afterInteractive"
