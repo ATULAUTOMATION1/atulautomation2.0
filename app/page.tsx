@@ -22,9 +22,9 @@ export default function Home() {
       <Hero />
       <Services />
       <QuizCTA />
-      <div className="container-custom">
+      {/* <div className="container-custom">
         <AdSlot />
-      </div>
+      </div> */}
       <FeaturedProjects />
       <AIModules />
       <InteractiveDemos />
@@ -34,13 +34,13 @@ export default function Home() {
       {/* <Pricing /> */}{/* DISABLED — re-enable when ready */}
 
       <Branding />
-      <div className="container-custom">
+      {/* <div className="container-custom">
         <AdSlot />
-      </div>
+      </div> */}
       <Blog />
-      <div className="container-custom">
+      {/* <div className="container-custom">
         <AdSlot />
-      </div>
+      </div> */}
       <Contact />
       <Community />
     </main>

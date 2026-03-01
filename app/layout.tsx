@@ -82,6 +82,8 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   category: 'Technology',
   icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
     apple: '/icon.svg',
   },
 };
