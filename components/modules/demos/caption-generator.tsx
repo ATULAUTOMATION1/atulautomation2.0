@@ -35,6 +35,7 @@ export function CaptionGenerator() {
                 <div>
                     <label className="text-xs font-medium text-muted-foreground mb-1 block">Topic / Image Desc</label>
                     <input
+                        aria-label="Topic or Image Description"
                         value={topic}
                         onChange={(e) => setTopic(e.target.value)}
                         placeholder="e.g. New AI product launch"
@@ -45,6 +46,7 @@ export function CaptionGenerator() {
                 <div>
                     <label className="text-xs font-medium text-muted-foreground mb-1 block">Platform</label>
                     <select
+                        aria-label="Social Media Platform"
                         value={platform}
                         onChange={(e) => setPlatform(e.target.value)}
                         className="w-full p-2 rounded-lg bg-muted border border-border text-sm focus:border-primary outline-none"
@@ -68,6 +70,7 @@ export function CaptionGenerator() {
                 <div className="mt-4 p-3 bg-muted/50 rounded-lg border border-border relative group">
                     <p className="text-sm whitespace-pre-wrap">{result}</p>
                     <button
+                        aria-label={copied ? "Copied" : "Copy to clipboard"}
                         onClick={copyToClipboard}
                         className="absolute top-2 right-2 p-1.5 rounded-md bg-background border border-border hover:text-primary transition-colors opacity-0 group-hover:opacity-100"
                     >

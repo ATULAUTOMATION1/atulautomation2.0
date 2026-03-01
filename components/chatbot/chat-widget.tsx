@@ -281,6 +281,7 @@ export function ChatWidget() {
                     {/* Scroll to bottom */}
                     {showScrollDown && (
                         <button
+                            aria-label="Scroll down to latest messages"
                             onClick={scrollToBottom}
                             className="absolute bottom-20 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary text-white shadow-lg flex items-center justify-center z-10 animate-bounce"
                         >
@@ -292,6 +293,7 @@ export function ChatWidget() {
                     <form onSubmit={handleSubmit} className="px-4 py-3 border-t border-border bg-card shrink-0">
                         <div className="flex items-center gap-2">
                             <input
+                                aria-label="Ask me anything"
                                 ref={inputRef}
                                 type="text"
                                 value={input}

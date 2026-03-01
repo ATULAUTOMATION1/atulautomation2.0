@@ -166,6 +166,7 @@ export function WorkflowBuilder() {
 
                                                     {!isRunning && (
                                                         <button
+                                                            aria-label="Remove node"
                                                             onClick={() => removeFromWorkflow(index)}
                                                             className="text-muted-foreground hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md hover:bg-muted"
                                                         >

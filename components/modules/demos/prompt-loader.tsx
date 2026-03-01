@@ -33,6 +33,7 @@ export function PromptLoader() {
 
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
                 <textarea
+                    aria-label="JSON Configuration"
                     value={json}
                     onChange={(e) => setJson(e.target.value)}
                     className="w-full h-full p-4 bg-background font-mono text-xs resize-none outline-none text-foreground"

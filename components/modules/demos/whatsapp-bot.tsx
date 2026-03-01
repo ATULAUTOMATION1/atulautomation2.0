@@ -64,6 +64,7 @@ export function WhatsAppBotDemo() {
 
             <div className="p-3 border-t border-border bg-background flex space-x-2">
                 <input
+                    aria-label="Type a message to WhatsApp bot"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
@@ -71,6 +72,7 @@ export function WhatsAppBotDemo() {
                     className="flex-1 bg-muted border-none rounded-full px-4 text-sm focus:ring-1 focus:ring-primary outline-none"
                 />
                 <button
+                    aria-label="Send WhatsApp message"
                     onClick={handleSend}
                     className="p-2 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
                 >

@@ -45,6 +45,7 @@ export function ROICalculator() {
                                         <span className="text-sm font-bold bg-muted px-2 py-1 rounded-md min-w-[3rem] text-center">{hours}h</span>
                                     </div>
                                     <input
+                                        aria-label="Hours per week spent on manual tasks"
                                         type="range" min="1" max="100" value={hours} onChange={(e) => setHours(Number(e.target.value))}
                                         className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                                     />
@@ -58,6 +59,7 @@ export function ROICalculator() {
                                         <span className="text-sm font-bold bg-muted px-2 py-1 rounded-md min-w-[3rem] text-center">${rate}</span>
                                     </div>
                                     <input
+                                        aria-label="Hourly rate"
                                         type="range" min="10" max="200" value={rate} onChange={(e) => setRate(Number(e.target.value))}
                                         className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                                     />
@@ -71,6 +73,7 @@ export function ROICalculator() {
                                         <span className="text-sm font-bold bg-muted px-2 py-1 rounded-md min-w-[3rem] text-center">{employees}</span>
                                     </div>
                                     <input
+                                        aria-label="Number of employees"
                                         type="range" min="1" max="50" value={employees} onChange={(e) => setEmployees(Number(e.target.value))}
                                         className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                                     />

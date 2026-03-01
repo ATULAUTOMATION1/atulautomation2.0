@@ -131,6 +131,7 @@ export function LeadCapturePopup() {
                         <form onSubmit={handleSubmit} className="space-y-3">
                             <div>
                                 <input
+                                    aria-label="Your Name"
                                     type="text"
                                     placeholder="Your Name"
                                     value={name}
@@ -140,6 +141,7 @@ export function LeadCapturePopup() {
                             </div>
                             <div>
                                 <input
+                                    aria-label="Your Email Address"
                                     type="email"
                                     placeholder="Your Email Address"
                                     value={email}
