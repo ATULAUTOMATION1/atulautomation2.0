@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
+  },
   // Hide X-Powered-By header for security
   poweredByHeader: false,
   // Enable gzip compression

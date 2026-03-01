@@ -6,9 +6,11 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { AnimatedBackground } from '@/components/ui/animated-background';
+import dynamic from 'next/dynamic';
 import { LazyChat } from '@/components/chatbot/lazy-chat';
-import { SocialShare } from '@/components/ui/social-share';
-import { LeadCapturePopup } from '@/components/ui/lead-capture-popup';
+
+const SocialShare = dynamic(() => import('@/components/ui/social-share').then(mod => mod.SocialShare));
+const LeadCapturePopup = dynamic(() => import('@/components/ui/lead-capture-popup').then(mod => mod.LeadCapturePopup));
 
 const inter = Inter({
   subsets: ['latin'],
