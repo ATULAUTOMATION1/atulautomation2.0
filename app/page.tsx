@@ -1,18 +1,20 @@
 
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/hero/hero";
 import { Services } from "@/components/sections/services";
-import { QuizCTA } from "@/components/sections/quiz-cta";
-import { AdSlot } from "@/components/ui/ad-slot";
-import { FeaturedProjects } from "@/components/sections/featured-projects";
-import { AIModules } from "@/components/sections/ai-modules";
-import { InteractiveDemos } from "@/components/sections/interactive-demos";
-import { WorkflowBuilder } from "@/components/modules/workflow-builder";
-import { ROICalculator } from "@/components/tools/roi-calculator";
-import { DocsHub } from "@/components/sections/docs-hub";
-import { Branding } from "@/components/sections/branding";
-import { Blog } from "@/components/sections/blog";
-import { Contact } from "@/components/sections/contact";
-import { Community } from "@/components/sections/community";
+
+const QuizCTA = dynamic(() => import("@/components/sections/quiz-cta").then(mod => mod.QuizCTA));
+const AdSlot = dynamic(() => import("@/components/ui/ad-slot").then(mod => mod.AdSlot));
+const FeaturedProjects = dynamic(() => import("@/components/sections/featured-projects").then(mod => mod.FeaturedProjects));
+const AIModules = dynamic(() => import("@/components/sections/ai-modules").then(mod => mod.AIModules));
+const InteractiveDemos = dynamic(() => import("@/components/sections/interactive-demos").then(mod => mod.InteractiveDemos));
+const WorkflowBuilder = dynamic(() => import("@/components/modules/workflow-builder").then(mod => mod.WorkflowBuilder));
+const ROICalculator = dynamic(() => import("@/components/tools/roi-calculator").then(mod => mod.ROICalculator));
+const DocsHub = dynamic(() => import("@/components/sections/docs-hub").then(mod => mod.DocsHub));
+const Branding = dynamic(() => import("@/components/sections/branding").then(mod => mod.Branding));
+const Blog = dynamic(() => import("@/components/sections/blog").then(mod => mod.Blog));
+const Contact = dynamic(() => import("@/components/sections/contact").then(mod => mod.Contact));
+const Community = dynamic(() => import("@/components/sections/community").then(mod => mod.Community));
 
 export default function Home() {
   return (

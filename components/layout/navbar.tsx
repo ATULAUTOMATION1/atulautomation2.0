@@ -104,6 +104,7 @@ export function Navbar() {
                 <div className="flex items-center gap-2 md:hidden">
                     <ThemeToggle />
                     <button
+                        aria-label="Toggle navigation menu"
                         onClick={() => setIsOpen(!isOpen)}
                         className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
                     >

@@ -94,6 +94,7 @@ export function Contact() {
                                         <input
                                             type="text"
                                             name="name"
+                                            aria-label="Full Name"
                                             value={formData.name}
                                             onChange={handleChange}
                                             placeholder="Full Name"
@@ -105,6 +106,7 @@ export function Contact() {
                                         <input
                                             type="email"
                                             name="email"
+                                            aria-label="Email Address"
                                             value={formData.email}
                                             onChange={handleChange}
                                             placeholder="Email Address"
@@ -115,6 +117,7 @@ export function Contact() {
                                 </div>
                                 <select
                                     name="service"
+                                    aria-label="Select a Service"
                                     value={formData.service}
                                     onChange={handleChange}
                                     className="w-full px-4 py-3.5 rounded-xl border border-border bg-background text-sm text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all"
@@ -129,6 +132,7 @@ export function Contact() {
                                 </select>
                                 <textarea
                                     name="message"
+                                    aria-label="Your Message"
                                     value={formData.message}
                                     onChange={handleChange}
                                     placeholder="Tell us about your project..."

@@ -65,9 +65,10 @@ export function Footer() {
                             <input
                                 type="email"
                                 placeholder="Your email"
+                                aria-label="Your email address"
                                 className="flex-1 px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-all placeholder:text-muted-foreground/60"
                             />
-                            <button className="bg-primary text-white p-2.5 rounded-xl hover:bg-orange-600 hover:shadow-lg hover:shadow-primary/20 transition-all shrink-0">
+                            <button aria-label="Subscribe to newsletter" className="bg-primary text-white p-2.5 rounded-xl hover:bg-orange-600 hover:shadow-lg hover:shadow-primary/20 transition-all shrink-0">
                                 <Send className="h-4 w-4" />
                             </button>
                         </div>
@@ -76,7 +77,7 @@ export function Footer() {
                     {/* Links */}
                     {Object.entries(footerLinks).map(([title, links]) => (
                         <div key={title} className="md:col-span-2">
-                            <h4 className="text-sm font-bold mb-4 text-foreground">{title}</h4>
+                            <h3 className="text-sm font-bold mb-4 text-foreground">{title}</h3>
                             <ul className="space-y-2.5">
                                 {links.map((link) => (
                                     <li key={link.name}>
@@ -91,7 +92,7 @@ export function Footer() {
 
                     {/* CTA */}
                     <div className="md:col-span-2">
-                        <h4 className="text-sm font-bold mb-4">Get Started</h4>
+                        <h3 className="text-sm font-bold mb-4">Get Started</h3>
                         <p className="text-sm text-muted-foreground mb-4">Ready to automate? Let&apos;s talk.</p>
                         <Link href="#contact" className="text-sm font-semibold text-primary flex items-center gap-1 hover:gap-2 transition-all group">
                             Contact Us <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
