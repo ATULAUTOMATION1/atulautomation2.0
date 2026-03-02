@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Plus, Play, CheckCircle, Trash2, Workflow, RotateCcw } from "lucide-react";
 
 type Node = {

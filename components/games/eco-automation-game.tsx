@@ -3,11 +3,11 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import {
     Zap, Bot, Mail, Database, GitBranch, ArrowRight,
-    Star, Trophy, Sparkles, ChevronRight, RotateCcw,
+    Star,  Sparkles, ChevronRight, RotateCcw,
     MessageSquare, BarChart, Shield, Clock, CheckCircle2,
     XCircle, Lightbulb, Cpu, Workflow, Send, Users,
     FileText, Bell, Filter, Play, Timer, Award,
-    ChevronDown, Flame, TrendingUp, Lock
+     Flame, TrendingUp, Lock
 } from "lucide-react";
 
 // ─── Types ──────────────────────────────────────────────────

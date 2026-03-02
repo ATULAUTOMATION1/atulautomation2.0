@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Send, ArrowRight, Heart } from "lucide-react";
+import { Send, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const footerLinks = {

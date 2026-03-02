@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getIndustryBySlug, getAllIndustries } from '@/lib/industry-data';
 import { SocialShare } from '@/components/ui/social-share';
-import { ArrowRight, CheckCircle, ArrowLeft, Zap, Target, TrendingUp, Users } from 'lucide-react';
+import { ArrowRight, CheckCircle,  Zap, Target, TrendingUp, Users } from 'lucide-react';
 
 interface IndustryPageProps {
     params: Promise<{ slug: string }>;

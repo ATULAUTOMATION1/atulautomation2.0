@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TrendingUp, Clock, ArrowRight, ExternalLink, MessageSquare, Heart, Flame, Sparkles, Bot, Zap, Code } from "lucide-react";
+import { TrendingUp, Clock, ArrowRight,  MessageSquare, Heart, Flame, Sparkles, Bot,  Code } from "lucide-react";
 
 type Category = "all" | "ai" | "tools" | "guides";
 

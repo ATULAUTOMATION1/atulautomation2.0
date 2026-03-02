@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Check, Download, ExternalLink, Play, Mail, Brain, Database, UserCheck, MessageSquare, BarChart, Zap, Globe, Cog, MousePointer, Building, Search, Eye, TrendingUp } from "lucide-react";
+import { ArrowLeft, Check,   Play,     MessageSquare } from "lucide-react";
 import { WorkflowBuilder } from "@/components/modules/workflow-builder";
 import { WorkflowVisualizer } from "@/components/modules/workflow-visualizer";
 

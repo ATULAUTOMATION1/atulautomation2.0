@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import {
     BookOpen, Video, FileText, Lightbulb,
     Search, Clock, Star, Play, ChevronRight,
-    BarChart, ExternalLink, Filter, TrendingUp
+     ExternalLink, Filter, TrendingUp
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";

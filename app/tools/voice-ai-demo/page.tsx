@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Phone, PhoneOff, Mic, Volume2, Bot, Loader2, Sparkles, MessageCircle, AlertCircle } from 'lucide-react';
-import { SocialShare } from '@/components/ui/social-share';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Phone, PhoneOff, Mic, Volume2, Bot, Loader2, Sparkles, AlertCircle } from 'lucide-react';
 
 // Types for Web Speech API
 declare global {
@@ -17,7 +16,7 @@ export default function VoiceAIDemo() {
     const [isListening, setIsListening] = useState(false);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [transcript, setTranscript] = useState('');
-    const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'agent', text: string }[]>([]);
+    const [, setChatHistory] = useState<{ role: 'user' | 'agent', text: string }[]>([]);
     const [micError, setMicError] = useState(false);
 
     const recognitionRef = useRef<any>(null);
@@ -36,7 +35,7 @@ export default function VoiceAIDemo() {
     }, [isCallActive, isSpeaking, transcript]);
 
     // Handle User Query Logic
-    const handleUserQuery = async (queryText: string) => {
+    const handleUserQuery = useCallback(async (queryText: string) => {
         if (isSpeakingRef.current) return;
 
         setChatHistory(prev => [...prev, { role: 'user', text: queryText }]);
@@ -62,7 +61,7 @@ export default function VoiceAIDemo() {
             setChatHistory(prev => [...prev, { role: 'agent', text: fallbackMsg }]);
             speak(fallbackMsg);
         }
-    };
+    }, []);
 
     const handleUserQueryRef = useRef(handleUserQuery);
     useEffect(() => {
@@ -102,7 +101,7 @@ export default function VoiceAIDemo() {
                         handleUserQueryRef.current(finalTranscript);
                     } else if (!isSpeakingRef.current) {
                         // Automatically restart listening if still in call and not speaking (e.g. they were quiet)
-                        try { recognition.start(); } catch (e) { }
+                        try { recognition.start(); } catch { }
                     }
                 };
 
@@ -175,7 +174,7 @@ export default function VoiceAIDemo() {
                 try {
                     setTranscript('');
                     recognitionRef.current.start();
-                } catch (e) { console.error(e) }
+                } catch { console.error("Error starting recognition") }
             }
         };
 

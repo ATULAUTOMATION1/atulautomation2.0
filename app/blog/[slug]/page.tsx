@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog-data';
 import { SocialShare } from '@/components/ui/social-share';
-import { Calendar, Clock, ArrowLeft, Tag, Share2 } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Tag } from 'lucide-react';
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;

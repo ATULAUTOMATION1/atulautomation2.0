@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
-import * as fs from 'fs';
-import * as path from 'path';
-
 // Hardcoded fallback credentials (used when env vars or JSON file are unavailable)
 const FALLBACK_CREDENTIALS = {
     client_email: 'google-sheets-integration@eng-mechanism-487311-m3.iam.gserviceaccount.com',

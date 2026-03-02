@@ -1,5 +1,5 @@
 
-import { ArrowRight, Play, CheckCircle, Sparkles, Zap, Bot, TrendingUp, Shield } from "lucide-react";
+import { ArrowRight, Play, CheckCircle, Sparkles, Zap,  TrendingUp, Shield } from "lucide-react";
 import Link from "next/link";
 
 const WORKFLOW_STEPS = [

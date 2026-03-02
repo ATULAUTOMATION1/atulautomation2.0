@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Zap, ChevronDown, ShoppingCart, MessageSquare, BarChart3, PenTool, ArrowRightLeft, CheckCircle2, TrendingUp, Clock, Users, Target, Workflow, Globe, Mail, Bot, Database, Megaphone, Search } from "lucide-react";
+import { ArrowRight, Zap, ChevronDown, ShoppingCart, MessageSquare, BarChart3, PenTool, ArrowRightLeft, CheckCircle2,  Clock,  Target, Workflow, Globe, Mail, Bot, Database, Megaphone, Search } from "lucide-react";
 
 interface ProjectStep {
     step: number;

@@ -52,7 +52,7 @@ Make the roast highly engaging, funny, a bit savage but ultimately professional 
         try {
             const parsed = JSON.parse(cleanJson);
             return NextResponse.json(parsed);
-        } catch (e) {
+        } catch {
             console.error("Failed to parse Gemini JSON:", cleanJson);
             // Fallback
             return NextResponse.json({

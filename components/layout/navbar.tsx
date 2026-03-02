@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Menu, X, Terminal, ArrowRight, ChevronDown } from "lucide-react";
+import { Menu, X,  ArrowRight, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 

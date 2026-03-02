@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, Zap, Mail, ArrowRight, CheckCircle } from 'lucide-react';
+import { X, Zap,  ArrowRight, CheckCircle } from 'lucide-react';
 
 export function LeadCapturePopup() {
     const [isOpen, setIsOpen] = useState(false);

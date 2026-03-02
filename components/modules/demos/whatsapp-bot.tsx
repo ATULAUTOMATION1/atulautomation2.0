@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, User, Bot, Loader2 } from "lucide-react";
+import { Send,  Bot, Loader2 } from "lucide-react";
 
 export function WhatsAppBotDemo() {
     const [messages, setMessages] = useState([

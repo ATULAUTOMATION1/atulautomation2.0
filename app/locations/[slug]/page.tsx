@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getCityBySlug, getAllCities } from '@/lib/city-data';
 import { SocialShare } from '@/components/ui/social-share';
-import { ArrowRight, CheckCircle, MapPin, Building2, Users, TrendingUp, Zap, Target } from 'lucide-react';
+import { ArrowRight,  MapPin, Building2, Users, TrendingUp, Zap, Target } from 'lucide-react';
 
 interface CityPageProps {
     params: Promise<{ slug: string }>;
