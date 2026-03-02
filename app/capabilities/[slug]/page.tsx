@@ -117,7 +117,7 @@ const SERVICE_DATA: Record<string, any> = {
         ],
         demoComponent: <WorkflowBuilder />
     },
-    "web-dev": {
+    "web-development": {
         title: "Web Development",
         subtitle: "High-Performance Digital Experiences",
         description: "We build websites that look beautiful and load instantly. Optimized for SEO, accessibility, and conversion.",

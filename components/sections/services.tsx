@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { ArrowRight, Cpu, MessageSquare, Zap, BarChart, Building, Users } from "lucide-react";
+import { ArrowRight, Cpu, MessageSquare, Zap, BarChart, Building, Users, Globe } from "lucide-react";
 
 const services = [
     { icon: Cpu, title: "AI Automation", description: "Self-learning algorithms that adapt to your business and streamline complex processes.", href: "/capabilities/ai-agents", color: "text-primary", bg: "bg-primary/8", border: "group-hover:border-primary/40", glow: "group-hover:shadow-primary/10" },
@@ -9,6 +9,7 @@ const services = [
     { icon: BarChart, title: "AI Marketing", description: "Data-driven campaigns across Meta & Google optimized for maximum ROI.", href: "/capabilities/marketing", color: "text-violet-500", bg: "bg-violet-500/8", border: "group-hover:border-violet-500/40", glow: "group-hover:shadow-violet-500/10" },
     { icon: Building, title: "Real Estate Services", description: "Automated lead capture and virtual tours to sell properties 3x faster.", href: "/capabilities/real-estate", color: "text-amber-600", bg: "bg-amber-500/8", border: "group-hover:border-amber-500/40", glow: "group-hover:shadow-amber-500/10" },
     { icon: Users, title: "CRM Solutions", description: "Centralize customer data and automate follow-ups for higher retention.", href: "/capabilities/crm", color: "text-rose-500", bg: "bg-rose-500/8", border: "group-hover:border-rose-500/40", glow: "group-hover:shadow-rose-500/10" },
+    { icon: Globe, title: "Website Development", description: "Modern, extremely fast, and high-converting websites optimized for speed and automated lead capture.", href: "/capabilities/web-development", color: "text-cyan-500", bg: "bg-cyan-500/8", border: "group-hover:border-cyan-500/40", glow: "group-hover:shadow-cyan-500/10" },
 ];
 
 export function Services() {

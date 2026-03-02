@@ -10,6 +10,7 @@ const footerLinks = {
         { name: "Chatbot Development", href: "/capabilities/chatbots" },
         { name: "Workflow Automation", href: "/capabilities/workflow" },
         { name: "AI Marketing", href: "/capabilities/marketing" },
+        { name: "Website Development", href: "/capabilities/web-development" },
     ],
     Industries: [
         { name: "Real Estate", href: "/industries/ai-automation-for-real-estate" },
