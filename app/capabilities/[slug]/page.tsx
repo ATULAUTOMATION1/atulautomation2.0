@@ -26,19 +26,45 @@ function ChatbotDemo() {
 
 function WebDevPortfolio() {
     const projects = [
-        { name: "EcoStore", type: "E-Commerce", image: "bg-green-100" },
-        { name: "FinTech App", type: "SaaS Dashboard", image: "bg-blue-100" },
-        { name: "Dr. Clinic", type: "Healthcare", image: "bg-pink-100" },
+        { 
+            name: "EcoStore", 
+            type: "High-Converting E-Commerce", 
+            image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?auto=format&fit=crop&q=80&w=800"
+        },
+        { 
+            name: "FinTech Pro", 
+            type: "SaaS Dashboard", 
+            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" 
+        },
+        { 
+            name: "Dr. Clinic", 
+            type: "Medical Portal", 
+            image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800" 
+        },
     ];
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((p, i) => (
-                <div key={i} className="group relative aspect-video bg-muted rounded-xl overflow-hidden border border-border">
-                    <div className={`absolute inset-0 ${p.image} opacity-50 group-hover:opacity-100 transition-opacity`} />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="bg-background/90 backdrop-blur px-4 py-2 rounded-lg text-center shadow-sm transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
-                            <h4 className="font-bold text-sm">{p.name}</h4>
-                            <p className="text-xs text-muted-foreground">{p.type}</p>
+                <div key={i} className="group relative aspect-[4/3] bg-muted rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-xl hover:shadow-primary/10 hover:border-primary/50 transition-all duration-500 cursor-pointer">
+                    {/* Browser Chrome Wrapper */}
+                    <div className="absolute top-0 left-0 right-0 h-8 bg-card/80 backdrop-blur-sm border-b border-border z-20 flex items-center px-3 gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+                    </div>
+                    {/* Image Layer */}
+                    <div className="absolute top-[32px] inset-x-0 bottom-0 bg-muted overflow-hidden">
+                        <img 
+                            src={p.image} 
+                            alt={p.name} 
+                            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" 
+                        />
+                    </div>
+                    {/* Hover Info Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col justify-end p-5">
+                        <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out">
+                            <h4 className="font-bold text-lg text-foreground">{p.name}</h4>
+                            <p className="text-sm text-primary font-medium">{p.type}</p>
                         </div>
                     </div>
                 </div>
