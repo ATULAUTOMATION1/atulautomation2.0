@@ -36,9 +36,9 @@ export const metadata: Metadata = {
   keywords: [
     'AI Automation', 'Workflow Automation', 'ChatGPT Agents', 'Business Automation',
     'No-code AI', 'AI Chatbot Development', 'Marketing Automation', 'CRM Automation',
-    'AI Agency India', 'Atul Automation', 'GPT-4 Integration', 'Claude AI',
+    'AI Agency India', 'AI Automation Agency USA', 'Globally', 'Atul Automation', 'GPT-4 Integration', 'Claude AI',
     'Lead Generation AI', 'Sales Automation', 'WhatsApp Bot', 'Customer Support AI',
-    'Real Estate Automation', 'E-commerce Automation', 'Digital Marketing AI',
+    'Real Estate Automation', 'E-commerce Automation', 'Digital Marketing AI', 'USA AI Services'
   ],
   authors: [{ name: 'Atul Automation', url: 'https://atulautomation.com' }],
   creator: 'Atul Automation',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
         alt: 'Atul Automation - AI Agents & Workflow Automation',
       },
     ],
-    locale: 'en_IN',
+    locale: 'en_US',
     type: 'website',
   },
   twitter: {
@@ -79,6 +79,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://atulautomation.com',
+    languages: {
+      'en-US': 'https://atulautomation.com',
+      'en-IN': 'https://atulautomation.com',
+    },
   },
   verification: { google: 'OzGDDmxxpz4DBXk7QIfsoPuTfDutnLDBu1byXYH32KA' },
   manifest: '/manifest.json',
@@ -116,10 +120,13 @@ const jsonLd = {
     offerCount: '6',
   },
   slogan: 'Built to Automate, Designed to Scale',
-  areaServed: {
-    '@type': 'Country',
-    name: 'India',
-  },
+  areaServed: [
+    { '@type': 'Country', name: 'United States' },
+    { '@type': 'Country', name: 'India' },
+    { '@type': 'Country', name: 'United Kingdom' },
+    { '@type': 'Country', name: 'Canada' },
+    { '@type': 'Country', name: 'Australia' }
+  ],
   knowsAbout: ['AI Automation', 'Chatbots', 'Workflow Automation', 'AI Agents', 'CRM Automation', 'Digital Marketing'],
 };
 
@@ -132,10 +139,13 @@ const serviceJsonLd = {
     name: 'Atul Automation',
     url: 'https://atulautomation.com',
   },
-  areaServed: {
-    '@type': 'Country',
-    name: 'India',
-  },
+  areaServed: [
+    { '@type': 'Country', name: 'United States' },
+    { '@type': 'Country', name: 'India' },
+    { '@type': 'Country', name: 'United Kingdom' },
+    { '@type': 'Country', name: 'Canada' },
+    { '@type': 'Country', name: 'Australia' }
+  ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'AI Automation Services',
