@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { X, Zap, Mail, ArrowRight, CheckCircle } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export function LeadCapturePopup() {
     const [isOpen, setIsOpen] = useState(false);
@@ -86,7 +87,9 @@ export function LeadCapturePopup() {
         }
     };
 
-    if (!isOpen) return null;
+    const pathname = usePathname();
+
+    if (!isOpen || pathname?.startsWith('/dashboard')) return null;
 
     return (
         <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4">

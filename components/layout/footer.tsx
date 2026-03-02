@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Send, ArrowRight, Heart } from "lucide-react";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const footerLinks = {
     Services: [
@@ -39,6 +40,10 @@ export function Footer() {
     useEffect(() => {
         setYear(new Date().getFullYear().toString());
     }, []);
+
+    const pathname = usePathname();
+
+    if (pathname?.startsWith("/dashboard")) return null;
 
     return (
         <footer className="bg-muted/30 border-t border-border relative overflow-hidden">

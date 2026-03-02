@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, Send, Bot, User, Sparkles, ArrowDown, Minus, RotateCcw } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 interface Message {
     id: string;
@@ -175,6 +176,10 @@ export function ChatWidget() {
         setUnreadCount(0);
         setHasInteracted(true);
     };
+
+    const pathname = usePathname();
+
+    if (pathname?.startsWith("/dashboard")) return null;
 
     return (
         <>
