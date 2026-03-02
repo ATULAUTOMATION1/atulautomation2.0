@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Menu, X, Terminal, ArrowRight, ChevronDown } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
 
 const navItems = [
     { name: "Services", href: "/#services" },
@@ -30,15 +29,11 @@ export function Navbar() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [scrolled, setScrolled] = React.useState(false);
 
-    const pathname = usePathname();
-
     React.useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
-    if (pathname?.startsWith("/dashboard")) return null;
 
     return (
         <header
