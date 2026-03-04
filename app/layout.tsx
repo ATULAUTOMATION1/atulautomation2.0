@@ -11,6 +11,7 @@ import { LazyChat } from '@/components/chatbot/lazy-chat';
 
 const SocialShare = dynamic(() => import('@/components/ui/social-share').then(mod => mod.SocialShare));
 const LeadCapturePopup = dynamic(() => import('@/components/ui/lead-capture-popup').then(mod => mod.LeadCapturePopup));
+const HoliPopup = dynamic(() => import('@/components/ui/holi-popup').then(mod => mod.HoliPopup));
 
 const inter = Inter({
   subsets: ['latin'],
@@ -214,6 +215,7 @@ export default function RootLayout({
           <LazyChat />
           <SocialShare variant="floating" />
           <LeadCapturePopup />
+          <HoliPopup />
         </ThemeProvider>
       </body>
     </html>
