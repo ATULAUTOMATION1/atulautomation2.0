@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Check,   Play,     MessageSquare } from "lucide-react";
 import { WorkflowBuilder } from "@/components/modules/workflow-builder";
 import { WorkflowVisualizer } from "@/components/modules/workflow-visualizer";
@@ -54,9 +55,11 @@ function WebDevPortfolio() {
                     </div>
                     {/* Image Layer */}
                     <div className="absolute top-[32px] inset-x-0 bottom-0 bg-muted overflow-hidden">
-                        <img 
+                        <Image 
                             src={p.image} 
-                            alt={p.name} 
+                            alt={p.name}
+                            width={800}
+                            height={600}
                             className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" 
                         />
                     </div>

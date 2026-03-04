@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+    ],
+  },
   // Hide X-Powered-By header for security
   poweredByHeader: false,
   // Enable gzip compression
