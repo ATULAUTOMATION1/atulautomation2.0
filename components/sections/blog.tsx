@@ -1,41 +1,26 @@
 "use client";
 
-import { ArrowRight, BookOpen, Clock } from "lucide-react";
+import { ArrowRight, BookOpen, Clock, Calendar, Bot, Zap, DollarSign, Users, Wrench, Brain, Megaphone, BarChart3 } from "lucide-react";
+import Link from "next/link";
+import { getAllPosts } from "@/lib/blog-data";
 
-const POSTS = [
-    {
-        title: "How AI Chatbots are Revolutionizing Customer Service",
-        excerpt: "Discover how businesses are using AI chatbots to provide instant support and increase customer satisfaction.",
-        category: "AI Trends",
-        date: "Jan 2026",
-        readTime: "5 min",
-        color: "text-primary",
-        gradient: "from-primary/10 to-transparent",
-        accent: "border-t-primary",
-    },
-    {
-        title: "Top 10 Workflow Automations That Save 20+ Hours",
-        excerpt: "We break down the most impactful automations you can deploy today to reclaim your time.",
-        category: "Automation",
-        date: "Jan 2026",
-        readTime: "7 min",
-        color: "text-blue-500",
-        gradient: "from-blue-500/10 to-transparent",
-        accent: "border-t-blue-500",
-    },
-    {
-        title: "The Future of No-Code AI Agents for SMBs",
-        excerpt: "No-code platforms are making AI accessible to every business. Here's what's coming next.",
-        category: "Industry",
-        date: "Dec 2025",
-        readTime: "6 min",
-        color: "text-violet-500",
-        gradient: "from-violet-500/10 to-transparent",
-        accent: "border-t-violet-500",
-    }
-];
+const CATEGORY_STYLES: Record<string, { icon: React.ElementType; gradient: string }> = {
+    'AI Chatbots': { icon: Bot, gradient: 'from-blue-600 via-cyan-500 to-teal-400' },
+    'Workflow Automation': { icon: Zap, gradient: 'from-amber-500 via-orange-500 to-red-500' },
+    'AI Marketing': { icon: Megaphone, gradient: 'from-pink-500 via-rose-500 to-red-500' },
+    'WhatsApp': { icon: Bot, gradient: 'from-green-500 via-emerald-500 to-teal-500' },
+    'CRM': { icon: Users, gradient: 'from-indigo-500 via-purple-500 to-pink-500' },
+    'Tools & Reviews': { icon: Wrench, gradient: 'from-violet-500 via-fuchsia-500 to-pink-500' },
+    'Business Strategy': { icon: DollarSign, gradient: 'from-emerald-500 via-green-500 to-lime-500' },
+    'Sales Automation': { icon: BarChart3, gradient: 'from-sky-500 via-blue-500 to-indigo-500' },
+    'AI Technology': { icon: Brain, gradient: 'from-purple-600 via-violet-500 to-indigo-500' },
+};
+
+const DEFAULT_STYLE = { icon: Zap, gradient: 'from-primary via-orange-500 to-amber-500' };
 
 export function Blog() {
+    const posts = getAllPosts().slice(0, 3);
+
     return (
         <section id="blog" className="section-padding bg-transparent relative">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent rounded-full" />
@@ -53,36 +38,75 @@ export function Blog() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    {POSTS.map((post, i) => (
-                        <article
-                            key={i}
-                            className={`group bg-card border border-border border-t-[3px] ${post.accent} rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 cursor-pointer relative opacity-0 animate-fade-in-up delay-${(i + 1) * 100}`}
-                        >
-                            {/* Hover gradient */}
-                            <div className={`absolute inset-0 bg-gradient-to-b ${post.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {posts.map((post, i) => {
+                        const style = CATEGORY_STYLES[post.category] || DEFAULT_STYLE;
+                        const IconComponent = style.icon;
 
-                            <div className="p-7 relative z-10">
-                                <div className="flex items-center gap-3 mb-5">
-                                    <span className={`text-[11px] font-bold ${post.color} bg-muted/50 px-2.5 py-1 rounded-full`}>{post.category}</span>
-                                    <span className="text-muted-foreground/30">·</span>
-                                    <span className="text-[11px] text-muted-foreground flex items-center gap-1">
-                                        <Clock className="h-3 w-3" /> {post.readTime}
-                                    </span>
-                                </div>
+                        return (
+                            <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
+                                <article
+                                    className={`h-full bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-300 cursor-pointer relative opacity-0 animate-fade-in-up`}
+                                    style={{ animationDelay: `${(i + 1) * 100}ms` }}
+                                >
+                                    {/* Cover */}
+                                    <div className={`relative h-44 bg-gradient-to-br ${style.gradient} overflow-hidden`}>
+                                        {/* Decorative shapes */}
+                                        <div className="absolute top-3 right-3 w-16 h-16 border border-white/10 rounded-2xl rotate-12 group-hover:rotate-45 transition-transform duration-700" />
+                                        <div className="absolute bottom-4 left-4 w-10 h-10 border border-white/10 rounded-full group-hover:scale-125 transition-transform duration-700" />
 
-                                <h3 className="text-lg font-bold mb-3 group-hover:text-primary transition-colors leading-snug">{post.title}</h3>
-                                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{post.excerpt}</p>
+                                        {/* Center Icon */}
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                                <IconComponent className="h-8 w-8 text-white" strokeWidth={1.5} />
+                                            </div>
+                                        </div>
 
-                                <div className="flex items-center justify-between pt-5 border-t border-border/50">
-                                    <span className="text-xs text-muted-foreground">{post.date}</span>
-                                    <span className="text-sm font-semibold text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-                                        Read <ArrowRight className="h-3.5 w-3.5" />
-                                    </span>
-                                </div>
-                            </div>
-                        </article>
-                    ))}
+                                        {/* Category Badge */}
+                                        <div className="absolute top-3 left-3">
+                                            <span className="inline-flex items-center rounded-full bg-white/20 backdrop-blur-sm px-2.5 py-1 text-[10px] font-semibold text-white border border-white/10">
+                                                {post.category}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="p-5">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <span className="text-[11px] text-muted-foreground flex items-center gap-1">
+                                                <Calendar className="h-3 w-3" />
+                                                {new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                            </span>
+                                            <span className="text-muted-foreground/30">·</span>
+                                            <span className="text-[11px] text-muted-foreground flex items-center gap-1">
+                                                <Clock className="h-3 w-3" /> {post.readTime}
+                                            </span>
+                                        </div>
+
+                                        <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors leading-snug line-clamp-2">{post.title}</h3>
+                                        <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
+
+                                        <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                                            <span className="text-xs text-muted-foreground">{post.author}</span>
+                                            <span className="text-sm font-semibold text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                                                Read <ArrowRight className="h-3.5 w-3.5" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </article>
+                            </Link>
+                        );
+                    })}
+                </div>
+
+                {/* View All CTA */}
+                <div className="text-center mt-10">
+                    <Link
+                        href="/blog"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all"
+                    >
+                        View All Articles <ArrowRight className="h-4 w-4" />
+                    </Link>
                 </div>
             </div>
         </section>
