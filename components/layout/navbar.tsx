@@ -23,6 +23,7 @@ const navItems = [
         ]
     },
     { name: "Blog", href: "/blog" },
+    { name: "Courses", href: "/courses" },
 ];
 
 export function Navbar() {
