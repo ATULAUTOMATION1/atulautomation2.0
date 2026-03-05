@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     default: 'Atul Automation | AI Agents & Workflow Automation Agency',
     template: '%s | Atul Automation',
   },
-  description: 'India\'s best AI automation agency. Built to Automate, Designed to Scale. We build intelligent AI agents, chatbots, workflow automation, and data-driven marketing solutions. Deploy GPT-4, Claude & custom LLMs to automate your business operations 24/7.',
+  description: 'AI Automation Agency serving businesses globally. We build intelligent AI agents, chatbots, workflow automation & marketing solutions. Deploy GPT-4, Claude & custom LLMs to automate operations 24/7. Trusted by 50+ businesses worldwide.',
   keywords: [
     'AI Automation', 'Workflow Automation', 'ChatGPT Agents', 'Business Automation',
     'No-code AI', 'AI Chatbot Development', 'Marketing Automation', 'CRM Automation',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Atul Automation | AI Agents & Workflow Automation Agency',
-    description: 'Deploy intelligent AI agents that automate your marketing, sales & support 24/7. Transform your business with the power of AI.',
+    description: 'Deploy intelligent AI agents that automate your marketing, sales & support 24/7. Custom chatbots, workflow automation & AI solutions for businesses worldwide.',
     url: 'https://atulautomation.com',
     siteName: 'Atul Automation',
     images: [
@@ -101,7 +101,7 @@ const jsonLd = {
   name: 'Atul Automation',
   url: 'https://atulautomation.com',
   logo: 'https://atulautomation.com/og-image.svg',
-  description: 'India\'s Best AI Automation Agency. Specializing in AI agents, chatbots, workflow automation, and data-driven marketing. Built to Automate, Designed to Scale.',
+  description: 'Leading AI Automation Agency serving businesses globally. Specializing in AI agents, chatbots, workflow automation, and data-driven marketing. Custom GPT-4 & Claude solutions for modern business.',
   contactPoint: {
     '@type': 'ContactPoint',
     email: 'hello@atulautomation.com',

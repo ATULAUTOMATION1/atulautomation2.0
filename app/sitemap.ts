@@ -50,6 +50,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         // Free Tools
         { url: `${baseUrl}/tools/roi-calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
         { url: `${baseUrl}/tools/ai-readiness-quiz`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/tools/voice-ai-demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/tools/roast-my-workflow`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
 
         // Info
         { url: `${baseUrl}/faq`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
