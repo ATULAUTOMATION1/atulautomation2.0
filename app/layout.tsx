@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     siteName: 'Atul Automation',
     images: [
       {
-        url: '/og-image.svg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Atul Automation - AI Agents & Workflow Automation',
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     title: 'Atul Automation | AI Automation Agency',
     description: 'AI Agents, Chatbots & Workflow Automation for businesses. Automate everything.',
     creator: '@atulautomation',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: 'https://atulautomation.com',
@@ -100,7 +100,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'Atul Automation',
   url: 'https://atulautomation.com',
-  logo: 'https://atulautomation.com/og-image.svg',
+  logo: 'https://atulautomation.com/og-image.png',
   description: 'Leading AI Automation Agency serving businesses globally. Specializing in AI agents, chatbots, workflow automation, and data-driven marketing. Custom GPT-4 & Claude solutions for modern business.',
   contactPoint: {
     '@type': 'ContactPoint',
@@ -115,9 +115,9 @@ const jsonLd = {
   ],
   offers: {
     '@type': 'AggregateOffer',
-    priceCurrency: 'INR',
-    lowPrice: '4999',
-    highPrice: '49999',
+    priceCurrency: 'USD',
+    lowPrice: '500',
+    highPrice: '50000',
     offerCount: '6',
   },
   slogan: 'Built to Automate, Designed to Scale',

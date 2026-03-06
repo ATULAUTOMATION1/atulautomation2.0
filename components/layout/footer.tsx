@@ -21,6 +21,8 @@ const footerLinks = {
     Tools: [
         { name: "ROI Calculator", href: "/tools/roi-calculator" },
         { name: "AI Readiness Quiz", href: "/tools/ai-readiness-quiz" },
+        { name: "Blog", href: "/blog" },
+        { name: "Courses", href: "/courses" },
         { name: "Locations", href: "/locations" },
         { name: "FAQ", href: "/faq" },
     ],
@@ -95,7 +97,7 @@ export function Footer() {
                     <div className="md:col-span-2">
                         <h3 className="text-sm font-bold mb-4">Get Started</h3>
                         <p className="text-sm text-muted-foreground mb-4">Ready to automate? Let&apos;s talk.</p>
-                        <Link href="#contact" className="text-sm font-semibold text-primary flex items-center gap-1 hover:gap-2 transition-all group">
+                        <Link href="/#contact" className="text-sm font-semibold text-primary flex items-center gap-1 hover:gap-2 transition-all group">
                             Contact Us <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                         </Link>
                     </div>

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { HelpCircle, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'FAQ - AI Automation Questions Answered | Atul Automation',
+    title: 'FAQ - AI Automation Questions Answered',
     description: 'Frequently asked questions about AI automation, chatbots, workflow automation, pricing, and implementation. Get clear answers about ROI, costs, and how AI agents can transform your business.',
     alternates: { canonical: 'https://atulautomation.com/faq' },
     keywords: ['AI automation FAQ', 'chatbot pricing', 'workflow automation cost', 'AI agent questions', 'business automation guide'],
