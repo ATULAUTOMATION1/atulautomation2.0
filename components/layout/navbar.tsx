@@ -7,9 +7,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-    { name: "Services", href: "/#services" },
+    { name: "Services", href: "/capabilities" },
     { name: "Industries", href: "/industries" },
-    { name: "Locations", href: "/locations" },
     {
         name: "AI Tools",
         subItems: [
@@ -17,13 +16,11 @@ const navItems = [
             { name: "ROI Calculator", href: "/tools/roi-calculator" },
             { name: "Voice AI Demo 🎙️", href: "/tools/voice-ai-demo" },
             { name: "Roast My Workflow 🔥", href: "/tools/roast-my-workflow" },
-            { name: "Live AI Demos ⚡", href: "/#interactive-demos" },
-            { name: "Interactive Playground 🕹️", href: "/#interactive-demos" },
-            { name: "Build Your Workflow 🧠", href: "/#interactive-demos" }
         ]
     },
     { name: "Blog", href: "/blog" },
     { name: "Courses", href: "/courses" },
+    { name: "FAQ", href: "/faq" },
 ];
 
 export function Navbar() {
@@ -95,7 +92,7 @@ export function Navbar() {
                     <div className="ml-2 mr-2">
                         <ThemeToggle />
                     </div>
-                    <Link href="#contact" className="btn-primary text-sm px-5 py-2 ml-1 group">
+                    <Link href="/#contact" className="btn-primary text-sm px-5 py-2 ml-1 group">
                         Get Started
                         <ArrowRight className="ml-1.5 h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </Link>
@@ -160,7 +157,7 @@ export function Navbar() {
                     ))}
                     <div className="pt-3 mt-2 border-t border-border">
                         <Link
-                            href="#contact"
+                            href="/#contact"
                             onClick={() => setIsOpen(false)}
                             className="btn-primary w-full justify-center"
                         >
