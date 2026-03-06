@@ -169,6 +169,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
+        <meta name="google-adsense-account" content="ca-pub-5677457553651550" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -177,17 +178,14 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
         />
-
-
-
-      </head>
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
+      </head>
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-6KB8876KLQ"
           strategy="afterInteractive"
