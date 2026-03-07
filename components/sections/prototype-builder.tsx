@@ -32,7 +32,25 @@ export function PrototypeBuilder() {
         throw new Error(data.error || "Generation failed");
       }
 
-      setGeneratedHtml(data.html);
+      // Inject a script to prevent prototype links from navigating the iframe
+      const antiNavigationScript = `
+        <script>
+          document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link) {
+              e.preventDefault();
+              console.log('Sandbox blocked link navigation');
+            }
+            const form = e.target.closest('form');
+            if (form) {
+              e.preventDefault();
+              console.log('Sandbox blocked form submission');
+            }
+          });
+        </script>
+      `;
+
+      setGeneratedHtml(data.html + antiNavigationScript);
       
     } catch (err: any) {
       console.error(err);
@@ -49,11 +67,28 @@ export function PrototypeBuilder() {
     window.open(url, '_blank');
   };
 
-  const handleLeadCapture = (e: React.FormEvent) => {
+  const handleLeadCapture = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) return;
-    setLeadCaptured(true);
-    // Real implementation would POST to /api/subscribe
+    
+    try {
+      // Push the lead into the existing Google Sheets integration route
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          name: "App Builder Lead", 
+          email: email, 
+          service: "Prototype Generator", 
+          message: `User generated prototype prompt: "${prompt}"` 
+        })
+      });
+    } catch (err) {
+      console.error("Failed to capture lead:", err);
+    } finally {
+      // Always show success visually
+      setLeadCaptured(true);
+    }
   };
 
   return (
@@ -198,7 +233,7 @@ export function PrototypeBuilder() {
                    title="Generated UI Prototype"
                    srcDoc={generatedHtml}
                    className="w-full h-full border-none bg-white animate-[fade-in_0.5s_ease-out]"
-                   sandbox="allow-scripts allow-same-origin"
+                   sandbox="allow-scripts"
                  />
                )}
             </div>
