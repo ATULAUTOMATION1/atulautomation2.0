@@ -9,6 +9,7 @@ const FeaturedProjects = dynamic(() => import("@/components/sections/featured-pr
 const AIModules = dynamic(() => import("@/components/sections/ai-modules").then(mod => mod.AIModules));
 const InteractiveDemos = dynamic(() => import("@/components/sections/interactive-demos").then(mod => mod.InteractiveDemos));
 const WorkflowBuilder = dynamic(() => import("@/components/modules/workflow-builder").then(mod => mod.WorkflowBuilder));
+const PrototypeBuilder = dynamic(() => import("@/components/sections/prototype-builder").then(mod => mod.PrototypeBuilder));
 const ROICalculator = dynamic(() => import("@/components/tools/roi-calculator").then(mod => mod.ROICalculator));
 const DocsHub = dynamic(() => import("@/components/sections/docs-hub").then(mod => mod.DocsHub));
 const Branding = dynamic(() => import("@/components/sections/branding").then(mod => mod.Branding));
@@ -29,6 +30,7 @@ export default function Home() {
       <AIModules />
       <InteractiveDemos />
       <WorkflowBuilder />
+      <PrototypeBuilder />
       <ROICalculator />
       <DocsHub />
       {/* <Pricing /> */}{/* DISABLED — re-enable when ready */}
