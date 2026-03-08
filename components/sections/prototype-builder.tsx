@@ -50,7 +50,16 @@ export function PrototypeBuilder() {
         </script>
       `;
 
-      setGeneratedHtml(data.html + antiNavigationScript);
+      let finalHtml = data.html;
+      if (finalHtml.includes("</body>")) {
+        finalHtml = finalHtml.replace("</body>", antiNavigationScript + "</body>");
+      } else if (finalHtml.includes("</html>")) {
+        finalHtml = finalHtml.replace("</html>", antiNavigationScript + "</html>");
+      } else {
+        finalHtml += antiNavigationScript;
+      }
+
+      setGeneratedHtml(finalHtml);
       
     } catch (err: any) {
       console.error(err);
@@ -150,8 +159,8 @@ export function PrototypeBuilder() {
                 
                 <div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground">
                   <span>Try:</span>
-                  <button onClick={() => setPrompt("A modern analytics dashboard for e-commerce with a sidebar")} className="hover:text-primary transition-colors underline decoration-border underline-offset-4">E-commerce</button>
-                  <button onClick={() => setPrompt("A patient management system for clinics with list views")} className="hover:text-primary transition-colors underline decoration-border underline-offset-4">Health CRM</button>
+                  <button type="button" onClick={() => setPrompt("A modern analytics dashboard for e-commerce with a sidebar")} className="hover:text-primary transition-colors underline decoration-border underline-offset-4">E-commerce</button>
+                  <button type="button" onClick={() => setPrompt("A patient management system for clinics with list views")} className="hover:text-primary transition-colors underline decoration-border underline-offset-4">Health CRM</button>
                 </div>
              </div>
 
@@ -232,8 +241,9 @@ export function PrototypeBuilder() {
                  <iframe 
                    title="Generated UI Prototype"
                    srcDoc={generatedHtml}
+                   key={Math.random().toString()} // Force completely new iframe mount to execute CDN scripts
                    className="w-full h-full border-none bg-white animate-[fade-in_0.5s_ease-out]"
-                   sandbox="allow-scripts"
+                   sandbox="allow-scripts allow-same-origin"
                  />
                )}
             </div>
