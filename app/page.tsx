@@ -30,7 +30,7 @@ export default function Home() {
       <AIModules />
       <InteractiveDemos />
       <WorkflowBuilder />
-      <PrototypeBuilder />
+      {/* <PrototypeBuilder /> */}
       <ROICalculator />
       <DocsHub />
       {/* <Pricing /> */}{/* DISABLED — re-enable when ready */}
