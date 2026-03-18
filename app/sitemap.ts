@@ -2,12 +2,14 @@ import type { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog-data';
 import { getAllIndustries } from '@/lib/industry-data';
 import { getAllCities } from '@/lib/city-data';
+import { getAllCourses } from '@/lib/course-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://atulautomation.com';
     const posts = getAllPosts();
     const industries = getAllIndustries();
     const cities = getAllCities();
+    const courses = getAllCourses();
 
     return [
         // Main pages
@@ -44,6 +46,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...cities.map(city => ({
             url: `${baseUrl}/locations/${city.slug}`,
             lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        })),
+
+        // Courses (Knowledge Hub)
+        ...courses.map(course => ({
+            url: `${baseUrl}/courses/${course.slug}`,
+            lastModified: new Date(course.lastUpdated),
             changeFrequency: 'monthly' as const,
             priority: 0.8,
         })),

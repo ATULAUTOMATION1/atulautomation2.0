@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { generateSlug } from "@/lib/course-data";
 
 interface Resource {
     title: string;
@@ -216,10 +217,17 @@ export function DocsHub() {
                                             <span className="text-xs font-medium uppercase tracking-tighter">{doc.duration}</span>
                                         </div>
 
-                                        <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 text-xs font-bold ring-1 ring-border group-hover:bg-primary group-hover:text-white group-hover:ring-primary transition-all shadow-sm">
-                                            {active === 'videos' ? <Play className="h-3 w-3" /> : (active === 'prompts' ? <ExternalLink className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />)}
-                                            {active === 'videos' ? 'Watch Now' : (active === 'prompts' ? 'Get Prompts' : 'Read Guide')}
-                                        </button>
+                                        {active === 'courses' || active === 'guides' ? (
+                                            <Link href={`/courses/${generateSlug(doc.title)}`} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 text-xs font-bold ring-1 ring-border group-hover:bg-primary group-hover:text-white group-hover:ring-primary transition-all shadow-sm">
+                                                <ChevronRight className="h-3 w-3" />
+                                                Read Guide
+                                            </Link>
+                                        ) : (
+                                            <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 text-xs font-bold ring-1 ring-border group-hover:bg-primary group-hover:text-white group-hover:ring-primary transition-all shadow-sm">
+                                                {active === 'videos' ? <Play className="h-3 w-3" /> : <ExternalLink className="h-3 w-3" />}
+                                                {active === 'videos' ? 'Watch Now' : 'Get Prompts'}
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             );
