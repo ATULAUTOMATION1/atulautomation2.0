@@ -1,0 +1,12 @@
+﻿
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\layout.tsx
+  174:9  error  Synchronous scripts should not be used. See: https://nextjs.org/docs/messages/no-sync-scripts  @next/next/no-sync-scripts
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\page.tsx
+  12:7  warning  'PrototypeBuilder' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\test-live-apis.mjs
+  26:11  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 3 problems (1 error, 2 warnings)
+

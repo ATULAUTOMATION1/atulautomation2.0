@@ -8,9 +8,9 @@ const QuizCTA = dynamic(() => import("@/components/sections/quiz-cta").then(mod 
 const FeaturedProjects = dynamic(() => import("@/components/sections/featured-projects").then(mod => mod.FeaturedProjects));
 const AIModules = dynamic(() => import("@/components/sections/ai-modules").then(mod => mod.AIModules));
 const InteractiveDemos = dynamic(() => import("@/components/sections/interactive-demos").then(mod => mod.InteractiveDemos));
-const WorkflowBuilder = dynamic(() => import("@/components/modules/workflow-builder").then(mod => mod.WorkflowBuilder));
-const PrototypeBuilder = dynamic(() => import("@/components/sections/prototype-builder").then(mod => mod.PrototypeBuilder));
 const ROICalculator = dynamic(() => import("@/components/tools/roi-calculator").then(mod => mod.ROICalculator));
+// const PrototypeBuilder = dynamic(() => import("@/components/sections/prototype-builder").then(mod => mod.PrototypeBuilder));
+const WorkflowBuilder = dynamic(() => import("@/components/modules/workflow-builder").then(mod => mod.WorkflowBuilder));
 const DocsHub = dynamic(() => import("@/components/sections/docs-hub").then(mod => mod.DocsHub));
 const Branding = dynamic(() => import("@/components/sections/branding").then(mod => mod.Branding));
 const Blog = dynamic(() => import("@/components/sections/blog").then(mod => mod.Blog));

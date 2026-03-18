@@ -171,7 +171,11 @@ export default function RootLayout({
       <head>
         <meta name="google-adsense-account" content="ca-pub-5677457553651550" />
         <link rel="stylesheet" href="https://b-cdn.monetumo.com/cls-css/atulautomation-com.css" />
-        <script async src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js" data-cfasync="false"></script>
+        <Script
+          src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js"
+          data-cfasync="false"
+          strategy="beforeInteractive"
+        />
         <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
         <script defer src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js" data-cfasync="false"></script>
         <script
