@@ -4,7 +4,7 @@ import { getAllCities } from '@/lib/city-data';
 import { MapPin, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: "India's Best AI Automation Agency | All Locations | Atul Automation",
+    title: "India's Best AI Automation Agency | All Locations",
     description: "Atul Automation serves businesses across India — Mumbai, Delhi, Bangalore, Hyderabad, Pune, Chennai, Kolkata, Ahmedabad, Jaipur & Surat. Built to Automate, Designed to Scale.",
     alternates: { canonical: 'https://atulautomation.com/locations' },
 };

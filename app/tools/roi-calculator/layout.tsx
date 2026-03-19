@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'AI Automation ROI Calculator - Free Tool | Atul Automation',
+    title: 'AI Automation ROI Calculator - Free Tool',
     description: 'Calculate how much time and money your business can save with AI automation. Free ROI calculator — see your potential savings in 30 seconds.',
     keywords: ['ROI calculator', 'AI automation savings', 'automation cost calculator', 'business automation ROI', 'AI chatbot ROI'],
     alternates: {

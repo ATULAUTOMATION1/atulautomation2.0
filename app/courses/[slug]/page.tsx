@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (!course) return { title: 'Course Not Found' };
 
     return {
-        title: `${course.title} — Free Guide | Atul Automation`,
+        title: `${course.title} — Free Guide`,
         description: course.longDescription.slice(0, 160),
         keywords: [
             ...course.topics,
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         ],
         alternates: { canonical: `https://atulautomation.com/courses/${slug}` },
         openGraph: {
-            title: `${course.title} | Atul Automation`,
+            title: course.title,
             description: course.description,
             url: `https://atulautomation.com/courses/${slug}`,
             type: 'article',

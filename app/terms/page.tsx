@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Terms of Service | Atul Automation",
+    title: "Terms of Service",
     description: "Terms of Service for Atul Automation",
 };
 

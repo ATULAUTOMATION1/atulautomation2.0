@@ -4,7 +4,7 @@ import { getAllIndustries } from '@/lib/industry-data';
 import { ArrowRight, Building2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'AI Automation for Every Industry | Atul Automation',
+    title: 'AI Automation for Every Industry',
     description: 'Discover how AI automation transforms businesses across industries — real estate, e-commerce, healthcare, education, restaurants, law firms, fitness, and travel.',
     alternates: {
         canonical: 'https://atulautomation.com/industries',

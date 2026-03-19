@@ -61,7 +61,7 @@ AI chatbots aren't just a cost-saving tool — they're a **competitive advantage
 
 **Ready to reduce your support costs by 40%?** [Contact us](/contact) for a free consultation.
         `,
-        coverImage: '/blog/ai-chatbot-support.svg',
+        coverImage: 'https://images.unsplash.com/photo-1531746790731-6c087fdec650?auto=format&fit=crop&q=80&w=800',
         category: 'AI Chatbots',
         author: 'Atul Automation',
         date: '2026-02-25',
@@ -161,7 +161,7 @@ You don't need to build these from scratch. At **Atul Automation**, we set up al
 
 **[Book a free strategy call](#contact)** and let's automate your business.
         `,
-        coverImage: '/blog/workflow-automation.svg',
+        coverImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
         category: 'Workflow Automation',
         author: 'Atul Automation',
         date: '2026-02-23',
@@ -248,7 +248,7 @@ At **Atul Automation**, we implement AI marketing systems that deliver measurabl
 
 **[Get your free AI marketing strategy](#contact)** — no obligation, just actionable insights.
         `,
-        coverImage: '/blog/ai-marketing.svg',
+        coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
         category: 'AI Marketing',
         author: 'Atul Automation',
         date: '2026-02-20',
@@ -327,7 +327,7 @@ At **Atul Automation**, we build custom WhatsApp bots that:
 
 **[Get your WhatsApp bot →](/blog/how-ai-chatbots-save-businesses-40-percent-support-costs)** or **[check our ROI calculator](/tools/roi-calculator)** to see your potential savings.
         `,
-        coverImage: '/blog/whatsapp-automation.svg',
+        coverImage: 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&q=80&w=800',
         category: 'WhatsApp',
         author: 'Atul Automation',
         date: '2026-02-18',
@@ -406,7 +406,7 @@ At **Atul Automation**, we set up [AI-powered CRM systems](/capabilities/crm) th
 
 **[Get a free CRM audit →](/#contact)**
         `,
-        coverImage: '/blog/ai-crm.svg',
+        coverImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
         category: 'CRM',
         author: 'Atul Automation',
         date: '2026-02-15',
@@ -477,7 +477,7 @@ Read our guide on [5 workflow automations](/blog/5-workflow-automations-every-sm
 
 **[Need help choosing? Book a free call →](/#contact)**
         `,
-        coverImage: '/blog/automation-tools.svg',
+        coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
         category: 'Tools & Reviews',
         author: 'Atul Automation',
         date: '2026-02-12',
@@ -565,7 +565,7 @@ We specialize in building automation for Indian businesses. Our solutions integr
 
 Check our [industry-specific solutions](/industries) or **[book a free strategy call →](/#contact)**.
         `,
-        coverImage: '/blog/indian-smb.svg',
+        coverImage: 'https://images.unsplash.com/photo-1524178232363-1fb28f74b671?auto=format&fit=crop&q=80&w=800',
         category: 'Business Strategy',
         author: 'Atul Automation',
         date: '2026-02-10',
@@ -653,7 +653,7 @@ At **Atul Automation**, we build complete lead nurturing systems that run on aut
 
 **[Book your free nurturing strategy session →](/#contact)**
         `,
-        coverImage: '/blog/lead-nurturing.svg',
+        coverImage: 'https://images.unsplash.com/photo-1434626881859-194d67b2b86f?auto=format&fit=crop&q=80&w=800',
         category: 'Sales Automation',
         author: 'Atul Automation',
         date: '2026-02-08',
@@ -743,7 +743,7 @@ For small businesses, you can start automating for **under $1,000**. For serious
 
 **[Get a free custom quote →](/#contact)** — we'll analyze your specific workflows and give you exact pricing.
         `,
-        coverImage: '/blog/ai-pricing.svg',
+        coverImage: 'https://images.unsplash.com/photo-1554224155-6726b3885621?auto=format&fit=crop&q=80&w=800',
         category: 'Business Strategy',
         author: 'Atul Automation',
         date: '2026-03-05',
@@ -836,7 +836,7 @@ A San Francisco SaaS startup was about to hire 3 customer support reps at $55,00
 
 **[Calculate your savings →](/tools/roi-calculator)** or **[talk to our team →](/#contact)**
         `,
-        coverImage: '/blog/ai-vs-hiring.svg',
+        coverImage: 'https://images.unsplash.com/photo-1454165833767-1396b5b5817a?auto=format&fit=crop&q=80&w=800',
         category: 'Business Strategy',
         author: 'Atul Automation',
         date: '2026-03-04',
@@ -959,7 +959,7 @@ Every business is different. At **Atul Automation**, we audit your current tools
 
 **[Get your free tool audit →](/#contact)** — we'll recommend the perfect AI stack for your business.
         `,
-        coverImage: '/blog/ai-tools.svg',
+        coverImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800',
         category: 'Tools & Reviews',
         author: 'Atul Automation',
         date: '2026-03-03',
@@ -1058,7 +1058,7 @@ At **Atul Automation**, we build custom AI chatbots that integrate with your exi
 
 **[See how much you could save →](/tools/roi-calculator)** or **[book a demo →](/#contact)**
         `,
-        coverImage: '/blog/chatbot-roi.svg',
+        coverImage: 'https://images.unsplash.com/photo-1535303311164-664fc9ec6532?auto=format&fit=crop&q=80&w=800',
         category: 'AI Chatbots',
         author: 'Atul Automation',
         date: '2026-03-02',
@@ -1176,7 +1176,7 @@ Our agents are powered by the latest models (GPT-4, Claude 3.5) and built with e
 
 **[Explore our AI Agent capabilities →](/capabilities/ai-agents)** or **[schedule a strategy call →](/#contact)**
         `,
-        coverImage: '/blog/ai-agents.svg',
+        coverImage: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
         category: 'AI Technology',
         author: 'Atul Automation',
         date: '2026-03-01',

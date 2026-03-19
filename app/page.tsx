@@ -15,7 +15,7 @@ const DocsHub = dynamic(() => import("@/components/sections/docs-hub").then(mod 
 const Branding = dynamic(() => import("@/components/sections/branding").then(mod => mod.Branding));
 const Blog = dynamic(() => import("@/components/sections/blog").then(mod => mod.Blog));
 const Contact = dynamic(() => import("@/components/sections/contact").then(mod => mod.Contact));
-const Community = dynamic(() => import("@/components/sections/community").then(mod => mod.Community));
+// const Community = dynamic(() => import("@/components/sections/community").then(mod => mod.Community));
 
 export default function Home() {
   return (
@@ -44,7 +44,7 @@ export default function Home() {
         <AdSlot />
       </div> */}
       <Contact />
-      <Community />
+      {/* <Community /> */}
     </main>
   );
 }

@@ -101,37 +101,30 @@ export default function BlogPage() {
                                 className="group block"
                             >
                                 <article className="h-full rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
-                                    {/* Cover Image — Vibrant Gradient with Icon */}
-                                    <div
-                                        className={`relative h-52 bg-gradient-to-br ${style.gradient} overflow-hidden`}
-                                    >
-                                        {/* Decorative Pattern */}
-                                        <div
-                                            className="absolute inset-0"
-                                            style={{ backgroundImage: style.pattern }}
+                                    {/* Cover Image */}
+                                    <div className="relative h-52 overflow-hidden bg-muted">
+                                        <img
+                                            src={post.coverImage}
+                                            alt={post.title}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                         />
-
-                                        {/* Floating geometric shapes */}
-                                        <div className="absolute top-4 right-4 w-20 h-20 border border-white/10 rounded-2xl rotate-12 group-hover:rotate-45 transition-transform duration-700" />
-                                        <div className="absolute bottom-6 left-6 w-14 h-14 border border-white/10 rounded-full group-hover:scale-125 transition-transform duration-700" />
-                                        <div className="absolute top-1/2 left-1/3 w-8 h-8 bg-white/5 rounded-lg rotate-45" />
-
-                                        {/* Center Icon */}
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="w-20 h-20 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 group-hover:bg-white/20 transition-all duration-300">
-                                                <IconComponent className="h-10 w-10 text-white" strokeWidth={1.5} />
-                                            </div>
-                                        </div>
+                                        
+                                        {/* Overlay Gradient */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
                                         {/* Category Badge */}
                                         <div className="absolute top-4 left-4">
-                                            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold text-white border border-white/10">
+                                            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/90 backdrop-blur-sm px-3 py-1.5 text-xs font-bold text-white shadow-lg">
                                                 {post.category}
                                             </span>
                                         </div>
 
-                                        {/* Bottom Fade */}
-                                        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
+                                        {/* Icon hint on hover */}
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                            <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white scale-75 group-hover:scale-100 transition-transform duration-500 ring-1 ring-white/30">
+                                                <IconComponent className="h-6 w-6" strokeWidth={2} />
+                                            </div>
+                                        </div>
                                     </div>
 
                                     {/* Content */}

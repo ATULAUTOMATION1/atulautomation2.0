@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'AI Readiness Quiz - Is Your Business Ready for AI? | Atul Automation',
+    title: 'AI Readiness Quiz - Is Your Business Ready for AI?',
     description: 'Take our free 2-minute AI readiness quiz and discover how much AI automation can help your business. Get personalized recommendations instantly.',
     keywords: ['AI readiness quiz', 'automation assessment', 'business automation test', 'AI quiz', 'automation readiness'],
     alternates: { canonical: 'https://atulautomation.com/tools/ai-readiness-quiz' },

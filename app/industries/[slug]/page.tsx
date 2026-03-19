@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
     if (!page) return { title: 'Not Found' };
 
     return {
-        title: `${page.title} | Atul Automation`,
+        title: page.title,
         description: page.metaDescription,
         keywords: [`AI automation ${page.industry}`, `chatbot ${page.industry}`, `${page.industry} automation`, 'AI agents', 'workflow automation', 'Atul Automation'],
         openGraph: {

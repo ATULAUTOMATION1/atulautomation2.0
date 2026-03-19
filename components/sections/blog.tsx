@@ -50,23 +50,28 @@ export function Blog() {
                                     style={{ animationDelay: `${(i + 1) * 100}ms` }}
                                 >
                                     {/* Cover */}
-                                    <div className={`relative h-44 bg-gradient-to-br ${style.gradient} overflow-hidden`}>
-                                        {/* Decorative shapes */}
-                                        <div className="absolute top-3 right-3 w-16 h-16 border border-white/10 rounded-2xl rotate-12 group-hover:rotate-45 transition-transform duration-700" />
-                                        <div className="absolute bottom-4 left-4 w-10 h-10 border border-white/10 rounded-full group-hover:scale-125 transition-transform duration-700" />
-
-                                        {/* Center Icon */}
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                                <IconComponent className="h-8 w-8 text-white" strokeWidth={1.5} />
-                                            </div>
-                                        </div>
+                                    <div className="relative h-44 overflow-hidden bg-muted">
+                                        <img
+                                            src={post.coverImage}
+                                            alt={post.title}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                        
+                                        {/* Overlay Gradient */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
                                         {/* Category Badge */}
                                         <div className="absolute top-3 left-3">
-                                            <span className="inline-flex items-center rounded-full bg-white/20 backdrop-blur-sm px-2.5 py-1 text-[10px] font-semibold text-white border border-white/10">
+                                            <span className="inline-flex items-center rounded-full bg-primary/90 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-white shadow-lg">
                                                 {post.category}
                                             </span>
+                                        </div>
+
+                                        {/* Icon hint on hover */}
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                            <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white scale-75 group-hover:scale-100 transition-transform duration-500 ring-1 ring-white/30">
+                                                <IconComponent className="h-5 w-5" strokeWidth={2} />
+                                            </div>
                                         </div>
                                     </div>
 

@@ -10,7 +10,7 @@ const navItems = [
     { name: "Services", href: "/capabilities" },
     { name: "Industries", href: "/industries" },
     {
-        name: "AI Tools",
+        name: "Free Tools",
         subItems: [
             { name: "AI Readiness Quiz", href: "/tools/ai-readiness-quiz" },
             { name: "ROI Calculator", href: "/tools/roi-calculator" },
@@ -115,7 +115,7 @@ export function Navbar() {
             <div
                 className={cn(
                     "md:hidden overflow-hidden transition-all duration-300 ease-in-out border-b border-border bg-background/95 backdrop-blur-xl",
-                    isOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0 border-b-0"
+                    isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0 border-b-0"
                 )}
             >
                 <div className="container-custom py-4 flex flex-col gap-1">

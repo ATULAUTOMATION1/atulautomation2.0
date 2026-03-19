@@ -201,7 +201,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
 
                 {/* Article Header */}
-                <header className="container-custom max-w-4xl mb-12">
+                <header className="container-custom max-w-4xl mb-8">
                     <div className="flex items-center gap-3 mb-6">
                         <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                             <Tag className="h-3 w-3" />
@@ -212,10 +212,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
                         {post.title}
                     </h1>
-
-                    <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                        {post.excerpt}
-                    </p>
 
                     <div className="flex items-center justify-between flex-wrap gap-4 pb-8 border-b border-border">
                         <div className="flex items-center gap-6 text-sm text-muted-foreground">
@@ -238,6 +234,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         </div>
                     </div>
                 </header>
+
+                {/* Featured Image */}
+                <div className="container-custom max-w-5xl mb-12">
+                    <div className="aspect-video w-full rounded-2xl overflow-hidden border border-border shadow-2xl">
+                        <img
+                            src={post.coverImage}
+                            alt={post.title}
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                </div>
 
                 {/* Article Body */}
                 <article className="container-custom max-w-4xl">
@@ -288,13 +295,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                 <Link
                                     key={relatedPost.slug}
                                     href={`/blog/${relatedPost.slug}`}
-                                    className="group block rounded-2xl border border-border bg-card p-6 hover:border-primary/30 hover:shadow-lg transition-all"
+                                    className="group block rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all"
                                 >
-                                    <span className="text-xs font-semibold text-primary">{relatedPost.category}</span>
-                                    <h4 className="text-lg font-bold mt-2 mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                                        {relatedPost.title}
-                                    </h4>
-                                    <p className="text-sm text-muted-foreground line-clamp-2">{relatedPost.excerpt}</p>
+                                    <div className="aspect-video w-full overflow-hidden bg-muted">
+                                        <img
+                                            src={relatedPost.coverImage}
+                                            alt={relatedPost.title}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    </div>
+                                    <div className="p-6">
+                                        <span className="text-xs font-semibold text-primary">{relatedPost.category}</span>
+                                        <h4 className="text-lg font-bold mt-2 mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                                            {relatedPost.title}
+                                        </h4>
+                                        <p className="text-sm text-muted-foreground line-clamp-2">{relatedPost.excerpt}</p>
+                                    </div>
                                 </Link>
                             ))}
                         </div>
