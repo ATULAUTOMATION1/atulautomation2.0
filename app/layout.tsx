@@ -12,6 +12,7 @@ import { LazyChat } from '@/components/chatbot/lazy-chat';
 const SocialShare = dynamic(() => import('@/components/ui/social-share').then(mod => mod.SocialShare));
 const LeadCapturePopup = dynamic(() => import('@/components/ui/lead-capture-popup').then(mod => mod.LeadCapturePopup));
 const NavratriPopup = dynamic(() => import('@/components/navratri-popup'));
+const ShaheedDiwasPopup = dynamic(() => import('@/components/shaheed-diwas-popup'));
 
 
 const inter = Inter({
@@ -215,6 +216,7 @@ export default function RootLayout({
           <SocialShare variant="floating" />
           <LeadCapturePopup />
           <NavratriPopup />
+          <ShaheedDiwasPopup />
         </ThemeProvider>
       </body>
     </html>

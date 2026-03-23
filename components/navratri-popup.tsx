@@ -18,10 +18,10 @@ export default function NavratriPopup() {
       const currentDay = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1
       
       if (currentDay >= 1 && currentDay <= DAYS_COUNT) {
+        const todayStr = new Date().toISOString().split('T')[0]
         setDayIndex(currentDay)
         
         // Show only once per day
-        const todayStr = new Date().toISOString().split('T')[0]
         const lastShown = localStorage.getItem('navratri_popup_last_shown')
         
         if (lastShown !== todayStr) {
@@ -29,7 +29,7 @@ export default function NavratriPopup() {
           const timer = setTimeout(() => {
             setIsOpen(true)
             localStorage.setItem('navratri_popup_last_shown', todayStr)
-          }, 1500)
+          }, 4500)
           return () => clearTimeout(timer)
         }
       }
