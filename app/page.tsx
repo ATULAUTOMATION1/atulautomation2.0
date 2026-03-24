@@ -4,7 +4,7 @@ import { Hero } from "@/components/hero/hero";
 import { Services } from "@/components/sections/services";
 
 const QuizCTA = dynamic(() => import("@/components/sections/quiz-cta").then(mod => mod.QuizCTA));
-// const AdSlot = dynamic(() => import("@/components/ui/ad-slot").then(mod => mod.AdSlot));
+const AdSlot = dynamic(() => import("@/components/ui/ad-slot").then(mod => mod.AdSlot));
 const FeaturedProjects = dynamic(() => import("@/components/sections/featured-projects").then(mod => mod.FeaturedProjects));
 const AIModules = dynamic(() => import("@/components/sections/ai-modules").then(mod => mod.AIModules));
 const InteractiveDemos = dynamic(() => import("@/components/sections/interactive-demos").then(mod => mod.InteractiveDemos));
@@ -23,9 +23,9 @@ export default function Home() {
       <Hero />
       <Services />
       <QuizCTA />
-      {/* <div className="container-custom">
+      <div className="container-custom">
         <AdSlot />
-      </div> */}
+      </div>
       <FeaturedProjects />
       <AIModules />
       <InteractiveDemos />
@@ -36,13 +36,13 @@ export default function Home() {
       {/* <Pricing /> */}{/* DISABLED — re-enable when ready */}
 
       <Branding />
-      {/* <div className="container-custom">
+      <div className="container-custom">
         <AdSlot />
-      </div> */}
+      </div>
       <Blog />
-      {/* <div className="container-custom">
+      <div className="container-custom">
         <AdSlot />
-      </div> */}
+      </div>
       <Contact />
       {/* <Community /> */}
     </main>
