@@ -7,6 +7,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navItems = [
+    { name: "About Us", href: "/about" },
     { name: "Services", href: "/capabilities" },
     { name: "Industries", href: "/industries" },
     {
