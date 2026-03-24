@@ -13,7 +13,7 @@ const SocialShare = dynamic(() => import('@/components/ui/social-share').then(mo
 const LeadCapturePopup = dynamic(() => import('@/components/ui/lead-capture-popup').then(mod => mod.LeadCapturePopup));
 const NavratriPopup = dynamic(() => import('@/components/navratri-popup'));
 const ShaheedDiwasPopup = dynamic(() => import('@/components/shaheed-diwas-popup'));
-const CookieBanner = dynamic(() => import('@/components/ui/cookie-banner').then(mod => mod.CookieBanner), { ssr: false });
+import { CookieBanner } from '@/components/ui/cookie-banner';
 
 
 const inter = Inter({
