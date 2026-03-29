@@ -8,11 +8,7 @@ import { Footer } from '@/components/layout/footer';
 import { AnimatedBackground } from '@/components/ui/animated-background';
 import dynamic from 'next/dynamic';
 import { LazyChat } from '@/components/chatbot/lazy-chat';
-
-const SocialShare = dynamic(() => import('@/components/ui/social-share').then(mod => mod.SocialShare));
-const LeadCapturePopup = dynamic(() => import('@/components/ui/lead-capture-popup').then(mod => mod.LeadCapturePopup));
-const NavratriPopup = dynamic(() => import('@/components/navratri-popup'));
-const ShaheedDiwasPopup = dynamic(() => import('@/components/shaheed-diwas-popup'));
+import { ClientInteractions } from '@/components/layout/client-interactions';
 import { CookieBanner } from '@/components/ui/cookie-banner';
 
 
@@ -39,10 +35,11 @@ export const metadata: Metadata = {
   description: 'AI Automation Agency serving businesses globally. We build intelligent AI agents, chatbots, workflow automation & marketing solutions. Deploy GPT-4, Claude & custom LLMs to automate operations 24/7. Trusted by 50+ businesses worldwide.',
   keywords: [
     'AI Automation', 'Workflow Automation', 'ChatGPT Agents', 'Business Automation',
+    'AI Agency USA', 'AI Automation UK', 'AI Agency Canada', 'AI Specialist Australia',
     'No-code AI', 'AI Chatbot Development', 'Marketing Automation', 'CRM Automation',
-    'AI Agency India', 'AI Automation Agency USA', 'Globally', 'Atul Automation', 'GPT-4 Integration', 'Claude AI',
+    'AI Agency India', 'Globally', 'Atul Automation', 'GPT-4 Integration', 'Claude AI',
     'Lead Generation AI', 'Sales Automation', 'WhatsApp Bot', 'Customer Support AI',
-    'Real Estate Automation', 'E-commerce Automation', 'Digital Marketing AI', 'USA AI Services'
+    'London AI Agency', 'New York AI Automation', 'Toronto AI Services', 'Sydney AI Agents'
   ],
   authors: [{ name: 'Atul Automation', url: 'https://atulautomation.com' }],
   creator: 'Atul Automation',
@@ -85,6 +82,9 @@ export const metadata: Metadata = {
     canonical: 'https://atulautomation.com',
     languages: {
       'en-US': 'https://atulautomation.com',
+      'en-GB': 'https://atulautomation.com',
+      'en-CA': 'https://atulautomation.com',
+      'en-AU': 'https://atulautomation.com',
       'en-IN': 'https://atulautomation.com',
     },
   },
@@ -191,9 +191,9 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-6KB8876KLQ"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -214,10 +214,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <LazyChat />
-          <SocialShare variant="floating" />
-          <LeadCapturePopup />
-          <NavratriPopup />
-          <ShaheedDiwasPopup />
+          <ClientInteractions />
           <CookieBanner />
         </ThemeProvider>
       </body>

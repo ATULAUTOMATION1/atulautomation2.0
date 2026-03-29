@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowRight, BookOpen, Clock, Calendar, Bot, Zap, DollarSign, Users, Wrench, Brain, Megaphone, BarChart3 } from "lucide-react";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/blog-data";
@@ -51,10 +52,12 @@ export function Blog() {
                                 >
                                     {/* Cover */}
                                     <div className="relative h-44 overflow-hidden bg-muted">
-                                        <img
+                                        <Image
                                             src={post.coverImage}
                                             alt={post.title}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                            className="object-cover group-hover:scale-110 transition-transform duration-700"
                                         />
                                         
                                         {/* Overlay Gradient */}

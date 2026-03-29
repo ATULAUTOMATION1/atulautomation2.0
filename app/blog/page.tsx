@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/blog-data';
@@ -103,10 +104,12 @@ export default function BlogPage() {
                                 <article className="h-full rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
                                     {/* Cover Image */}
                                     <div className="relative h-52 overflow-hidden bg-muted">
-                                        <img
+                                        <Image
                                             src={post.coverImage}
                                             alt={post.title}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                            className="object-cover group-hover:scale-110 transition-transform duration-700"
                                         />
                                         
                                         {/* Overlay Gradient */}

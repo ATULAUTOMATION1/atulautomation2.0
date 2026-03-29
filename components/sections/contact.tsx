@@ -156,7 +156,7 @@ export function Contact() {
                         {[
                             { icon: Mail, label: "Email", value: "Hello@atulautomation.com", color: "text-primary", bg: "bg-primary/8", href: "mailto:Hello@atulautomation.com" },
                             { icon: Phone, label: "WhatsApp", value: "+91 85188 24480", color: "text-emerald-500", bg: "bg-emerald-500/8", href: "https://wa.me/918518824480" },
-                            { icon: MapPin, label: "Location", value: "India · Remote Worldwide", color: "text-blue-500", bg: "bg-blue-500/8", href: "#" },
+                            { icon: MapPin, label: "Serving Globally", value: "USA · UK · Canada · AU · India", color: "text-blue-500", bg: "bg-blue-500/8", href: "#" },
                         ].map((info, i) => {
                             const Icon = info.icon;
                             return (

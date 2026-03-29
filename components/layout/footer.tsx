@@ -110,10 +110,15 @@ export function Footer() {
                     <p className="text-xs text-muted-foreground">
                         © {year} Atul Automation. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-2 order-first sm:order-none mb-4 sm:mb-0">
-                        <BrandLogo className="h-4 w-4" />
-                        <span className="text-xs font-semibold text-muted-foreground">
-                            Made to Automate in <span className="text-orange-600 dark:text-orange-500">India</span> 🇮🇳
+                    <div className="flex flex-col items-center sm:items-end gap-2 order-first sm:order-none mb-4 sm:mb-0">
+                        <div className="flex items-center gap-2">
+                             <BrandLogo className="h-4 w-4" />
+                            <span className="text-xs font-semibold text-muted-foreground">
+                                Made to Automate in <span className="text-orange-600 dark:text-orange-500">India</span> 🇮🇳
+                            </span>
+                        </div>
+                        <span className="text-[10px] text-muted-foreground/60 text-center sm:text-right">
+                             Serving clients across <strong>USA, Canada, UK & Australia</strong>
                         </span>
                     </div>
 

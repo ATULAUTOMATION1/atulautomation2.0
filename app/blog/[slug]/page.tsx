@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPosts } from '@/lib/blog-data';
@@ -238,9 +239,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {/* Featured Image */}
                 <div className="container-custom max-w-5xl mb-12">
                     <div className="aspect-video w-full rounded-2xl overflow-hidden border border-border shadow-2xl">
-                        <img
+                        <Image
                             src={post.coverImage}
                             alt={post.title}
+                            fill
+                            priority
+                            sizes="(max-width: 1200px) 100vw, 1200px"
                             className="w-full h-full object-cover"
                         />
                     </div>
@@ -298,9 +302,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                     className="group block rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all"
                                 >
                                     <div className="aspect-video w-full overflow-hidden bg-muted">
-                                        <img
+                                        <Image
                                             src={relatedPost.coverImage}
                                             alt={relatedPost.title}
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 400px"
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                     </div>
