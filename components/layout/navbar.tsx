@@ -50,20 +50,20 @@ export function Navbar() {
             className={cn(
                 "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
                 scrolled
-                    ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-sm"
-                    : "bg-transparent border-b border-transparent"
+                    ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-sm py-0"
+                    : "bg-transparent border-b border-transparent py-1"
             )}
         >
-            <div className="container-custom flex items-center justify-between h-16 md:h-18">
+            <div className="container-custom flex items-center justify-between h-14">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2.5 group">
-                    <div className="bg-primary/10 p-2 rounded-lg group-hover:bg-primary/15 transition-colors">
+                <Link href="/" className="flex items-center gap-2 group">
+                    <div className="bg-primary/10 p-1.5 rounded-md group-hover:bg-primary/15 transition-colors">
                         <svg viewBox="0 0 24 24" fill="none" className="h-4.5 w-4.5 text-primary" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M4 17l6-6-6-6" />
                             <path d="M12 19h8" />
                         </svg>
                     </div>
-                    <span className="font-heading font-bold text-lg tracking-tight">
+                    <span className="font-heading font-bold text-base tracking-tight">
                         Atul<span className="text-primary">Automation</span>
                     </span>
                 </Link>
