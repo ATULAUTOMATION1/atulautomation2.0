@@ -23,7 +23,7 @@ async function runTests() {
     } else {
         console.log("⚠️ /api/health unreachable");
     }
-  } catch(e) {}
+  } catch (_e) {}
 
   // 2. /api/contact
   try {

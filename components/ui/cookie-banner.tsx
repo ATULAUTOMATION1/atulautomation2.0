@@ -45,7 +45,7 @@ export function CookieBanner() {
                         <div>
                             <h3 className="font-bold text-foreground mb-1 text-lg">We use cookies</h3>
                             <p className="text-sm text-muted-foreground leading-relaxed balance">
-                                We use cookies, including Google AdSense advertising cookies, to personalize content, ads, and analyze traffic. By clicking "Accept", you consent to our use of cookies per our <Link href="/privacy" className="underline text-primary hover:text-orange-500 transition-colors">Privacy Policy</Link>.
+                                We use cookies, including Google AdSense advertising cookies, to personalize content, ads, and analyze traffic. By clicking &quot;Accept&quot;, you consent to our use of cookies per our <Link href="/privacy" className="underline text-primary hover:text-orange-500 transition-colors">Privacy Policy</Link>.
                             </p>
                         </div>
                     </div>

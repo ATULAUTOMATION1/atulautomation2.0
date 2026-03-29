@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight, Trophy, Users, Zap, Globe, Target, Cpu } from "lucide-react";
+import { ArrowRight, Trophy, Zap, Globe, Target, Cpu } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -65,7 +65,7 @@ export default function AboutPage() {
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10 animate-fade-in-up delay-200">
-            We don't just build chatbots; we engineer intelligent ecosystems. Atul Automation exists to eliminate mundane tasks so your high-value talent can focus on actual growth.
+            We don&apos;t just build chatbots; we engineer intelligent ecosystems. Atul Automation exists to eliminate mundane tasks so your high-value talent can focus on actual growth.
           </p>
         </div>
       </section>
@@ -99,7 +99,7 @@ export default function AboutPage() {
             <div className="absolute bottom-8 left-8 right-8">
               <div className="bg-background/80 backdrop-blur-md border border-white/10 p-6 rounded-2xl">
                 <blockquote className="text-lg font-medium italic mb-4">
-                  "AI replacing humans is a myth. Humans using AI will replace the businesses that don't."
+                  &quot;AI replacing humans is a myth. Humans using AI will replace the businesses that don&apos;t.&quot;
                 </blockquote>
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
@@ -118,14 +118,14 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold mb-4">Born from the need for speed.</h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                For years, businesses have been held hostage by clunky software, bloated human resource requirements for mundane tasks, and disconnected CRMs. We realized that Artificial Intelligence wasn't just a party trick—it was the industrial revolution of the knowledge worker.
+                For years, businesses have been held hostage by clunky software, bloated human resource requirements for mundane tasks, and disconnected CRMs. We realized that Artificial Intelligence wasn&apos;t just a party trick—it was the industrial revolution of the knowledge worker.
               </p>
             </div>
             
             <div className="grid gap-6">
               {[
                 { title: "Engineering Excellence", desc: "No fluff. We build robust systems using modern stacks (Next.js, Python, GPT-4)." },
-                { title: "Measurable ROI", desc: "If our automation doesn't save you hours or increase revenue, we don't deploy it." },
+                { title: "Measurable ROI", desc: "If our automation doesn&apos;t save you hours or increase revenue, we don&apos;t deploy it." },
                 { title: "Security First", desc: "Enterprise-grade encryption and strict privacy protocols for all internal LLM data." }
               ].map((item, i) => (
                 <div key={i} className="flex gap-4">
@@ -161,7 +161,7 @@ export default function AboutPage() {
             <div className="relative z-10 max-w-2xl mx-auto text-white">
               <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to scale without the extra headcount?</h2>
               <p className="text-zinc-400 text-lg mb-8">
-                Join the innovators who are automating hours of manual labor every single day. Let's design your AI roadmap.
+                Join the innovators who are automating hours of manual labor every single day. Let&apos;s design your AI roadmap.
               </p>
               <Link href="/#contact" className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/25">
                 Book a Free Strategy Call

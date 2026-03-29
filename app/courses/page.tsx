@@ -145,12 +145,12 @@ export default function CoursesPage() {
                     {/* Stats Row */}
                     <div className="flex items-center justify-center gap-8 md:gap-12 mb-10">
                         <div className="flex flex-col items-center">
-                            <span className="text-3xl md:text-4xl font-bold text-primary">50+</span>
+                            <span className="text-3xl md:text-4xl font-bold text-primary">{totalResources}+</span>
                             <span className="text-xs uppercase font-bold tracking-widest text-muted-foreground mt-1">Resources</span>
                         </div>
                         <div className="h-10 w-px bg-border" />
                         <div className="flex flex-col items-center">
-                            <span className="text-3xl md:text-4xl font-bold text-blue-500">4.9/5</span>
+                            <span className="text-3xl md:text-4xl font-bold text-blue-500">{avgRating}/5</span>
                             <span className="text-xs uppercase font-bold tracking-widest text-muted-foreground mt-1">Avg Rating</span>
                         </div>
                         <div className="h-10 w-px bg-border" />

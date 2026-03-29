@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { AnimatedBackground } from '@/components/ui/animated-background';
-import dynamic from 'next/dynamic';
 import { LazyChat } from '@/components/chatbot/lazy-chat';
 import { ClientInteractions } from '@/components/layout/client-interactions';
 import { CookieBanner } from '@/components/ui/cookie-banner';

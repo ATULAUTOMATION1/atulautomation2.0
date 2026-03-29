@@ -1,0 +1,15 @@
+﻿C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\about\page.tsx: line 3, col 30, Warning - 'Users' is defined but never used. (@typescript-eslint/no-unused-vars)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\about\page.tsx: line 68, col 19, Error - `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`. (react/no-unescaped-entities)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\about\page.tsx: line 102, col 19, Error - `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`. (react/no-unescaped-entities)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\about\page.tsx: line 102, col 103, Error - `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`. (react/no-unescaped-entities)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\about\page.tsx: line 102, col 106, Error - `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`. (react/no-unescaped-entities)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\about\page.tsx: line 121, col 205, Error - `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`. (react/no-unescaped-entities)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\about\page.tsx: line 164, col 99, Error - `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`. (react/no-unescaped-entities)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\courses\page.tsx: line 121, col 11, Warning - 'totalResources' is assigned a value but never used. (@typescript-eslint/no-unused-vars)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\courses\page.tsx: line 122, col 11, Warning - 'avgRating' is assigned a value but never used. (@typescript-eslint/no-unused-vars)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\app\layout.tsx: line 9, col 8, Warning - 'dynamic' is defined but never used. (@typescript-eslint/no-unused-vars)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\ui\cookie-banner.tsx: line 48, col 157, Error - `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`. (react/no-unescaped-entities)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\components\ui\cookie-banner.tsx: line 48, col 164, Error - `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`. (react/no-unescaped-entities)
+C:\Users\Krishna\OneDrive\Desktop\New folder (3)\atul-automation-new\test-live-apis.mjs: line 26, col 11, Warning - 'e' is defined but never used. (@typescript-eslint/no-unused-vars)
+
+13 problems
