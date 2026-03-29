@@ -1,14 +1,7 @@
 
-import { ArrowRight, Play, CheckCircle, Sparkles, Zap,  TrendingUp, Shield } from "lucide-react";
+import { ArrowRight, Play, TrendingUp, Shield, Zap } from "lucide-react";
 import Link from "next/link";
-
-const WORKFLOW_STEPS = [
-    { icon: "📧", label: "Incoming Lead", sub: "Webhook triggers", accent: "border-l-blue-500" },
-    { icon: "🤖", label: "AI Qualifies", sub: "GPT-4 scoring", accent: "border-l-violet-500" },
-    { icon: "📊", label: "Score & Route", sub: "CRM assignment", accent: "border-l-primary" },
-    { icon: "💬", label: "Auto-Reply", sub: "Personalised email", accent: "border-l-emerald-500" },
-    { icon: "✅", label: "CRM Updated", sub: "Pipeline sync", accent: "border-l-amber-500" },
-];
+import { WorkflowMockup } from "./workflow-mockup";
 
 const FLOATING_TAGS = [
     { text: "GPT-4", x: "left-[5%]", y: "top-[20%]" },
@@ -49,12 +42,6 @@ export function Hero() {
 
                     {/* ── Left: Copy ── */}
                     <div className="max-w-xl">
-                        {/* Badge */}
-                        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-orange-500/5 border border-primary/20 rounded-full px-4 py-2 mb-6 animate-fade-in-up">
-                            <Sparkles className="h-3.5 w-3.5 text-primary" />
-                            <span className="text-xs font-semibold text-primary tracking-wide uppercase">Global AI Automation Agency</span>
-                        </div>
-
                         {/* Title */}
                         <h1 className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-heading font-extrabold tracking-tight leading-[1.08] mb-6 opacity-0 animate-fade-in-up">
                             AI Automation <span className="text-primary">Agency</span>
@@ -94,40 +81,8 @@ export function Hero() {
                         </div>
                     </div>
 
-                    {/* ── Right: Standard Card ── */}
                     <div className="relative hidden lg:block animate-fade-in-up delay-300">
-                        <div className="relative bg-card border border-border rounded-2xl shadow-2xl overflow-hidden">
-                            {/* Window bar */}
-                            <div className="flex items-center justify-between px-5 py-3.5 border-b border-border bg-gradient-to-r from-muted/50 to-muted/20">
-                                <div className="flex items-center gap-3">
-                                    <div className="flex gap-1.5">
-                                        <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
-                                        <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
-                                        <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
-                                    </div>
-                                    <span className="text-[11px] font-mono text-muted-foreground bg-muted/50 px-2 py-0.5 rounded">lead-pipeline.flow</span>
-                                </div>
-                                <div className="flex items-center gap-1.5">
-                                    <span className="text-[10px] font-bold text-green-600 dark:text-green-400 tracking-wider">LIVE</span>
-                                </div>
-                            </div>
-
-                            {/* Steps */}
-                            <div className="p-4 space-y-1.5">
-                                {WORKFLOW_STEPS.map((step, i) => (
-                                    <div key={i} className={`flex items-center gap-3 p-3.5 rounded-xl border border-border bg-gradient-to-r from-muted/30 to-transparent border-l-[3px] ${step.accent}`}>
-                                        <div className="w-10 h-10 rounded-lg bg-muted/80 flex items-center justify-center text-lg shrink-0 shadow-sm">
-                                            {step.icon}
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-semibold text-foreground">{step.label}</p>
-                                            <p className="text-[11px] text-muted-foreground">{step.sub}</p>
-                                        </div>
-                                        <CheckCircle className="h-4 w-4 text-accent shrink-0 opacity-50" />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <WorkflowMockup />
                     </div>
                 </div>
 

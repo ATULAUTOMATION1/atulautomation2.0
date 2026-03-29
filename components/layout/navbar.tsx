@@ -7,10 +7,14 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-    { name: "About Us", href: "/about" },
-    { name: "Services", href: "/capabilities" },
-    { name: "Industries", href: "/industries" },
-    { name: "Templates", href: "/templates" },
+    {
+        name: "Solutions",
+        subItems: [
+            { name: "Services & Capabilities", href: "/capabilities" },
+            { name: "Industry Solutions", href: "/industries" },
+            { name: "Built-in Templates", href: "/templates" },
+        ]
+    },
     {
         name: "Free Tools",
         subItems: [
@@ -20,9 +24,15 @@ const navItems = [
             { name: "Roast My Workflow 🔥", href: "/tools/roast-my-workflow" },
         ]
     },
-    { name: "Blog", href: "/blog" },
-    { name: "Courses", href: "/courses" },
-    { name: "FAQ", href: "/faq" },
+    {
+        name: "Resources",
+        subItems: [
+            { name: "Daily AI Blog", href: "/blog" },
+            { name: "Automation Courses", href: "/courses" },
+            { name: "Frequently Asked Questions", href: "/faq" },
+        ]
+    },
+    { name: "About", href: "/about" },
 ];
 
 export function Navbar() {
