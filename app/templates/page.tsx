@@ -116,7 +116,7 @@ export default function TemplatesPage() {
                 
                 {/* CTA */}
                 <div className="mt-24 bg-gradient-to-br from-primary/10 via-background to-background border border-border rounded-3xl p-8 md:p-12 text-center max-w-4xl mx-auto">
-                    <h2 className="text-3xl font-bold mb-4 font-heading">Don't see your Runbook?</h2>
+                    <h2 className="text-3xl font-bold mb-4 font-heading">Don&apos;t see your Runbook?</h2>
                     <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
                         Need a highly specific workflow for a unique piece of software? Our OpenClaw engineering team builds custom Runbooks in less than 72 hours.
                     </p>
