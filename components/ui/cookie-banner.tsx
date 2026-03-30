@@ -43,9 +43,9 @@ export function CookieBanner() {
                             <Cookie className="w-6 h-6 text-primary" />
                         </div>
                         <div>
-                            <h3 className="font-bold text-foreground mb-1 text-lg">We use cookies</h3>
+                            <h3 className="font-bold text-foreground mb-1 text-lg">Personalize your experience</h3>
                             <p className="text-sm text-muted-foreground leading-relaxed balance">
-                                We use cookies, including Google AdSense advertising cookies, to personalize content, ads, and analyze traffic. By clicking &quot;Accept&quot;, you consent to our use of cookies per our <Link href="/privacy" className="underline text-primary hover:text-orange-500 transition-colors">Privacy Policy</Link>.
+                                We use cookies and similar technologies to personalize your experience, tailor content, and analyze site traffic. By clicking &quot;Accept All&quot;, you consent to this personalization per our <Link href="/privacy" className="underline text-primary hover:text-orange-500 transition-colors">Privacy Policy</Link>.
                             </p>
                         </div>
                     </div>
