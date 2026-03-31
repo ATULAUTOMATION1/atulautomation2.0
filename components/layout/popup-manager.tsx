@@ -19,8 +19,12 @@ export function PopupManager() {
   if (!mounted) return null;
 
   // Dates for popups (optimized to avoid unnecessary renders)
+  // Convert to local YYYY-MM-DD string to avoid UTC offset bugs at midnight
   const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const todayStr = `${year}-${month}-${day}`;
   
   // Shaheed Diwas: March 23
   const isShaheedDiwas = todayStr === '2026-03-23';
