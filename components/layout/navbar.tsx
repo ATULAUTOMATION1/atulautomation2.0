@@ -22,6 +22,9 @@ const navItems = [
             { name: "ROI Calculator", href: "/tools/roi-calculator" },
             { name: "Voice AI Demo 🎙️", href: "/tools/voice-ai-demo" },
             { name: "Roast My Workflow 🔥", href: "/tools/roast-my-workflow" },
+            { name: "Predictive Intent Engine 🔮", href: "/tools/predictive-intent" },
+            { name: "AI Swarm Visualizer 🐝", href: "/tools/swarm" },
+            { name: "Interview an AI 🎤", href: "/tools/interview-ai" },
         ]
     },
     {
