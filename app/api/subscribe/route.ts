@@ -6,14 +6,22 @@ import { promisify } from 'util';
 
 const resolveMx = promisify(dns.resolveMx);
 
-// Google Sheets Credentials (using fallback if env not set)
-const GOOGLE_CREDENTIALS = {
-    client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL || 'google-sheets-integration@eng-mechanism-487311-m3.iam.gserviceaccount.com',
-    private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY_B64
-        ? Buffer.from(process.env.GOOGLE_SHEETS_PRIVATE_KEY_B64, 'base64').toString('utf-8')
-        : "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCqTX0CMVdbhzOJ\nOrlNVj+OfGpTnXyLXNr/Pyla+WZJ3UFQrR1gZdrbEA37ilqTCexvHhb5hpSAFq6E\nuEDJiZIQ4gFzjNbanYahLBH/+4G0T672QecDzvRzoLhS01ZFs6WSz4/SANm7l7vN\nQjQJeVGzQWa9TZwjYACKQXU7DB3x43C2Wh6QiIAfEGBOfweyABNPSlCmkadgFu+8\nZXmRzGZ+oIrqauw5Sj1StRLOXH/ht1k0Qs26pCKzd7YDfBn1tU891yiwDJ8Lb1mH\nkJ95BgwfzohKwtRJxEiav35/AnLuTtVOibZMY3bzyJPzV4kUfdF/+K90hJIAPaUn\nBXlpUhT5AgMBAAECggEAJsogBVIWPvF4VlMzFi+lKc/iSvnFvptvgTBSe9dvCjd0\nU0se9BA3DWrmeGr+rtuViAivPHYAGH2yEeZC0XS9eY10vawwWtqC6e53Chpv5FE6\n/Xmsw/QNP1H18d2TmqwstBgFPtS1QzJwEvQ3lInWx1DH9Sm6fN82uEbpDAI6RtgD\nGsJwKpeMI6+2NCmlOsvOfzTkcxUbBYOSU7kuJ62eYAFRTMctSZGm8yjaI5+HZJS8\nb4dFhTWL+/EFCrKKaDbX0wzrbTDvWdZLeZmiFMnKvT4jvGW1yf2L54rPIX3OnOM3\nZldmgrxzQ180shVWoj8OE+CWWZeS2JftzrogWr0yBQKBgQDb+Ultpsf8PxoiQWZP\n4yGq03/jWIYSWAL50nL4bu1UJne4N7ChiF+V57XMDiwIDSglSCDEGkqsPPXP3Mju\n1dY+7FMGH9BJfs+e5bF+6CPB9GZ3tYxx5R0Fv+Yeh7UlxyIFpogeZ4SOJ5Qt3ezN\nCzKy2Bm2Y4tU2cZns0VeA6mpLQKBgQDGMauoh9TRC44X4LTu+LfTFRy7Ddo5HoRW\ncf0Akg/dyEKpoZdTjsA5lcOCIetLPj0hyCqLB+UQPdGMJ1U/9QojoqBeS19zuV2J\nxACQ+L7dwrEPJVuYp/glWfFlAL+QkNNGhVZCpxW2MiGKliA8dQi6JnbJusrrD0ZE\nHdFmt5yifQKBgAy4l+R9dqdBxvMgMRiBnBrS7FxrbCV3bYShBQEU+SiaqOXAYriU\nuGJk6gCI+Ubl6+JsD2kH1DWtuNFyhTQ6rY8p/4slH9iAOuWHhwI9zoOS7LITj7Gu\nfEUu2dH+Kx2qLG+DN+/6MJI/+7PDV8Rr11y8XpBLpW0cwvqQRXywXYlpAoGBAKW4\nfK9zvGh7f/nJQ6EaSSLv4VErORBPyxo5P/MNLsUkoVETs+QDVgoQhyS11ffZd+Za\nZ/BOzqMw/Zlyfh73dt3rKqsN3Sd3lJYQVOTjiT0GgWSHuTpBIQWiWm05HfT0lCTA\ncytSaJ4q9s7ZzuSee4ijhuoRDYFVCU0FncWEvC1FAoGBAM4UFqghpPKVKV9Gg84k\nLZnOk47MQN4+oEtra7cXhpdSY62Wr9pZlDUenpyYTfhWSew8RnfN0YAqaEGNmpeT\nRHDGTgg0WXkjCWGSvsK/EcrpttPqsie+RQ7GU53ayCdgrl/fvtgsYiU5oX0hxTpl\nTkQrVeR9P/vgJzL4Askd7UK3\n-----END PRIVATE KEY-----\n",
-    sheet_id: process.env.GOOGLE_SHEET_ID || '1vQrznzLm09YU200hOBNiTTz_84TjKRd2B93krDLT_J0'
-};
+// Google Sheets Credentials — MUST come from environment variables
+function getGoogleCredentials() {
+    const keyB64 = process.env.GOOGLE_SHEETS_PRIVATE_KEY_B64;
+    const email = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
+    const sheetId = process.env.GOOGLE_SHEET_ID;
+
+    if (!keyB64 || !email || !sheetId) {
+        throw new Error('Google Sheets credentials are not configured. Set GOOGLE_SHEETS_PRIVATE_KEY_B64, GOOGLE_SHEETS_CLIENT_EMAIL, and GOOGLE_SHEET_ID in .env.local');
+    }
+
+    return {
+        client_email: email,
+        private_key: Buffer.from(keyB64, 'base64').toString('utf-8'),
+        sheet_id: sheetId,
+    };
+}
 
 const DISPOSABLE_DOMAINS = [
     'mailinator.com', 'tempmail.com', 'guerrillamail.com', '10minutemail.com',
@@ -62,9 +70,10 @@ export async function POST(request: Request) {
         // 2. Save to Google Sheets
         let sheetsError = false;
         try {
+            const creds = getGoogleCredentials();
             const auth = new google.auth.JWT({
-                email: GOOGLE_CREDENTIALS.client_email,
-                key: GOOGLE_CREDENTIALS.private_key,
+                email: creds.client_email,
+                key: creds.private_key,
                 scopes: ['https://www.googleapis.com/auth/spreadsheets'],
             });
 
@@ -72,7 +81,7 @@ export async function POST(request: Request) {
             const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
             await sheets.spreadsheets.values.append({
-                spreadsheetId: GOOGLE_CREDENTIALS.sheet_id,
+                spreadsheetId: creds.sheet_id,
                 range: 'Subscribers!A:E',
                 valueInputOption: 'USER_ENTERED',
                 requestBody: {
