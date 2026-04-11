@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: IndustryPageProps): Promise<M
             title: page.title,
             description: page.metaDescription,
             type: 'website',
+            images: [{ url: '/og-image.png', width: 1200, height: 630, alt: page.title }],
         },
         alternates: {
             canonical: `https://atulautomation.com/industries/${slug}`,
@@ -51,7 +52,13 @@ export default async function IndustryPage({ params }: IndustryPageProps) {
             name: 'Atul Automation',
             url: 'https://atulautomation.com',
         },
-        areaServed: { '@type': 'Country', name: 'India' },
+        areaServed: [
+            { '@type': 'Country', name: 'United States' },
+            { '@type': 'Country', name: 'India' },
+            { '@type': 'Country', name: 'United Kingdom' },
+            { '@type': 'Country', name: 'Canada' },
+            { '@type': 'Country', name: 'Australia' },
+        ],
         serviceType: `AI Automation for ${page.industry}`,
     };
 

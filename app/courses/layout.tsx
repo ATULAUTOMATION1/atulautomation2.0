@@ -9,6 +9,7 @@ export const metadata: Metadata = {
         title: 'The Automation Knowledge Hub',
         description: 'Master AI automation with 30+ free courses, guides, videos, and prompt libraries.',
         url: 'https://atulautomation.com/courses',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Automation Knowledge Hub - Atul Automation' }],
     },
 };
 

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
         title: 'AI Automation ROI Calculator - How Much Can You Save?',
         description: 'Free tool: Calculate your potential savings from AI automation in 30 seconds.',
         type: 'website',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'AI Automation ROI Calculator' }],
     },
 };
 

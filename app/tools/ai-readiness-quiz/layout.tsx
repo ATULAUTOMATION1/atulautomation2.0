@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'AI Readiness Quiz - How Ready is Your Business for AI?',
         description: 'Free 2-minute assessment. Discover your AI automation potential and get personalized recommendations.',
+        url: 'https://atulautomation.com/tools/ai-readiness-quiz',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'AI Readiness Quiz' }],
     },
 };
 

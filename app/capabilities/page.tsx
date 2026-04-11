@@ -1,5 +1,19 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Cpu, MessageSquare, BarChart, Zap, Globe, Database, Building } from "lucide-react";
+
+export const metadata: Metadata = {
+    title: 'Services & Capabilities - AI Automation Solutions',
+    description: 'Explore our full suite of AI automation services: intelligent agents, chatbots, workflow automation, AI marketing, real estate AI, CRM integration & custom web development.',
+    keywords: ['AI automation services', 'chatbot development', 'workflow automation', 'AI marketing', 'CRM integration', 'web development agency'],
+    alternates: { canonical: 'https://atulautomation.com/capabilities' },
+    openGraph: {
+        title: 'Services & Capabilities | Atul Automation',
+        description: 'AI agents, chatbots, workflow automation, marketing, CRM & web development — all under one roof.',
+        url: 'https://atulautomation.com/capabilities',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Atul Automation Services & Capabilities' }],
+    },
+};
 
 const CAPABILITIES = [
     {
@@ -60,6 +74,15 @@ export default function CapabilitiesPage() {
                 <Link href="/#services" className="inline-flex items-center text-muted-foreground hover:text-primary mb-8 transition-colors">
                     <ArrowLeft className="h-4 w-4 mr-2" /> Back to Home
                 </Link>
+
+                <div className="mb-12">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                        Our <span className="text-gradient">Services & Capabilities</span>
+                    </h1>
+                    <p className="text-lg text-muted-foreground max-w-2xl">
+                        A full suite of AI-powered digital transformation tools to automate, scale, and grow your business.
+                    </p>
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {CAPABILITIES.map((cap) => (

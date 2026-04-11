@@ -180,17 +180,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
         />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
-          crossOrigin="anonymous"
-        ></script>
-        
-        {/* Monetumo Ad Network & CMP */}
-        <link rel="stylesheet" href="https://b-cdn.monetumo.com/cls-css/atulautomation-com.css" />
-        <script src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js" data-cfasync="false"></script>
-        <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-        <script defer src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js" data-cfasync="false"></script>
+
       </head>
       <body className={`${inter.variable} ${outfit.variable} font-sans antialiased text-foreground bg-background`}>
         <Script
@@ -207,6 +197,25 @@ export default function RootLayout({
             });
           `}
         </Script>
+        {/* Google AdSense — afterInteractive for ad bidding */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
+        {/* Monetumo Ad Network & CMP — lazy loaded for performance */}
+        <Script
+          src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js"
+          strategy="lazyOnload"
+        />
+        <Script
+          src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+          strategy="lazyOnload"
+        />
+        <Script
+          src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js"
+          strategy="lazyOnload"
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

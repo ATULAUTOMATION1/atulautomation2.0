@@ -25,3 +25,19 @@ jobs:
             npm install
             npm run build
             pm2 restart atul-automation || pm2 start ecosystem.config.js --name atul-automation
+
+      - name: Notify Search Engines via IndexNow
+        if: success()
+        run: |
+          # Wait for the server to restart
+          sleep 30
+          # Trigger IndexNow to notify Bing/Yandex of updated pages
+          curl -s -X POST https://atulautomation.com/api/indexnow \
+            -H "Content-Type: application/json" \
+            || echo "IndexNow notification skipped (server may still be restarting)"
+
+      - name: Ping Google Sitemap
+        if: success()
+        run: |
+          curl -s "https://www.google.com/ping?sitemap=https://atulautomation.com/sitemap.xml" || true
+          curl -s "https://www.bing.com/ping?sitemap=https://atulautomation.com/sitemap.xml" || true
