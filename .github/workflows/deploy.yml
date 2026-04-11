@@ -22,7 +22,6 @@ jobs:
           script: |
             cd ~/domains/atulautomation.com/nodejs || cd ~/atul-automation-new
             git pull origin main
-            sed -i 's/^GEMINI_API_KEY=.*/GEMINI_API_KEY=AIzaSyDTmjA9F0fxZ3vPCYKINo-TrNnkEVJTTcw/g' .env.local || true
             npm install
             npm run build
             pm2 restart atul-automation || pm2 start ecosystem.config.js --name atul-automation
