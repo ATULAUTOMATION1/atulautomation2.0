@@ -182,7 +182,7 @@ export async function POST(req: Request) {
         });
 
         // Call Gemini REST API with proper multi-turn format
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
         const response = await fetch(apiUrl, {
             method: "POST",
