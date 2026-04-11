@@ -43,13 +43,13 @@ export function Hero() {
                     {/* ── Left: Copy ── */}
                     <div className="max-w-xl">
                         {/* Title */}
-                        <h1 className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-heading font-extrabold tracking-tight leading-[1.08] mb-6 opacity-0 animate-fade-in-up">
+                        <h1 className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[4.25rem] font-heading font-extrabold tracking-tight leading-[1.08] mb-6">
                             AI Automation <span className="text-primary">Agency</span>
                             <br />
                             for Modern <span className="text-primary">Business</span>.
                         </h1>
 
-                        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-md opacity-0 animate-fade-in-up delay-75">
+                        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-md">
                             We build intelligent AI agents, chatbots & workflow automation
                             that handle your marketing, sales & support 24/7.
                         </p>
