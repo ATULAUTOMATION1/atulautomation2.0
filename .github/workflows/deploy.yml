@@ -22,6 +22,8 @@ jobs:
           script: |
             cd ~/domains/atulautomation.com/nodejs || cd ~/atul-automation-new
             git pull origin main
+            # Inject GEMINI_API_KEY securely from GitHub Secrets
+            sed -i "s|^GEMINI_API_KEY=.*|GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}|g" .env.local
             npm install
             npm run build
             pm2 restart atul-automation || pm2 start ecosystem.config.js --name atul-automation
