@@ -19,14 +19,20 @@ jobs:
           username: ${{ secrets.HOSTINGER_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: 22
+          envs: GEMINI_KEY
           script: |
             cd ~/domains/atulautomation.com/nodejs || cd ~/atul-automation-new
             git pull origin main
-            # Inject GEMINI_API_KEY securely from GitHub Secrets
-            sed -i "s|^GEMINI_API_KEY=.*|GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}|g" .env.local
+            # Inject GEMINI_API_KEY from GitHub Secrets (if configured)
+            if [ -n "$GEMINI_KEY" ]; then
+              sed -i "s|^GEMINI_API_KEY=.*|GEMINI_API_KEY=$GEMINI_KEY|g" .env.local
+              echo "Gemini key injected successfully"
+            fi
             npm install
             npm run build
             pm2 restart atul-automation || pm2 start ecosystem.config.js --name atul-automation
+        env:
+          GEMINI_KEY: ${{ secrets.GEMINI_API_KEY }}
 
       - name: Notify Search Engines via IndexNow
         if: success()
