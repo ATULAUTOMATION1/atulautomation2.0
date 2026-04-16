@@ -17,6 +17,7 @@ jobs:
         with:
           host: ${{ secrets.HOSTINGER_HOST }}
           username: ${{ secrets.HOSTINGER_USER }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: 22
           envs: GEMINI_KEY
