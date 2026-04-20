@@ -10,6 +10,7 @@ import { LazyChat } from '@/components/chatbot/lazy-chat';
 import { ClientInteractions } from '@/components/layout/client-interactions';
 import { CookieBanner } from '@/components/ui/cookie-banner';
 import FestivalPopup from '@/components/festival-popup';
+import CtoBirthdayPopup from '@/components/cto-birthday-popup';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -230,6 +231,7 @@ export default function RootLayout({
           <ClientInteractions />
           <CookieBanner />
           <FestivalPopup />
+          <CtoBirthdayPopup />
         </ThemeProvider>
       </body>
     </html>
