@@ -9,6 +9,7 @@ import { AnimatedBackground } from '@/components/ui/animated-background';
 import { LazyChat } from '@/components/chatbot/lazy-chat';
 import { ClientInteractions } from '@/components/layout/client-interactions';
 import { CookieBanner } from '@/components/ui/cookie-banner';
+import { AuthProvider } from '@/components/auth/auth-context';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -215,19 +216,26 @@ export default function RootLayout({
           src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js"
           strategy="lazyOnload"
         />
+        {/* Google Identity Services for Sign-In */}
+        <Script
+          src="https://accounts.google.com/gsi/client"
+          strategy="afterInteractive"
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <AnimatedBackground />
-          <Navbar />
-          {children}
-          <Footer />
-          <LazyChat />
-          <ClientInteractions />
-          <CookieBanner />
+          <AuthProvider>
+            <AnimatedBackground />
+            <Navbar />
+            {children}
+            <Footer />
+            <LazyChat />
+            <ClientInteractions />
+            <CookieBanner />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

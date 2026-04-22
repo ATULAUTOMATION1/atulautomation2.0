@@ -2,9 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import { Menu, X,  ArrowRight, ChevronDown } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown, LogOut, User } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/components/auth/auth-context";
 
 const navItems = [
     {
@@ -41,12 +42,24 @@ const navItems = [
 export function Navbar() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [scrolled, setScrolled] = React.useState(false);
+    const [showUserMenu, setShowUserMenu] = React.useState(false);
+    const { user, loading, logout } = useAuth();
 
     React.useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const handleLogout = async () => {
+        await logout();
+        setShowUserMenu(false);
+    };
+
+    // Get user initials for avatar
+    const initials = user?.name
+        ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
+        : '?';
 
     return (
         <header
@@ -107,15 +120,55 @@ export function Navbar() {
                     <div className="ml-2 mr-2">
                         <ThemeToggle />
                     </div>
-                    <Link href="/#contact" className="btn-primary text-sm px-5 py-2 ml-1 group">
-                        Get Started
-                        <ArrowRight className="ml-1.5 h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
+
+                    {/* Auth Buttons */}
+                    {!loading && (
+                        user ? (
+                            <div className="relative">
+                                <button
+                                    onClick={() => setShowUserMenu(!showUserMenu)}
+                                    className="flex items-center gap-2 ml-1 px-2 py-1.5 rounded-xl hover:bg-muted/50 transition-all"
+                                >
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-orange-500 flex items-center justify-center text-white text-xs font-bold shadow-md">
+                                        {initials}
+                                    </div>
+                                </button>
+                                {showUserMenu && (
+                                    <>
+                                        <div className="fixed inset-0 z-40" onClick={() => setShowUserMenu(false)} />
+                                        <div className="absolute right-0 top-full mt-2 w-56 bg-card border border-border rounded-xl shadow-lg p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                            <div className="px-3 py-2.5 border-b border-border mb-1">
+                                                <p className="text-sm font-semibold truncate">{user.name}</p>
+                                                <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                                            </div>
+                                            <button
+                                                onClick={handleLogout}
+                                                className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
+                                            >
+                                                <LogOut className="h-4 w-4" />
+                                                Sign Out
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        ) : (
+                            <Link href="/login" className="btn-primary text-sm px-5 py-2 ml-1 group">
+                                Sign In
+                                <ArrowRight className="ml-1.5 h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                            </Link>
+                        )
+                    )}
                 </nav>
 
                 {/* Mobile */}
                 <div className="flex items-center gap-2 md:hidden">
                     <ThemeToggle />
+                    {!loading && user && (
+                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-primary to-orange-500 flex items-center justify-center text-white text-[10px] font-bold">
+                            {initials}
+                        </div>
+                    )}
                     <button
                         aria-label="Toggle navigation menu"
                         onClick={() => setIsOpen(!isOpen)}
@@ -130,7 +183,7 @@ export function Navbar() {
             <div
                 className={cn(
                     "md:hidden overflow-hidden transition-all duration-300 ease-in-out border-b border-border bg-background/95 backdrop-blur-xl",
-                    isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0 border-b-0"
+                    isOpen ? "max-h-[700px] opacity-100" : "max-h-0 opacity-0 border-b-0"
                 )}
             >
                 <div className="container-custom py-4 flex flex-col gap-1">
@@ -171,13 +224,36 @@ export function Navbar() {
                         </div>
                     ))}
                     <div className="pt-3 mt-2 border-t border-border">
-                        <Link
-                            href="/#contact"
-                            onClick={() => setIsOpen(false)}
-                            className="btn-primary w-full justify-center"
-                        >
-                            Get Started <ArrowRight className="ml-1.5 h-4 w-4" />
-                        </Link>
+                        {!loading && (
+                            user ? (
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-3 px-4 py-2">
+                                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-orange-500 flex items-center justify-center text-white text-xs font-bold">
+                                            {initials}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-semibold truncate">{user.name}</p>
+                                            <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={() => { handleLogout(); setIsOpen(false); }}
+                                        className="flex items-center gap-2 w-full px-4 py-3 text-sm text-red-500 hover:bg-red-500/10 rounded-xl transition-colors"
+                                    >
+                                        <LogOut className="h-4 w-4" />
+                                        Sign Out
+                                    </button>
+                                </div>
+                            ) : (
+                                <Link
+                                    href="/login"
+                                    onClick={() => setIsOpen(false)}
+                                    className="btn-primary w-full justify-center"
+                                >
+                                    Sign In <ArrowRight className="ml-1.5 h-4 w-4" />
+                                </Link>
+                            )
+                        )}
                     </div>
                 </div>
             </div>
