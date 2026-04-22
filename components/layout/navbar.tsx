@@ -57,9 +57,13 @@ export function Navbar() {
     };
 
     // Get user initials for avatar
-    const initials = user?.name
-        ? user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
-        : '?';
+    const initials = (user?.name || '')
+        .split(' ')
+        .filter(n => n)
+        .map(n => n[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2) || '??';
 
     return (
         <header

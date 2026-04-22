@@ -42,44 +42,89 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     fetchUser();
   }, [fetchUser]);
 
-  const login = async (email: string, password: string) => {
-    const res = await fetch('/api/auth/login/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    if (!res.ok) return { error: data.error };
-    setUser(data.user);
-    return {};
+  const login = async (email: string, password: string): Promise<{ error?: string }> => {
+    try {
+      const res = await fetch('/api/auth/login/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) return { error: data.error || 'Login failed.' };
+      setUser(data.user);
+      return {};
+    } catch {
+      return { error: 'Network error. Please check your connection and try again.' };
+    }
   };
 
-  const signup = async (name: string, email: string, password: string) => {
-    const res = await fetch('/api/auth/signup/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password }),
-    });
-    const data = await res.json();
-    if (!res.ok) return { error: data.error };
-    setUser(data.user);
-    return {};
+  const signup = async (name: string, email: string, password: string): Promise<{ error?: string }> => {
+    try {
+      console.log('Attempting signup for:', email);
+      const res = await fetch('/api/auth/signup/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+      
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        console.error('Failed to parse JSON response:', e);
+        return { error: 'Server returned an invalid response. Please try again later.' };
+      }
+
+      if (!res.ok) {
+        console.error('Signup failed with status:', res.status, data);
+        return { error: data.error || 'Signup failed.' };
+      }
+      
+      console.log('Signup successful, setting user state');
+      setUser(data.user);
+      return {};
+    } catch (err) {
+      console.error('Signup network error:', err);
+      return { error: 'Network error. Please check your connection and try again.' };
+    }
   };
 
-  const googleSignIn = async (credential: string) => {
-    const res = await fetch('/api/auth/google/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ credential }),
-    });
-    const data = await res.json();
-    if (!res.ok) return { error: data.error };
-    setUser(data.user);
-    return {};
+  const googleSignIn = async (credential: string): Promise<{ error?: string }> => {
+    try {
+      console.log('Verifying Google credential');
+      const res = await fetch('/api/auth/google/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential }),
+      });
+      
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        return { error: 'Server returned an invalid response. Please try again later.' };
+      }
+
+      if (!res.ok) {
+        console.error('Google auth failed:', res.status, data);
+        return { error: data.error || 'Google sign-in failed.' };
+      }
+      
+      console.log('Google auth successful');
+      setUser(data.user);
+      return {};
+    } catch (err) {
+      console.error('Google auth network error:', err);
+      return { error: 'Network error. Please check your connection and try again.' };
+    }
   };
 
   const logout = async () => {
-    await fetch('/api/auth/logout/', { method: 'POST' });
+    try {
+      await fetch('/api/auth/logout/', { method: 'POST' });
+    } catch {
+      // ignore
+    }
     setUser(null);
   };
 

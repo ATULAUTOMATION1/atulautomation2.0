@@ -7,7 +7,14 @@ import { cookies } from 'next/headers';
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'atul-automation-jwt-secret-change-me'
 );
-const COOKIE_NAME = 'auth-token';
+export const COOKIE_NAME = 'auth-token';
+export const COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax' as const,
+  path: '/',
+  maxAge: 60 * 60 * 24 * 7, // 7 days
+};
 const GOOGLE_JWKS = createRemoteJWKSet(
   new URL('https://www.googleapis.com/oauth2/v3/certs')
 );
@@ -65,21 +72,6 @@ export async function verifyPassword(
 }
 
 // ─── Cookie Helpers ────────────────────────────────────────
-export async function setAuthCookie(token: string) {
-  const cookieStore = await cookies();
-  cookieStore.set(COOKIE_NAME, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-    maxAge: 60 * 60 * 24 * 7, // 7 days
-  });
-}
-
-export async function clearAuthCookie() {
-  const cookieStore = await cookies();
-  cookieStore.delete(COOKIE_NAME);
-}
 
 export async function getAuthCookie(): Promise<string | undefined> {
   const cookieStore = await cookies();

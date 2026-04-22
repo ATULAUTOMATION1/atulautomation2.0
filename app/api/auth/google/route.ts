@@ -4,7 +4,8 @@ import {
   findUserByEmail,
   createUser,
   createToken,
-  setAuthCookie,
+  COOKIE_OPTIONS,
+  COOKIE_NAME,
 } from '@/lib/auth';
 
 export async function POST(request: Request) {
@@ -50,19 +51,22 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create session
+    // Create session token
     const token = await createToken({
       name: user.name,
       email: user.email,
       role: user.role,
       provider: user.provider,
     });
-    await setAuthCookie(token);
 
-    return NextResponse.json({
+    // Build response WITH cookie
+    const response = NextResponse.json({
       success: true,
       user: { name: user.name, email: user.email, role: user.role, provider: user.provider },
     });
+    response.cookies.set(COOKIE_NAME, token, COOKIE_OPTIONS);
+
+    return response;
   } catch (error) {
     console.error('Google auth error:', error);
     return NextResponse.json(

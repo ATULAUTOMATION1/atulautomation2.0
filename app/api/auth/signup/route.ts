@@ -4,7 +4,8 @@ import {
   createUser,
   hashPassword,
   createToken,
-  setAuthCookie,
+  COOKIE_OPTIONS,
+  COOKIE_NAME,
 } from '@/lib/auth';
 
 export async function POST(request: Request) {
@@ -47,18 +48,21 @@ export async function POST(request: Request) {
     const passwordHash = await hashPassword(password);
     await createUser(name, email, passwordHash, 'email');
 
-    // Create session
+    // Create session token
     const token = await createToken({ name, email, role: 'user', provider: 'email' });
-    await setAuthCookie(token);
 
-    return NextResponse.json({
+    // Build response WITH cookie set on the response itself
+    const response = NextResponse.json({
       success: true,
       user: { name, email, role: 'user', provider: 'email' },
     });
+    response.cookies.set(COOKIE_NAME, token, COOKIE_OPTIONS);
+
+    return response;
   } catch (error) {
     console.error('Signup error:', error);
     return NextResponse.json(
-      { error: 'Something went wrong. Please try again.' },
+      { error: 'Server error during signup. Please try again.' },
       { status: 500 }
     );
   }
