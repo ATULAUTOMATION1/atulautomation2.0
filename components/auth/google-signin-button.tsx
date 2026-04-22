@@ -47,7 +47,7 @@ export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonPro
       window.google.accounts.id.renderButton(buttonRef.current, {
         theme: 'filled_black',
         size: 'large',
-        width: '100%',
+        width: 384,
         shape: 'pill',
         text: 'continue_with',
         logo_alignment: 'center',

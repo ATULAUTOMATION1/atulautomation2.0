@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { X, ChevronRight, ChevronLeft } from 'lucide-react'
+import { X } from 'lucide-react'
 
 // Dates typically overlap for these two festivals. We'll show this popup if the current date is around April.
 export default function FestivalPopup() {
