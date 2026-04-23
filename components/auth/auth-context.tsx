@@ -26,12 +26,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUser = useCallback(async () => {
     try {
+      console.log('[Auth] Refreshing user session...');
       const res = await fetch('/api/auth/me/');
       if (res.ok) {
         const data = await res.json();
+        console.log('[Auth] User session found:', data.user ? data.user.email : 'None');
         setUser(data.user || null);
+      } else {
+        console.warn('[Auth] Session check failed with status:', res.status);
+        setUser(null);
       }
-    } catch {
+    } catch (err) {
+      console.error('[Auth] Session check network error:', err);
       setUser(null);
     } finally {
       setLoading(false);
@@ -44,23 +50,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string): Promise<{ error?: string }> => {
     try {
+      console.log('[Auth] Attempting login for:', email);
       const res = await fetch('/api/auth/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-      const data = await res.json();
-      if (!res.ok) return { error: data.error || 'Login failed.' };
+      
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        console.error('[Auth] Login response not JSON:', e);
+        return { error: 'Server returned an invalid response. Please try again.' };
+      }
+
+      if (!res.ok) {
+        console.warn('[Auth] Login failed:', res.status, data.error);
+        return { error: data.error || 'Login failed.' };
+      }
+      
+      console.log('[Auth] Login successful');
       setUser(data.user);
       return {};
-    } catch {
+    } catch (err) {
+      console.error('[Auth] Login network error:', err);
       return { error: 'Network error. Please check your connection and try again.' };
     }
   };
 
   const signup = async (name: string, email: string, password: string): Promise<{ error?: string }> => {
     try {
-      console.log('Attempting signup for:', email);
+      console.log('[Auth] Attempting signup for:', email);
       const res = await fetch('/api/auth/signup/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -71,27 +92,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         data = await res.json();
       } catch (e) {
-        console.error('Failed to parse JSON response:', e);
-        return { error: 'Server returned an invalid response. Please try again later.' };
+        return { error: 'Server returned an invalid response. Please try again.' };
       }
 
       if (!res.ok) {
-        console.error('Signup failed with status:', res.status, data);
         return { error: data.error || 'Signup failed.' };
       }
       
-      console.log('Signup successful, setting user state');
       setUser(data.user);
       return {};
     } catch (err) {
-      console.error('Signup network error:', err);
-      return { error: 'Network error. Please check your connection and try again.' };
+      console.error('[Auth] Signup network error:', err);
+      return { error: 'Network error. Please try again.' };
     }
   };
 
   const googleSignIn = async (credential: string): Promise<{ error?: string }> => {
     try {
-      console.log('Verifying Google credential');
+      console.log('[Auth] Verifying Google credential');
       const res = await fetch('/api/auth/google/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -102,25 +120,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         data = await res.json();
       } catch (e) {
-        return { error: 'Server returned an invalid response. Please try again later.' };
+        return { error: 'Invalid server response.' };
       }
 
-      if (!res.ok) {
-        console.error('Google auth failed:', res.status, data);
-        return { error: data.error || 'Google sign-in failed.' };
-      }
+      if (!res.ok) return { error: data.error || 'Google sign-in failed.' };
       
-      console.log('Google auth successful');
       setUser(data.user);
       return {};
     } catch (err) {
-      console.error('Google auth network error:', err);
-      return { error: 'Network error. Please check your connection and try again.' };
+      console.error('[Auth] Google sign-in network error:', err);
+      return { error: 'Network error. Please try again.' };
     }
   };
 
   const logout = async () => {
     try {
+      console.log('[Auth] Logging out...');
       await fetch('/api/auth/logout/', { method: 'POST' });
     } catch {
       // ignore

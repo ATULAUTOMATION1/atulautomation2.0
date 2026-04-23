@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/components/auth/auth-context';
@@ -14,32 +14,44 @@ function LoginForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/';
 
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      router.push(redirect);
+    }
+  }, [user, router, redirect]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Login form submitted for:', email);
     setError('');
     setLoading(true);
 
     try {
       const result = await login(email, password);
+      console.log('Login attempt result:', result);
+      
       if (result.error) {
         setError(result.error);
+        setLoading(false);
       } else {
-        router.push(redirect);
+        // Success - user state update will trigger the useEffect redirect above
+        console.log('Login success - redirecting...');
       }
-    } catch {
-      setError('Something went wrong. Please try again.');
-    } finally {
+    } catch (err) {
+      console.error('Login submit Error:', err);
+      setError('An unexpected error occurred. Please try again.');
       setLoading(false);
     }
   };
 
   const handleGoogleSuccess = () => {
-    router.push(redirect);
+    // AuthContext updates 'user', triggering the redirect useEffect
   };
 
   return (
