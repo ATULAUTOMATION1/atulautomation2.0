@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 
 declare global {
   interface Window {
@@ -22,15 +22,17 @@ interface GoogleSignInButtonProps {
 
 export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
+  const [loadError, setLoadError] = useState(false);
   const onSuccessRef = useRef(onSuccess);
   const onErrorRef = useRef(onError);
 
-  // Keep refs in sync without triggering re-renders
+  // Keep refs in sync
   onSuccessRef.current = onSuccess;
   onErrorRef.current = onError;
 
   const handleCredentialResponse = useCallback(async (response: { credential: string }) => {
     try {
+      console.log('[Auth] Google credential received, verifying...');
       const res = await fetch('/api/auth/google/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -38,21 +40,31 @@ export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonPro
       });
       const data = await res.json();
       if (!res.ok) {
+        console.error('[Auth] Google verification failed:', data.error);
         onErrorRef.current?.(data.error || 'Google sign-in failed');
       } else {
+        console.log('[Auth] Google sign-in successful');
         onSuccessRef.current?.();
       }
-    } catch {
+    } catch (err) {
+      console.error('[Auth] Google verification network error:', err);
       onErrorRef.current?.('Google sign-in failed. Please try again.');
     }
   }, []);
 
   useEffect(() => {
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-    if (!clientId || !buttonRef.current) return;
+    if (!clientId) {
+      console.error('[Auth] Google Client ID missing from environment variables');
+      return;
+    }
+
+    let intervalId: NodeJS.Timeout;
+    let timeoutId: NodeJS.Timeout;
 
     const initializeGoogle = () => {
       if (!window.google || !buttonRef.current) return;
+      console.log('[Auth] Initializing Google Sign-In button...');
 
       try {
         window.google.accounts.id.initialize({
@@ -63,48 +75,64 @@ export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonPro
         window.google.accounts.id.renderButton(buttonRef.current, {
           theme: 'filled_black',
           size: 'large',
-          width: 380,
+          width: 320, // Reduced width slightly to ensure it fits mobile
           shape: 'pill',
           text: 'continue_with',
           logo_alignment: 'center',
         });
+        console.log('[Auth] Google Sign-In button rendered');
       } catch (err) {
-        console.warn('Google Sign-In init error:', err);
+        console.warn('[Auth] Google Sign-In render error:', err);
+        setLoadError(true);
       }
     };
 
-    // If script already loaded
+    // Check if script is loaded
     if (window.google) {
       initializeGoogle();
-      return;
+    } else {
+      console.log('[Auth] Waiting for Google GSI script to load...');
+      intervalId = setInterval(() => {
+        if (window.google) {
+          console.log('[Auth] Google GSI script detected');
+          clearInterval(intervalId);
+          initializeGoogle();
+        }
+      }, 500);
+
+      // Fail after 8 seconds
+      timeoutId = setTimeout(() => {
+        if (!window.google) {
+          console.error('[Auth] Google GSI script failed to load within 8s');
+          clearInterval(intervalId);
+          setLoadError(true);
+        }
+      }, 8000);
     }
 
-    // Wait for script to load
-    const checkInterval = setInterval(() => {
-      if (window.google) {
-        clearInterval(checkInterval);
-        initializeGoogle();
-      }
-    }, 300);
-
-    // Cleanup after 10 seconds if Google never loads
-    const timeout = setTimeout(() => clearInterval(checkInterval), 10000);
-
     return () => {
-      clearInterval(checkInterval);
-      clearTimeout(timeout);
+      if (intervalId) clearInterval(intervalId);
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, [handleCredentialResponse]);
 
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
-  if (!clientId) {
-    return null;
-  }
+  if (!clientId) return null;
 
   return (
-    <div className="w-full flex justify-center">
-      <div ref={buttonRef} />
+    <div className="w-full space-y-2">
+      <div className="flex justify-center min-h-[44px]">
+        {loadError ? (
+          <div className="text-xs text-muted-foreground bg-muted/20 p-2 rounded-lg border border-dashed border-border w-full text-center">
+            Google Sign-In is temporarily unavailable. 
+            <br />
+            Please use your email to continue.
+          </div>
+        ) : (
+          <div ref={buttonRef} />
+        )}
+      </div>
     </div>
   );
 }

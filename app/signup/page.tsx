@@ -48,10 +48,17 @@ function SignupForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { signup } = useAuth();
+  const { signup, user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/';
+
+  // Redirect if already logged in or if signup succeeds
+  React.useEffect(() => {
+    if (user) {
+      window.location.href = redirect;
+    }
+  }, [user, redirect]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,18 +74,22 @@ function SignupForm() {
       const result = await signup(name, email, password);
       if (result.error) {
         setError(result.error);
+        setLoading(false);
       } else {
-        router.push(redirect);
+        // Success - user state update will trigger the useEffect redirect above
+        console.log('Signup success - redirecting...');
       }
-    } catch {
-      setError('Something went wrong. Please try again.');
+    } catch (err) {
+      console.error('Signup error:', err);
+      setError('An unexpected error occurred. Please try again.');
+      setLoading(false);
     } finally {
       setLoading(false);
     }
   };
 
   const handleGoogleSuccess = () => {
-    router.push(redirect);
+    // AuthContext updates 'user', triggering the redirect useEffect
   };
 
   return (

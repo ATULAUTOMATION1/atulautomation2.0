@@ -22,9 +22,9 @@ function LoginForm() {
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      router.push(redirect);
+      window.location.href = redirect;
     }
-  }, [user, router, redirect]);
+  }, [user, redirect]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
