@@ -49,22 +49,30 @@ export async function POST(request: Request) {
       },
     });
 
-    await transporter.sendMail({
-      from: `"Atul Automation" <${process.env.SMTP_USER}>`,
-      to: email,
-      subject: 'Verify your Atul Automation account',
-      html: `
-        <div style="font-family: sans-serif; max-w: 600px; margin: 0 auto;">
-          <h2>Welcome to Atul Automation!</h2>
-          <p>Hi ${name},</p>
-          <p>Please use the verification code below to complete your registration:</p>
-          <div style="background: #f4f4f5; padding: 16px; text-align: center; font-size: 24px; letter-spacing: 4px; font-weight: bold; border-radius: 8px; margin: 24px 0;">
-            ${otp}
+    try {
+      await transporter.sendMail({
+        from: `"Atul Automation" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: 'Verify your Atul Automation account',
+        html: `
+          <div style="font-family: sans-serif; max-w: 600px; margin: 0 auto;">
+            <h2>Welcome to Atul Automation!</h2>
+            <p>Hi ${name},</p>
+            <p>Please use the verification code below to complete your registration:</p>
+            <div style="background: #f4f4f5; padding: 16px; text-align: center; font-size: 24px; letter-spacing: 4px; font-weight: bold; border-radius: 8px; margin: 24px 0;">
+              ${otp}
+            </div>
+            <p>This code will expire in 15 minutes.</p>
           </div>
-          <p>This code will expire in 15 minutes.</p>
-        </div>
-      `,
-    });
+        `,
+      });
+    } catch (emailError: any) {
+      console.error('SMTP Email Error:', emailError);
+      return NextResponse.json(
+        { error: `Email delivery failed. Please check your SMTP server settings. Details: ${emailError.message}` },
+        { status: 500 }
+      );
+    }
 
     // Create temporary session token
     const token = await new SignJWT({ name, email, passwordHash, otpHash })
