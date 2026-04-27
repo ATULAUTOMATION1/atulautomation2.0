@@ -80,7 +80,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const signup = async (name: string, email: string, password: string): Promise<{ error?: string }> => {
+  const signup = async (name: string, email: string, password: string): Promise<{ error?: string, step?: string }> => {
     try {
       console.log('[Auth] Attempting signup for:', email);
       const res = await fetch('/api/auth/signup', {
