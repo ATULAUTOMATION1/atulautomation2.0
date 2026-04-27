@@ -34,7 +34,7 @@ export default function TermsPage() {
 
                 <h2>4. Advertising and Links to Third-Party Websites</h2>
                 <p>The Site may contain (or you may be sent via the Site) links to other websites (&quot;Third-Party Websites&quot;) as well as articles, photographs, text, graphics, pictures, designs, music, sound, video, information, applications, software, and other content or items belonging to or originating from third parties (&quot;Third-Party Content&quot;).</p>
-                <p>We allow advertisers to display their advertisements and other information in certain areas of the Site, such as sidebar advertisements or banner advertisements (including Google AdSense). If you are an advertiser, you shall take full responsibility for any advertisements you place on the Site and any services provided on the Site or products sold through those advertisements.</p>
+                <p>We allow advertisers to display their advertisements and other information in certain areas of the Site, such as sidebar advertisements or banner advertisements. If you are an advertiser, you shall take full responsibility for any advertisements you place on the Site and any services provided on the Site or products sold through those advertisements.</p>
                 
                 <h2>5. Site Management</h2>
                 <p>We reserve the right, but not the obligation, to:</p>

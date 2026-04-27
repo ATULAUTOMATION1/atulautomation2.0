@@ -172,7 +172,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
-        <meta name="google-adsense-account" content="ca-pub-5677457553651550" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -198,12 +198,7 @@ export default function RootLayout({
             });
           `}
         </Script>
-        {/* Google AdSense — afterInteractive for ad bidding */}
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5677457553651550"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
+
         {/* Monetumo Ad Network & CMP — lazy loaded for performance */}
         <Script
           src="https://b-cdn.monetumo.com/cmp/atulautomation-com.js"

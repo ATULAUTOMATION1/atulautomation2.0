@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Privacy Policy | Atul Automation",
-    description: "Privacy Policy for Atul Automation, covering data collection, cookies, Google AdSense, and user rights.",
+    description: "Privacy Policy for Atul Automation, covering data collection, cookies, and user rights.",
 };
 
 export default function PrivacyPage() {
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
                 <h3>Google Analytics</h3>
                 <p>We use Google Analytics to analyze the use of our website. Google Analytics gathers information about website use by means of cookies. The information gathered relating to our website is used to create reports about the use of our website. Google&apos;s privacy policy is available at: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">https://policies.google.com/privacy</a>.</p>
 
-                <h3>Google AdSense and DoubleClick DART Cookie</h3>
+                <h3>Advertising Cookies</h3>
                 <p>As a third-party vendor, Google uses cookies to serve ads on our site. Google&apos;s use of the DART cookie enables it to serve ads to our users based on their visit to our site and other sites on the Internet.</p>
                 <p>Users may opt out of the use of the DART cookie by visiting the Google Ad and Content Network privacy policy at the following URL: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">https://policies.google.com/technologies/ads</a>.</p>
                 <p>Third-party vendors, including Google, use cookies to serve ads based on a user&apos;s prior visits to your website or other websites. Google&apos;s use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</p>
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
                     <li>To facilitate account creation and logon process.</li>
                     <li>To send you marketing and promotional communications.</li>
                     <li>To fulfill and manage your orders or inquiries.</li>
-                    <li>To deliver targeted advertising to you (including Google AdSense).</li>
+                    <li>To deliver targeted advertising to you.</li>
                 </ul>
 
                 <h2>5. Will Your Information Be Shared With Anyone?</h2>
