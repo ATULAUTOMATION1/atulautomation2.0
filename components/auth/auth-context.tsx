@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const fetchUser = useCallback(async () => {
     try {
       console.log('[Auth] Refreshing user session...');
-      const res = await fetch('/api/auth/me');
+      const res = await fetch('/api/auth/me/');
       if (res.ok) {
         const data = await res.json();
         console.log('[Auth] User session found:', data.user ? data.user.email : 'None');
@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string): Promise<{ error?: string }> => {
     try {
       console.log('[Auth] Attempting login for:', email);
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -83,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signup = async (name: string, email: string, password: string): Promise<{ error?: string, step?: string }> => {
     try {
       console.log('[Auth] Attempting signup for:', email);
-      const res = await fetch('/api/auth/signup', {
+      const res = await fetch('/api/auth/signup/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
@@ -115,7 +115,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const verifyOtp = async (otp: string): Promise<{ error?: string }> => {
     try {
       console.log('[Auth] Verifying OTP');
-      const res = await fetch('/api/auth/verify-otp', {
+      const res = await fetch('/api/auth/verify-otp/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ otp }),
@@ -143,7 +143,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const googleSignIn = async (credential: string): Promise<{ error?: string }> => {
     try {
       console.log('[Auth] Verifying Google credential');
-      const res = await fetch('/api/auth/google', {
+      const res = await fetch('/api/auth/google/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ credential }),
@@ -169,7 +169,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     try {
       console.log('[Auth] Logging out...');
-      await fetch('/api/auth/logout', { method: 'POST' });
+      await fetch('/api/auth/logout/', { method: 'POST' });
     } catch {
       // ignore
     }
