@@ -47,8 +47,10 @@ function SignupForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState<'details' | 'otp'>('details');
+  const [otp, setOtp] = useState('');
 
-  const { signup, user } = useAuth();
+  const { signup, verifyOtp, user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get('redirect') || '/';
@@ -75,6 +77,9 @@ function SignupForm() {
       if (result.error) {
         setError(result.error);
         setLoading(false);
+      } else if (result.step === 'otp') {
+        setStep('otp');
+        setLoading(false);
       } else {
         // Success - user state update will trigger the useEffect redirect above
         console.log('Signup success - redirecting...');
@@ -83,6 +88,29 @@ function SignupForm() {
       console.error('Signup error:', err);
       setError('An unexpected error occurred. Please try again.');
       setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOtpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    if (otp.length !== 6) {
+      setError('Please enter the 6-digit code.');
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      const result = await verifyOtp(otp);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        console.log('OTP verified, logged in');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -119,6 +147,42 @@ function SignupForm() {
       )}
 
       {/* Form */}
+      {step === 'otp' ? (
+        <form onSubmit={handleOtpSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="otp" className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5 block">
+              Verification Code
+            </label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                id="otp"
+                type="text"
+                required
+                placeholder="6-digit code from your email"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                maxLength={6}
+                className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-muted/30 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-center tracking-[0.5em] font-mono text-lg"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground text-center mt-3">
+              We sent a verification code to <strong className="text-foreground">{email}</strong>
+            </p>
+          </div>
+          <button
+            type="submit"
+            disabled={loading || otp.length !== 6}
+            className="btn-primary w-full justify-center text-sm py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <>Verify & Complete <ArrowRight className="ml-1.5 h-4 w-4" /></>
+            )}
+          </button>
+        </form>
+      ) : (
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="signup-name" className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5 block">
@@ -196,6 +260,7 @@ function SignupForm() {
           )}
         </button>
       </form>
+      )}
 
       {/* Benefits */}
       <div className="mt-6 space-y-2">

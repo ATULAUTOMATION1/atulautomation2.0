@@ -75,7 +75,7 @@ If your support volume is lower, or if your queries are predominantly complex an
 
 Either way, we are happy to look at your specific situation and give you an honest assessment. [Reach out to us](/#contact) for a free analysis of your support workflow.
         `,
-        coverImage: '/blog/blog-chatbot-support.png',
+        coverImage: '/blog/blog-chatbot-support.webp',
         category: 'AI Chatbots',
         author: 'Atul Automation',
         date: '2026-02-25',
@@ -158,7 +158,7 @@ Most small businesses can get all five of these automations running within 2-3 w
 
 If you want help setting any of these up, [book a call with us](/#contact). We will assess your current workflow and recommend the highest-impact starting point.
         `,
-        coverImage: '/blog/blog-workflow-automation.png',
+        coverImage: '/blog/blog-workflow-automation.webp',
         category: 'Workflow Automation',
         author: 'Atul Automation',
         date: '2026-02-23',
@@ -224,7 +224,7 @@ The best content strategies we have seen combine AI efficiency with human expert
 
 If you are running paid campaigns and want to explore AI-powered optimization, [talk to our team](/#contact). We evaluate your current marketing stack and recommend specific improvements based on your goals and budget.
         `,
-        coverImage: '/blog/blog-ai-marketing.png',
+        coverImage: '/blog/blog-ai-marketing.webp',
         category: 'AI Marketing',
         author: 'Atul Automation',
         date: '2026-02-20',
@@ -291,7 +291,7 @@ The typical build takes 2-3 weeks, and we provide ongoing optimization for the f
 
 Interested in exploring this for your business? [Get in touch](/#contact) or use our [ROI calculator](/tools/roi-calculator) to estimate your potential savings.
         `,
-        coverImage: '/blog/blog-whatsapp-automation.png',
+        coverImage: '/blog/blog-whatsapp-automation.webp',
         category: 'WhatsApp',
         author: 'Atul Automation',
         date: '2026-02-18',
@@ -356,7 +356,7 @@ For growing businesses processing meaningful lead volume, AI CRM pays for itself
 
 We help businesses of all sizes [choose and implement CRM systems](/capabilities/crm) that match their actual needs. [Reach out for a free assessment](/#contact).
         `,
-        coverImage: '/blog/blog-ai-crm.png',
+        coverImage: '/blog/blog-ai-crm.webp',
         category: 'CRM',
         author: 'Atul Automation',
         date: '2026-02-15',
@@ -416,7 +416,7 @@ We use all three depending on the project. For client projects, we choose the to
 
 Read our guide on the [5 most impactful workflow automations](/blog/5-workflow-automations-every-small-business-needs) for ideas on where to start. Need help choosing? [Book a free call](/#contact).
         `,
-        coverImage: '/blog/blog-automation-tools.png',
+        coverImage: '/blog/blog-automation-tools.webp',
         category: 'Tools & Reviews',
         author: 'Atul Automation',
         date: '2026-02-12',
@@ -492,7 +492,7 @@ Our recommendation for most Indian businesses is to start with WhatsApp automati
 
 Explore our [industry-specific solutions](/industries) or [schedule a strategy call](/#contact) to discuss your specific situation.
         `,
-        coverImage: '/blog/blog-indian-smb.png',
+        coverImage: '/blog/blog-indian-smb.webp',
         category: 'Business Strategy',
         author: 'Atul Automation',
         date: '2026-02-10',
@@ -574,7 +574,7 @@ The technology stack for lead nurturing typically includes an email automation t
 
 Use our [ROI calculator](/tools/roi-calculator) to estimate your potential savings, or [book a strategy call](/#contact) to design a nurture system for your specific sales cycle.
         `,
-        coverImage: '/blog/blog-lead-nurturing.png',
+        coverImage: '/blog/blog-lead-nurturing.webp',
         category: 'Sales Automation',
         author: 'Atul Automation',
         date: '2026-02-08',
@@ -643,7 +643,7 @@ For a concrete estimate based on your specific situation, try our [ROI Calculato
 
 We provide fixed-price quotes for most projects after an initial discovery conversation. No hourly billing surprises. [Reach out](/#contact) with a brief description of what you want to automate, and we will give you a clear scope and price within 48 hours.
         `,
-        coverImage: '/blog/blog-ai-pricing.png',
+        coverImage: '/blog/blog-ai-pricing.webp',
         category: 'Business Strategy',
         author: 'Atul Automation',
         date: '2026-03-05',
@@ -714,7 +714,7 @@ If the first answer points to repetitive and rule-based, automation is likely th
 
 Use our [ROI calculator](/tools/roi-calculator) to run the numbers for your specific scenario, or [talk to us](/#contact) for an honest assessment of which approach makes sense for your business.
         `,
-        coverImage: '/blog/blog-ai-vs-hiring.png',
+        coverImage: '/blog/blog-ai-vs-hiring.webp',
         category: 'Business Strategy',
         author: 'Atul Automation',
         date: '2026-03-04',
@@ -801,7 +801,7 @@ AI-powered ticket management and customer support. Routes tickets intelligently,
 
 Need help building a custom tool stack for your business? [Let us know](/#contact) and we will recommend a setup based on your specific needs and budget.
         `,
-        coverImage: '/blog/blog-best-ai-tools.png',
+        coverImage: '/blog/blog-best-ai-tools.webp',
         category: 'Tools & Reviews',
         author: 'Atul Automation',
         date: '2026-03-03',
@@ -877,7 +877,7 @@ For businesses handling more than 50 support interactions per day, the ROI is ne
 
 Use our [ROI calculator](/tools/roi-calculator) for a quick estimate based on your specific numbers, or [schedule a conversation](/#contact) with our team for a detailed analysis.
         `,
-        coverImage: '/blog/blog-chatbot-roi.png',
+        coverImage: '/blog/blog-chatbot-roi.webp',
         category: 'AI Chatbots',
         author: 'Atul Automation',
         date: '2026-03-02',
@@ -958,7 +958,7 @@ We build custom AI agents tailored to specific business workflows. Not template 
 
 [Explore our AI agent capabilities](/capabilities/ai-agents) or [schedule a strategy conversation](/#contact) to discuss what autonomous AI could look like for your business.
         `,
-        coverImage: '/blog/blog-ai-agents.png',
+        coverImage: '/blog/blog-ai-agents.webp',
         category: 'AI Technology',
         author: 'Atul Automation',
         date: '2026-03-01',

@@ -13,7 +13,8 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<{ error?: string }>;
-  signup: (name: string, email: string, password: string) => Promise<{ error?: string }>;
+  signup: (name: string, email: string, password: string) => Promise<{ error?: string, step?: string }>;
+  verifyOtp: (otp: string) => Promise<{ error?: string }>;
   googleSignIn: (credential: string) => Promise<{ error?: string }>;
   logout: () => Promise<void>;
 }
@@ -27,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const fetchUser = useCallback(async () => {
     try {
       console.log('[Auth] Refreshing user session...');
-      const res = await fetch('/api/auth/me/');
+      const res = await fetch('/api/auth/me');
       if (res.ok) {
         const data = await res.json();
         console.log('[Auth] User session found:', data.user ? data.user.email : 'None');
@@ -51,7 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string): Promise<{ error?: string }> => {
     try {
       console.log('[Auth] Attempting login for:', email);
-      const res = await fetch('/api/auth/login/', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -82,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signup = async (name: string, email: string, password: string): Promise<{ error?: string }> => {
     try {
       console.log('[Auth] Attempting signup for:', email);
-      const res = await fetch('/api/auth/signup/', {
+      const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
@@ -99,6 +100,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return { error: data.error || 'Signup failed.' };
       }
       
+      if (data.step === 'otp') {
+        return { step: 'otp' };
+      }
+      
       setUser(data.user);
       return {};
     } catch (err) {
@@ -107,10 +112,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const verifyOtp = async (otp: string): Promise<{ error?: string }> => {
+    try {
+      console.log('[Auth] Verifying OTP');
+      const res = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ otp }),
+      });
+      
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        return { error: 'Server returned an invalid response. Please try again.' };
+      }
+
+      if (!res.ok) {
+        return { error: data.error || 'Verification failed.' };
+      }
+      
+      setUser(data.user);
+      return {};
+    } catch (err) {
+      console.error('[Auth] Verify OTP network error:', err);
+      return { error: 'Network error. Please try again.' };
+    }
+  };
+
   const googleSignIn = async (credential: string): Promise<{ error?: string }> => {
     try {
       console.log('[Auth] Verifying Google credential');
-      const res = await fetch('/api/auth/google/', {
+      const res = await fetch('/api/auth/google', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ credential }),
@@ -136,7 +169,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     try {
       console.log('[Auth] Logging out...');
-      await fetch('/api/auth/logout/', { method: 'POST' });
+      await fetch('/api/auth/logout', { method: 'POST' });
     } catch {
       // ignore
     }
@@ -144,7 +177,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, signup, googleSignIn, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, signup, verifyOtp, googleSignIn, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -10,7 +10,7 @@ import { LazyChat } from '@/components/chatbot/lazy-chat';
 import { ClientInteractions } from '@/components/layout/client-interactions';
 import { CookieBanner } from '@/components/ui/cookie-banner';
 import { AuthProvider } from '@/components/auth/auth-context';
-import { BirthdayPopup } from "@/components/birthday-popup";
+// import { BirthdayPopup } from "@/components/birthday-popup";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -236,7 +236,7 @@ export default function RootLayout({
             <LazyChat />
             <ClientInteractions />
             <CookieBanner />
-            <BirthdayPopup />
+            {/* <BirthdayPopup /> */}
           </AuthProvider>
         </ThemeProvider>
       </body>

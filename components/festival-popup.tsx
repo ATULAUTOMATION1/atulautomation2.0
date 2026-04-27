@@ -11,7 +11,7 @@ export default function FestivalPopup() {
 
   const slides = [
     {
-      src: '/parshuram-jayanti.png',
+      src: '/parshuram-jayanti.webp',
       alt: 'Happy Parshuram Jayanti from Atul Automation',
       title: 'भगवान परशुराम जयंती',
       description: 'May the courage and spiritual grace of Lord Parshuram inspire and guide you to success. Happy Parshuram Jayanti!',
@@ -21,7 +21,7 @@ export default function FestivalPopup() {
       buttonText: 'Embrace The Courage'
     },
     {
-      src: '/akshaya-tritiya.png',
+      src: '/akshaya-tritiya.webp',
       alt: 'Happy Akshaya Tritiya from Atul Automation',
       title: 'शुभ अक्षय तृतीया',
       description: 'Wishing you endless prosperity, infinite success, and eternal joy. Happy Akshaya Tritiya from Atul Automation!',
