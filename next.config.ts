@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   trailingSlash: true,
+  output: 'standalone',
+  env: {
+    NEXT_PUBLIC_GOOGLE_CLIENT_ID: '144389522675-g2uov9jdhi1shk7ju89ad8v0v292ckre.apps.googleusercontent.com',
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: 'G-6KB8876KLQ',
+  },
   typescript: {
     ignoreBuildErrors: false,
   },
