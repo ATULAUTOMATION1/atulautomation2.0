@@ -41,7 +41,11 @@ export async function POST(request: Request) {
         provider: 'google',
         role: 'user',
         status: 'active',
+        onboardingCompleted: false,
+        mindsetAnalysis: '',
+        assignedChannel: '',
       };
+
     }
 
     if (user.status === 'suspended') {

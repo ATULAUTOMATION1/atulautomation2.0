@@ -118,12 +118,14 @@ export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonPro
 
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
-  if (!clientId) return null;
-
   return (
     <div className="w-full space-y-2">
       <div className="flex justify-center min-h-[44px]">
-        {loadError ? (
+        {!clientId ? (
+          <div className="text-xs text-red-500 bg-red-500/10 p-2 rounded-lg border border-dashed border-red-500/20 w-full text-center">
+            Config Error: Google Client ID is missing.
+          </div>
+        ) : loadError ? (
           <div className="text-xs text-muted-foreground bg-muted/20 p-2 rounded-lg border border-dashed border-border w-full text-center">
             Google Sign-In is temporarily unavailable. 
             <br />

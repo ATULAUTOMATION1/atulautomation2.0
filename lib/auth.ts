@@ -25,6 +25,8 @@ export interface AuthUser {
   email: string;
   role: string;
   provider: string;
+  onboardingCompleted?: boolean;
+  assignedChannel?: string;
 }
 
 export interface SheetUser {
@@ -34,7 +36,11 @@ export interface SheetUser {
   provider: string;
   role: string;
   status: string;
+  onboardingCompleted: boolean;
+  mindsetAnalysis: string;
+  assignedChannel: string;
 }
+
 
 // ─── JWT Helpers ───────────────────────────────────────────
 export async function createToken(user: AuthUser): Promise<string> {
@@ -93,9 +99,34 @@ export async function verifyGoogleToken(idToken: string) {
 
 // ─── Google Sheets – User Operations ───────────────────────
 async function getSheetsClient() {
+  if (!process.env.GOOGLE_SHEETS_PRIVATE_KEY_B64 || !process.env.GOOGLE_SHEETS_CLIENT_EMAIL) {
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const envPath = path.join(process.cwd(), '.env.local');
+      if (fs.existsSync(envPath)) {
+        const envContent = fs.readFileSync(envPath, 'utf-8');
+        const lines = envContent.split('\n');
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith('#')) continue;
+          const firstEquals = trimmed.indexOf('=');
+          if (firstEquals > 0) {
+            const key = trimmed.substring(0, firstEquals).trim();
+            const val = trimmed.substring(firstEquals + 1).trim();
+            process.env[key] = val;
+          }
+        }
+      }
+    } catch (e) {
+      console.error('Failed to parse fallback .env.local:', e);
+    }
+  }
+
   const keyB64 = process.env.GOOGLE_SHEETS_PRIVATE_KEY_B64;
   const email = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
   if (!keyB64 || !email) throw new Error('Google Sheets not configured');
+
 
   const privateKey = Buffer.from(keyB64, 'base64').toString('utf-8');
   const auth = new google.auth.JWT({
@@ -113,36 +144,40 @@ function getSheetId() {
 }
 
 async function ensureUsersTab() {
-  const sheets = await getSheetsClient();
-  const sheetId = getSheetId();
-
   try {
-    await sheets.spreadsheets.values.get({
-      spreadsheetId: sheetId,
-      range: 'Users!A1',
-    });
-  } catch {
-    // Tab doesn't exist — create it
-    await sheets.spreadsheets.batchUpdate({
-      spreadsheetId: sheetId,
-      requestBody: {
-        requests: [
-          { addSheet: { properties: { title: 'Users' } } },
-        ],
-      },
-    });
-    await sheets.spreadsheets.values.update({
-      spreadsheetId: sheetId,
-      range: 'Users!A1:G1',
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [
-          ['Timestamp', 'Name', 'Email', 'PasswordHash', 'Provider', 'Role', 'Status'],
-        ],
-      },
-    });
+    const sheets = await getSheetsClient();
+    const sheetId = getSheetId();
+
+    try {
+      await sheets.spreadsheets.values.get({
+        spreadsheetId: sheetId,
+        range: 'Users!A1',
+      });
+    } catch {
+      await sheets.spreadsheets.batchUpdate({
+        spreadsheetId: sheetId,
+        requestBody: {
+          requests: [
+            { addSheet: { properties: { title: 'Users' } } },
+          ],
+        },
+      });
+      await sheets.spreadsheets.values.update({
+        spreadsheetId: sheetId,
+        range: 'Users!A1:G1',
+        valueInputOption: 'USER_ENTERED',
+        requestBody: {
+          values: [
+            ['Timestamp', 'Name', 'Email', 'PasswordHash', 'Provider', 'Role', 'Status', 'OnboardingCompleted', 'MindsetAnalysis', 'AssignedChannel'],
+          ],
+        },
+      });
+    }
+  } catch (err) {
+    console.error('ensureUsersTab failed gracefully:', err);
   }
 }
+
 
 export async function findUserByEmail(
   email: string
@@ -153,7 +188,7 @@ export async function findUserByEmail(
   try {
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
-      range: 'Users!A:G',
+      range: 'Users!A:J',
     });
 
     const rows = res.data.values;
@@ -168,6 +203,9 @@ export async function findUserByEmail(
           provider: row[4] || 'email',
           role: row[5] || 'user',
           status: row[6] || 'active',
+          onboardingCompleted: row[7] === 'TRUE',
+          mindsetAnalysis: row[8] || '',
+          assignedChannel: row[9] || '',
         };
       }
     }
@@ -194,10 +232,50 @@ export async function createUser(
 
   await sheets.spreadsheets.values.append({
     spreadsheetId: sheetId,
-    range: 'Users!A:G',
+    range: 'Users!A:J',
     valueInputOption: 'USER_ENTERED',
     requestBody: {
-      values: [[timestamp, name, email, passwordHash, provider, 'user', 'active']],
+      values: [[timestamp, name, email, passwordHash, provider, 'user', 'active', 'FALSE', '', '']],
     },
   });
+}
+
+export async function updateUserOnboarding(
+  email: string,
+  mindsetAnalysis: string,
+  assignedChannel: string
+) {
+  const sheets = await getSheetsClient();
+  const sheetId = getSheetId();
+
+  try {
+    const res = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range: 'Users!A:C',
+    });
+
+    const rows = res.data.values;
+    if (!rows || rows.length <= 1) return;
+
+    let rowIndex = -1;
+    for (let i = 1; i < rows.length; i++) {
+      if (rows[i][2]?.toLowerCase() === email.toLowerCase()) {
+        rowIndex = i + 1;
+        break;
+      }
+    }
+
+    if (rowIndex === -1) return;
+
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: sheetId,
+      range: `Users!H${rowIndex}:J${rowIndex}`,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [['TRUE', mindsetAnalysis, assignedChannel]],
+      },
+    });
+  } catch (error) {
+    console.error('Error updating onboarding state in Sheets:', error);
+  }
 }

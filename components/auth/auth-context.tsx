@@ -7,7 +7,10 @@ interface User {
   email: string;
   role: string;
   provider: string;
+  onboardingCompleted?: boolean;
+  assignedChannel?: string;
 }
+
 
 interface AuthContextType {
   user: User | null;
@@ -37,10 +40,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.warn('[Auth] Session check failed with status:', res.status);
         setUser(null);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('[Auth] Session check network error:', err);
+      // Log more details if possible
+      if (err.message) console.error('[Auth] Error message:', err.message);
       setUser(null);
     } finally {
+      console.log('[Auth] Loading state set to false');
       setLoading(false);
     }
   }, []);
