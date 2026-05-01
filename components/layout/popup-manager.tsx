@@ -10,6 +10,7 @@ const LeadCapturePopup = dynamic(() => import('@/components/ui/lead-capture-popu
 const AprilFoolsPopup = dynamic(() => import('@/components/april-fools-popup'), { ssr: false });
 const HanumanJayantiPopup = dynamic(() => import('@/components/hanuman-jayanti-popup'), { ssr: false });
 const LabourDayPopup = dynamic(() => import('@/components/labour-day-popup'), { ssr: false });
+const BuddhaPurnimaPopup = dynamic(() => import('@/components/buddha-purnima-popup'), { ssr: false });
 
 export function PopupManager() {
   const [mounted, setMounted] = useState(false);
@@ -39,6 +40,9 @@ export function PopupManager() {
 
   // Labour Day: May 1
   const isLabourDay = todayStr === '2026-05-01';
+
+  // Buddha Purnima: May 1, 2026
+  const isBuddhaPurnima = todayStr === '2026-05-01';
   
   // Navratri: March 19 to March 27 (9 days)
   const navratriStart = new Date('2026-03-19T00:00:00').getTime();
@@ -48,6 +52,7 @@ export function PopupManager() {
 
   return (
     <>
+      {isBuddhaPurnima && <BuddhaPurnimaPopup />}
       {isLabourDay && <LabourDayPopup />}
       {isAprilFools && <AprilFoolsPopup />}
       {isHanumanJayanti && <HanumanJayantiPopup />}
