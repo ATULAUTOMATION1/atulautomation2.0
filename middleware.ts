@@ -6,7 +6,7 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'atul-automation-jwt-secret-change-me'
 );
 
-const PROTECTED_PREFIXES = ['/blog', '/courses', '/tools'];
+const PROTECTED_PREFIXES = ['/tools'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

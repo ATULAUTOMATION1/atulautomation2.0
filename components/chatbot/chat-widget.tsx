@@ -333,7 +333,7 @@ export function ChatWidget() {
             {/* ── Floating Chat Button ── */}
             <button
                 onClick={toggleChat}
-                className={`fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 ${isOpen
+                className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[9999] w-12 h-12 md:w-14 md:h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 ${isOpen
                     ? "bg-muted border border-border text-foreground hover:bg-muted/80"
                     : "bg-gradient-to-br from-primary to-orange-500 text-white hover:shadow-xl hover:shadow-primary/25"
                     }`}
@@ -357,7 +357,7 @@ export function ChatWidget() {
             {/* ── Tooltip (first visit) ── */}
             {!isOpen && !hasInteracted && (
                 <div
-                    className="fixed bottom-8 right-[5.5rem] z-[9998] bg-card border border-border rounded-xl shadow-lg px-4 py-2.5 max-w-[220px] cursor-pointer animate-fade-in"
+                    className="fixed bottom-8 right-[5.5rem] z-[9998] bg-card border border-border rounded-xl shadow-lg px-4 py-2.5 max-w-[220px] cursor-pointer animate-fade-in hidden md:block"
                     onClick={toggleChat}
                 >
                     <p className="text-xs font-medium text-foreground">

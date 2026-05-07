@@ -212,11 +212,7 @@ export default function RootLayout({
           src="https://b-cdn.monetumo.com/bundles/atulautomation-com.js"
           strategy="lazyOnload"
         />
-        {/* Google Identity Services for Sign-In */}
-        <Script
-          src="https://accounts.google.com/gsi/client"
-          strategy="afterInteractive"
-        />
+        {/* Google Identity Services for Sign-In (Moved to GoogleSignInButton) */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

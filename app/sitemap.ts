@@ -13,43 +13,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return [
         // Main pages
-        { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
-        { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-        { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: 'monthly', priority: 1.0 },
-        { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-        { url: `${baseUrl}/tools`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-        { url: `${baseUrl}/templates`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-        { url: `${baseUrl}/courses`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-        { url: `${baseUrl}/capabilities/ai-agents`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-        { url: `${baseUrl}/capabilities/chatbots`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-        { url: `${baseUrl}/capabilities/workflow`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-        { url: `${baseUrl}/capabilities/marketing`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-        { url: `${baseUrl}/capabilities/real-estate`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/capabilities/crm`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/capabilities/web-development`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
+        { url: `${baseUrl}/about/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/services/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 1.0 },
+        { url: `${baseUrl}/contact/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/tools/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/templates/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/courses/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/case-studies/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/capabilities/ai-agents/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/capabilities/chatbots/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/capabilities/workflow/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/capabilities/marketing/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+        { url: `${baseUrl}/capabilities/real-estate/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/capabilities/crm/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/capabilities/web-development/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
 
         // Blog
-        { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/blog/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
         ...posts.map(post => ({
-            url: `${baseUrl}/blog/${post.slug}`,
+            url: `${baseUrl}/blog/${post.slug}/`,
             lastModified: new Date(post.date),
             changeFrequency: 'monthly' as const,
             priority: 0.8,
         })),
 
         // Industries (Programmatic SEO)
-        { url: `${baseUrl}/industries`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/industries/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
         ...industries.map(industry => ({
-            url: `${baseUrl}/industries/${industry.slug}`,
+            url: `${baseUrl}/industries/${industry.slug}/`,
             lastModified: new Date(),
             changeFrequency: 'monthly' as const,
             priority: 0.8,
         })),
 
         // Locations (City-based SEO)
-        { url: `${baseUrl}/locations`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/locations/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
         ...cities.map(city => ({
-            url: `${baseUrl}/locations/${city.slug}`,
+            url: `${baseUrl}/locations/${city.slug}/`,
             lastModified: new Date(),
             changeFrequency: 'monthly' as const,
             priority: 0.8,
@@ -57,26 +58,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
         // Courses (Knowledge Hub)
         ...courses.map(course => ({
-            url: `${baseUrl}/courses/${course.slug}`,
+            url: `${baseUrl}/courses/${course.slug}/`,
             lastModified: new Date(course.lastUpdated),
             changeFrequency: 'monthly' as const,
             priority: 0.8,
         })),
 
         // Free Tools
-        { url: `${baseUrl}/tools/ai-readiness-quiz`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/tools/interview-ai`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/tools/predictive-intent`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/tools/roast-my-workflow`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/tools/roi-calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/tools/swarm`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/tools/voice-ai-demo`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/tools/ai-readiness-quiz/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/tools/interview-ai/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/tools/predictive-intent/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/tools/roast-my-workflow/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/tools/roi-calculator/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/tools/swarm/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+        { url: `${baseUrl}/tools/voice-ai-demo/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
 
         // Info
-        { url: `${baseUrl}/faq`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+        { url: `${baseUrl}/faq/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
 
         // Legal
-        { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
-        { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+        { url: `${baseUrl}/privacy/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+        { url: `${baseUrl}/terms/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
     ];
 }

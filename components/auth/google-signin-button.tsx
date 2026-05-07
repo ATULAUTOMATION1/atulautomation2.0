@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
+import Script from 'next/script';
 
 declare global {
   interface Window {
@@ -120,6 +121,10 @@ export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonPro
 
   return (
     <div className="w-full space-y-2">
+      <Script
+        src="https://accounts.google.com/gsi/client"
+        strategy="afterInteractive"
+      />
       <div className="flex justify-center min-h-[44px]">
         {!clientId ? (
           <div className="text-xs text-red-500 bg-red-500/10 p-2 rounded-lg border border-dashed border-red-500/20 w-full text-center">

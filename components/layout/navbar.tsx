@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Menu, X, ArrowRight, ChevronDown, LogOut, User } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown, LogOut, User, LayoutDashboard } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/components/auth/auth-context";
@@ -14,6 +14,7 @@ const navItems = [
             { name: "Services & Capabilities", href: "/capabilities" },
             { name: "Industry Solutions", href: "/industries" },
             { name: "Built-in Templates", href: "/templates" },
+            { name: "Client Case Studies", href: "/case-studies" },
         ]
     },
     {
@@ -37,6 +38,7 @@ const navItems = [
         ]
     },
     { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -141,10 +143,18 @@ export function Navbar() {
                                     <>
                                         <div className="fixed inset-0 z-40" onClick={() => setShowUserMenu(false)} />
                                         <div className="absolute right-0 top-full mt-2 w-56 bg-card border border-border rounded-xl shadow-lg p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                                            <div className="px-3 py-2.5 border-b border-border mb-1">
+                                            <div className="px-3 py-2.5 border-b border-border mb-2">
                                                 <p className="text-sm font-semibold truncate">{user.name}</p>
                                                 <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                                             </div>
+                                            <Link
+                                                href="/dashboard/"
+                                                onClick={() => setShowUserMenu(false)}
+                                                className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-foreground/80 hover:bg-muted/50 rounded-lg transition-colors mb-1"
+                                            >
+                                                <LayoutDashboard className="h-4 w-4" />
+                                                User Dashboard
+                                            </Link>
                                             <button
                                                 onClick={handleLogout}
                                                 className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
@@ -153,6 +163,7 @@ export function Navbar() {
                                                 Sign Out
                                             </button>
                                         </div>
+
                                     </>
                                 )}
                             </div>
@@ -231,7 +242,7 @@ export function Navbar() {
                         {!loading && (
                             user ? (
                                 <div className="space-y-2">
-                                    <div className="flex items-center gap-3 px-4 py-2">
+                                    <div className="flex items-center gap-3 px-4 py-2 mb-2">
                                         <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-orange-500 flex items-center justify-center text-white text-xs font-bold">
                                             {initials}
                                         </div>
@@ -240,6 +251,14 @@ export function Navbar() {
                                             <p className="text-xs text-muted-foreground truncate">{user.email}</p>
                                         </div>
                                     </div>
+                                    <Link
+                                        href="/dashboard/"
+                                        onClick={() => setIsOpen(false)}
+                                        className="flex items-center gap-2 w-full px-4 py-3 text-sm text-foreground/80 hover:bg-muted/50 rounded-xl transition-colors mb-1"
+                                    >
+                                        <LayoutDashboard className="h-4 w-4" />
+                                        User Dashboard
+                                    </Link>
                                     <button
                                         onClick={() => { handleLogout(); setIsOpen(false); }}
                                         className="flex items-center gap-2 w-full px-4 py-3 text-sm text-red-500 hover:bg-red-500/10 rounded-xl transition-colors"
@@ -247,6 +266,7 @@ export function Navbar() {
                                         <LogOut className="h-4 w-4" />
                                         Sign Out
                                     </button>
+
                                 </div>
                             ) : (
                                 <Link

@@ -23,6 +23,15 @@ const nextConfig: NextConfig = {
   // Enable gzip compression
   compress: true,
   // Security + Performance headers
+  async redirects() {
+    return [
+      {
+        source: '/capabilities',
+        destination: '/services',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
