@@ -40,3 +40,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# build archives
+deploy.tar.gz
+deploy.zip
+bundle.tar
+bundle.tar.gz
+build.zip

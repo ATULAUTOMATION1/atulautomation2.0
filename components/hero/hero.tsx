@@ -1,5 +1,5 @@
 
-import { ArrowRight, Play, TrendingUp, Shield, Zap } from "lucide-react";
+import { ArrowRight, Play, TrendingUp, Shield, Zap, Calculator } from "lucide-react";
 import Link from "next/link";
 import { WorkflowMockup } from "./workflow-mockup";
 
@@ -59,10 +59,10 @@ export function Hero() {
                                 Start Automating
                                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                             </Link>
-                            <Link href="#modules-demo" className="btn-secondary group relative overflow-hidden">
+                            <Link href="#tools" className="btn-secondary group relative overflow-hidden">
                                 <span className="relative z-10 flex items-center">
-                                    <Play className="mr-2 h-4 w-4 fill-current opacity-70 group-hover:text-primary transition-colors" />
-                                    Watch Demo
+                                    <Calculator className="mr-2 h-4 w-4 opacity-70 group-hover:text-primary transition-colors" />
+                                    Estimate ROI
                                 </span>
                             </Link>
                         </div>

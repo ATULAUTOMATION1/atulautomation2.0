@@ -4,7 +4,7 @@
     "env": {},
     "webpack": null,
     "typescript": {
-      "ignoreBuildErrors": true
+      "ignoreBuildErrors": false
     },
     "typedRoutes": false,
     "distDir": ".next",
@@ -20,7 +20,7 @@
       "jsx",
       "js"
     ],
-    "poweredByHeader": true,
+    "poweredByHeader": false,
     "compress": true,
     "images": {
       "deviceSizes": [
@@ -42,7 +42,7 @@
         256,
         384
       ],
-      "path": "/_next/image",
+      "path": "/_next/image/",
       "loader": "default",
       "loaderFile": "",
       "domains": [],
@@ -63,11 +63,17 @@
           "search": ""
         }
       ],
-      "remotePatterns": [],
+      "remotePatterns": [
+        {
+          "protocol": "https",
+          "hostname": "images.unsplash.com"
+        }
+      ],
       "qualities": [
         75
       ],
-      "unoptimized": false
+      "unoptimized": false,
+      "customCacheHandler": false
     },
     "devIndicators": {
       "position": "bottom-left"
@@ -78,7 +84,7 @@
     },
     "basePath": "",
     "sassOptions": {},
-    "trailingSlash": false,
+    "trailingSlash": true,
     "i18n": null,
     "productionBrowserSourceMaps": false,
     "excludeDefaultMomentLocales": true,
@@ -88,7 +94,10 @@
     "httpAgentOptions": {
       "keepAlive": true
     },
-    "logging": {},
+    "logging": {
+      "serverFunctions": true,
+      "browserToTerminal": "warn"
+    },
     "compiler": {},
     "expireTime": 31536000,
     "staticPageGenerationTimeout": 60,
@@ -142,6 +151,7 @@
     },
     "cacheHandlers": {},
     "experimental": {
+      "appNewScrollHandler": false,
       "useSkewCookie": false,
       "cssChunking": true,
       "multiZoneDraftMode": false,
@@ -150,7 +160,11 @@
       "serverMinification": true,
       "linkNoTouchStart": false,
       "caseSensitiveRoutes": false,
+      "cachedNavigations": false,
+      "partialFallbacks": false,
       "dynamicOnHover": false,
+      "varyParams": false,
+      "prefetchInlining": false,
       "preloadEntriesOnStart": true,
       "clientRouterFilter": true,
       "clientRouterFilterRedirects": false,
@@ -186,6 +200,7 @@
       "authInterrupts": false,
       "webpackMemoryOptimizations": false,
       "optimizeServerReact": true,
+      "strictRouteTypes": false,
       "viewTransition": false,
       "removeUncaughtErrorAndRejectionListeners": false,
       "validateRSCRequestHeaders": false,
@@ -193,23 +208,24 @@
         "dynamic": 0,
         "static": 300
       },
-      "reactDebugChannel": false,
+      "reactDebugChannel": true,
       "serverComponentsHmrCache": true,
       "staticGenerationMaxConcurrency": 8,
       "staticGenerationMinPagesPerWorker": 25,
       "transitionIndicator": false,
+      "gestureTransition": false,
       "inlineCss": false,
       "useCache": false,
       "globalNotFound": false,
-      "browserDebugInfoInTerminal": false,
+      "browserDebugInfoInTerminal": "warn",
       "lockDistDir": true,
-      "isolatedDevBuild": true,
       "proxyClientMaxBodySize": 10485760,
       "hideLogsAfterAbort": false,
       "mcpServer": true,
       "turbopackFileSystemCacheForDev": true,
       "turbopackFileSystemCacheForBuild": false,
-      "turbopackInferModuleSideEffects": false,
+      "turbopackInferModuleSideEffects": true,
+      "turbopackPluginRuntimeStrategy": "childProcesses",
       "optimizePackageImports": [
         "lucide-react",
         "date-fns",
@@ -312,6 +328,7 @@
     ".next\\app-path-routes-manifest.json",
     ".next\\server\\server-reference-manifest.js",
     ".next\\server\\server-reference-manifest.json",
+    ".next\\server\\prefetch-hints.json",
     ".next\\BUILD_ID",
     ".next\\server\\next-font-manifest.js",
     ".next\\server\\next-font-manifest.json",

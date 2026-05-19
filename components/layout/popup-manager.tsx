@@ -11,6 +11,7 @@ const AprilFoolsPopup = dynamic(() => import('@/components/april-fools-popup'), 
 const HanumanJayantiPopup = dynamic(() => import('@/components/hanuman-jayanti-popup'), { ssr: false });
 const LabourDayPopup = dynamic(() => import('@/components/labour-day-popup'), { ssr: false });
 const BuddhaPurnimaPopup = dynamic(() => import('@/components/buddha-purnima-popup'), { ssr: false });
+const MaharanaPratapPopup = dynamic(() => import('@/components/maharana-pratap-popup'), { ssr: false });
 
 export function PopupManager() {
   const [mounted, setMounted] = useState(false);
@@ -44,6 +45,9 @@ export function PopupManager() {
   // Buddha Purnima: May 1, 2026
   const isBuddhaPurnima = todayStr === '2026-05-01';
   
+  // Maharana Pratap Jayanti: May 9
+  const isMaharanaPratap = todayStr === '2026-05-09';
+  
   // Navratri: March 19 to March 27 (9 days)
   const navratriStart = new Date('2026-03-19T00:00:00').getTime();
   const navratriEnd = new Date('2026-03-27T23:59:59').getTime();
@@ -52,6 +56,7 @@ export function PopupManager() {
 
   return (
     <>
+      {isMaharanaPratap && <MaharanaPratapPopup />}
       {isBuddhaPurnima && <BuddhaPurnimaPopup />}
       {isLabourDay && <LabourDayPopup />}
       {isAprilFools && <AprilFoolsPopup />}
