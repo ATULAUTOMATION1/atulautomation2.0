@@ -95,7 +95,7 @@ export default function CaseStudiesPage() {
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10 animate-fade-in-up delay-200">
-            Don't just take our word for it. See how ambitious businesses use our AI agents and workflow automations to slash costs, save time, and multiply revenue.
+            Don&apos;t just take our word for it. See how ambitious businesses use our AI agents and workflow automations to slash costs, save time, and multiply revenue.
           </p>
         </div>
       </section>
@@ -183,7 +183,7 @@ export default function CaseStudiesPage() {
             <div className="relative z-10 max-w-2xl mx-auto text-white">
               <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to be our next success story?</h2>
               <p className="text-zinc-400 text-lg mb-8">
-                Stop losing hours to manual tasks. Book a free discovery call and let's map out your automation roadmap.
+                Stop losing hours to manual tasks. Book a free discovery call and let&apos;s map out your automation roadmap.
               </p>
               <Link href="/#contact" className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/25">
                 Book a Free Strategy Call

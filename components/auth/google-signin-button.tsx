@@ -28,8 +28,10 @@ export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonPro
   const onErrorRef = useRef(onError);
 
   // Keep refs in sync
-  onSuccessRef.current = onSuccess;
-  onErrorRef.current = onError;
+  useEffect(() => {
+    onSuccessRef.current = onSuccess;
+    onErrorRef.current = onError;
+  }, [onSuccess, onError]);
 
   const handleCredentialResponse = useCallback(async (response: { credential: string }) => {
     try {

@@ -2,6 +2,8 @@ import { SignJWT, jwtVerify, createRemoteJWKSet } from 'jose';
 import bcrypt from 'bcryptjs';
 import { google } from 'googleapis';
 import { cookies } from 'next/headers';
+import fs from 'fs';
+import path from 'path';
 
 // ─── Constants ─────────────────────────────────────────────
 const JWT_SECRET = new TextEncoder().encode(
@@ -101,8 +103,6 @@ export async function verifyGoogleToken(idToken: string) {
 async function getSheetsClient() {
   if (!process.env.GOOGLE_SHEETS_PRIVATE_KEY_B64 || !process.env.GOOGLE_SHEETS_CLIENT_EMAIL) {
     try {
-      const fs = require('fs');
-      const path = require('path');
       const envPath = path.join(process.cwd(), '.env.local');
       if (fs.existsSync(envPath)) {
         const envContent = fs.readFileSync(envPath, 'utf-8');
