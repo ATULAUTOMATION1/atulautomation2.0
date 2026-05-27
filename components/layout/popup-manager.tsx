@@ -12,6 +12,7 @@ const HanumanJayantiPopup = dynamic(() => import('@/components/hanuman-jayanti-p
 const LabourDayPopup = dynamic(() => import('@/components/labour-day-popup'), { ssr: false });
 const BuddhaPurnimaPopup = dynamic(() => import('@/components/buddha-purnima-popup'), { ssr: false });
 const MaharanaPratapPopup = dynamic(() => import('@/components/maharana-pratap-popup'), { ssr: false });
+const GeetaQuotePopup = dynamic(() => import('@/components/geeta-popup'), { ssr: false });
 
 export function PopupManager() {
   const [mounted, setMounted] = useState(false);
@@ -63,6 +64,7 @@ export function PopupManager() {
       {isHanumanJayanti && <HanumanJayantiPopup />}
       {isNavratri && <NavratriPopup />}
       {isShaheedDiwas && <ShaheedDiwasPopup />}
+      <GeetaQuotePopup />
       <LeadCapturePopup />
     </>
   );
