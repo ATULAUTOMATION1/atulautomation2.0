@@ -6,15 +6,16 @@ import dynamic from "next/dynamic";
 const Contact = dynamic(() => import("@/components/sections/contact").then(mod => mod.Contact));
 
 export const metadata: Metadata = {
-  title: "AI Automation Services | Chatbots, Workflow & AI Agents",
-  description: "Explore Atul Automation's full range of AI services: AI agents, intelligent chatbots, workflow automation, AI marketing, CRM integration & real estate AI. Serving USA, UK, Canada, Australia & India.",
+  title: "AI Automation Services",
+  description: "Explore our AI services: custom AI agents, intelligent chatbots, workflow automation, and CRM integrations for businesses worldwide.",
   alternates: {
     canonical: "https://atulautomation.com/services",
   },
   openGraph: {
     title: "AI Automation Services | Atul Automation",
-    description: "Custom AI agents, chatbots, workflow automation & marketing AI for businesses in the USA, UK, Canada, Australia & India.",
+    description: "Custom AI agents, chatbots, workflow automation & marketing AI for businesses worldwide.",
     url: "https://atulautomation.com/services",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Atul Automation Services" }],
   },
 };
 

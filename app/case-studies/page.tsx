@@ -6,8 +6,8 @@ import dynamic from "next/dynamic";
 const Contact = dynamic(() => import("@/components/sections/contact").then(mod => mod.Contact));
 
 export const metadata: Metadata = {
-  title: "Case Studies & Client Success Stories | Atul Automation",
-  description: "Read how Atul Automation helps global businesses scale with AI. Discover real-world case studies on chatbots, workflow automation, and AI agent deployments.",
+  title: "Case Studies & Client Success Stories",
+  description: "Read how Atul Automation helps global businesses scale with AI. Discover real-world case studies on chatbots, workflows, and autonomous AI agents.",
   alternates: {
     canonical: "https://atulautomation.com/case-studies",
   },

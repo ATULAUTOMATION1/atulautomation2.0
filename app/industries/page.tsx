@@ -5,9 +5,15 @@ import { ArrowRight, Building2 } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'AI Automation for Every Industry',
-    description: 'Discover how AI automation transforms businesses across industries — real estate, e-commerce, healthcare, education, restaurants, law firms, fitness, and travel.',
+    description: 'See how AI automation transforms industries — real estate, e-commerce, healthcare, education, restaurants, law firms, and marketing agencies.',
     alternates: {
         canonical: 'https://atulautomation.com/industries',
+    },
+    openGraph: {
+        title: 'AI Automation for Every Industry | Atul Automation',
+        description: 'Explore tailored AI automation solutions across real estate, e-commerce, healthcare, and 10+ industries.',
+        url: 'https://atulautomation.com/industries',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Atul Automation Industries' }],
     },
 };
 

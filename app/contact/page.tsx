@@ -6,15 +6,16 @@ import dynamic from "next/dynamic";
 const Contact = dynamic(() => import("@/components/sections/contact").then(mod => mod.Contact));
 
 export const metadata: Metadata = {
-  title: "Contact Us | Book a Free AI Strategy Call",
-  description: "Get in touch with Atul Automation. Book a free 30-minute AI strategy call, email us at hello@atulautomation.com, or chat with our AI assistant. We serve clients in the USA, UK, Canada, Australia & India.",
+  title: "Contact Us & Free AI Consultation",
+  description: "Contact Atul Automation. Book a free 30-minute AI strategy call, email hello@atulautomation.com, or chat live. Serving businesses globally.",
   alternates: {
     canonical: "https://atulautomation.com/contact",
   },
   openGraph: {
     title: "Contact Atul Automation | Book a Free Strategy Call",
-    description: "Ready to automate your business? Book a free 30-minute strategy call or email hello@atulautomation.com. We respond within 2–4 hours.",
+    description: "Ready to automate your business? Book a free 30-minute strategy call or email hello@atulautomation.com.",
     url: "https://atulautomation.com/contact",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Contact Atul Automation" }],
   },
 };
 

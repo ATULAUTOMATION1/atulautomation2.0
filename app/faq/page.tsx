@@ -4,9 +4,15 @@ import { HelpCircle, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'FAQ - AI Automation Questions Answered',
-    description: 'Frequently asked questions about AI automation, chatbots, workflow automation, pricing, and implementation. Get clear answers about ROI, costs, and how AI agents can transform your business.',
+    description: 'Frequently asked questions about AI automation, chatbots, costs, and timeline. Learn how AI agents scale your business and deliver fast ROI.',
     alternates: { canonical: 'https://atulautomation.com/faq' },
     keywords: ['AI automation FAQ', 'chatbot pricing', 'workflow automation cost', 'AI agent questions', 'business automation guide'],
+    openGraph: {
+        title: 'FAQ - AI Automation Questions Answered | Atul Automation',
+        description: 'Get clear answers on AI chatbots, workflow automation costs, timeline, and ROI.',
+        url: 'https://atulautomation.com/faq',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Atul Automation FAQ' }],
+    },
 };
 
 const faqs = [

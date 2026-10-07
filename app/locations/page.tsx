@@ -4,9 +4,15 @@ import { getAllCities } from '@/lib/city-data';
 import { MapPin, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: "India's Best AI Automation Agency | All Locations",
-    description: "Atul Automation serves businesses across India — Mumbai, Delhi, Bangalore, Hyderabad, Pune, Chennai, Kolkata, Ahmedabad, Jaipur & Surat. Built to Automate, Designed to Scale.",
+    title: "AI Automation Agency India | All Locations",
+    description: "Atul Automation serves businesses across Mumbai, Delhi, Bangalore, Hyderabad, Pune, Chennai, and all major tech hubs across India.",
     alternates: { canonical: 'https://atulautomation.com/locations' },
+    openGraph: {
+        title: "AI Automation Agency Across India | All Locations",
+        description: "Deploy custom AI agents, chatbots, and workflow automation in Mumbai, Delhi, Bangalore, and across India.",
+        url: "https://atulautomation.com/locations",
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Atul Automation Locations" }],
+    },
 };
 
 const cityEmojis: Record<string, string> = {

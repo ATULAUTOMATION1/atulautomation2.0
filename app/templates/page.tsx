@@ -7,6 +7,15 @@ import { ArrowRight, Star, Home, ShoppingCart, HeartPulse, Inbox, Wrench, CheckC
 export const metadata: Metadata = {
     title: "AI Templates & Runbooks",
     description: "Browse our marketplace of ready-to-deploy AI automations. Pick a template for your industry and launch exactly what you need in seconds.",
+    alternates: {
+        canonical: "https://atulautomation.com/templates",
+    },
+    openGraph: {
+        title: "AI Automation Templates & Runbooks | Atul Automation",
+        description: "Browse our marketplace of ready-to-deploy AI automations. Pick a template for your industry and launch in seconds.",
+        url: "https://atulautomation.com/templates",
+        images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Atul Automation Templates" }],
+    },
 };
 
 const IconMap = {

@@ -1,8 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Privacy Policy | Atul Automation",
+    title: "Privacy Policy",
     description: "Privacy Policy for Atul Automation, covering data collection, cookies, and user rights.",
+    alternates: {
+        canonical: "https://atulautomation.com/privacy",
+    },
 };
 
 export default function PrivacyPage() {

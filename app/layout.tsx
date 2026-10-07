@@ -10,6 +10,7 @@ import { LazyChat } from '@/components/chatbot/lazy-chat';
 import { ClientInteractions } from '@/components/layout/client-interactions';
 import { CookieBanner } from '@/components/ui/cookie-banner';
 import { AuthProvider } from '@/components/auth/auth-context';
+import GeetaQuotePopup from '@/components/geeta-popup';
 // import { BirthdayPopup } from "@/components/birthday-popup";
 
 const inter = Inter({
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     default: 'Atul Automation | AI Agents & Workflow Automation Agency',
     template: '%s | Atul Automation',
   },
-  description: 'AI Automation Agency serving businesses globally. We build intelligent AI agents, chatbots, workflow automation & marketing solutions. Deploy GPT-4, Claude & custom LLMs to automate operations 24/7. Trusted by 50+ businesses worldwide.',
+  description: 'AI automation agency building intelligent agents, chatbots, and workflow automation. Deploy custom GPT-4 and Claude solutions to scale operations 24/7.',
   keywords: [
     'AI Automation', 'Workflow Automation', 'ChatGPT Agents', 'Business Automation',
     'AI Agency USA', 'AI Automation UK', 'AI Agency Canada', 'AI Specialist Australia',
@@ -227,6 +228,7 @@ export default function RootLayout({
             <LazyChat />
             <ClientInteractions />
             <CookieBanner />
+            <GeetaQuotePopup />
             {/* <BirthdayPopup /> */}
           </AuthProvider>
         </ThemeProvider>

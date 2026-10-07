@@ -10,6 +10,12 @@ export const metadata: Metadata = {
     alternates: {
         canonical: 'https://atulautomation.com/blog',
     },
+    openGraph: {
+        title: 'AI Automation Blog & Insights | Atul Automation',
+        description: 'Expert guides on AI agents, chatbots, and workflow automation to scale your operations.',
+        url: 'https://atulautomation.com/blog',
+        images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Atul Automation Blog' }],
+    },
 };
 
 const CATEGORY_STYLES: Record<string, { icon: React.ElementType; gradient: string; pattern: string }> = {

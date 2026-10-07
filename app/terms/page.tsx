@@ -1,8 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Terms of Service | Atul Automation",
+    title: "Terms of Service",
     description: "Terms of Service and Conditions of Use for Atul Automation website and services.",
+    alternates: {
+        canonical: "https://atulautomation.com/terms",
+    },
 };
 
 export default function TermsPage() {
