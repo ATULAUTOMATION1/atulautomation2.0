@@ -10,7 +10,6 @@ import { LazyChat } from '@/components/chatbot/lazy-chat';
 import { ClientInteractions } from '@/components/layout/client-interactions';
 import { CookieBanner } from '@/components/ui/cookie-banner';
 import { AuthProvider } from '@/components/auth/auth-context';
-import GeetaQuotePopup from '@/components/geeta-popup';
 // import { BirthdayPopup } from "@/components/birthday-popup";
 
 const inter = Inter({
@@ -228,7 +227,6 @@ export default function RootLayout({
             <LazyChat />
             <ClientInteractions />
             <CookieBanner />
-            <GeetaQuotePopup />
             {/* <BirthdayPopup /> */}
           </AuthProvider>
         </ThemeProvider>

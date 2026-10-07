@@ -33,24 +33,12 @@ export async function POST(request: Request) {
 
     if (!user) {
       // Create new user from Google Sign-In
-      await createUser(googleUser.name, googleUser.email, '', 'google');
-      user = {
-        name: googleUser.name,
-        email: googleUser.email,
-        passwordHash: '',
-        provider: 'google',
-        role: 'user',
-        status: 'active',
-        onboardingCompleted: false,
-        mindsetAnalysis: '',
-        assignedChannel: '',
-      };
-
+      user = await createUser(googleUser.name, googleUser.email, '', 'google');
     }
 
     if (user.status === 'suspended') {
       return NextResponse.json(
-        { error: 'Your account has been suspended. Contact support.' },
+        { error: 'Your account has been suspended. Please contact support.' },
         { status: 403 }
       );
     }
@@ -61,17 +49,26 @@ export async function POST(request: Request) {
       email: user.email,
       role: user.role,
       provider: user.provider,
+      onboardingCompleted: user.onboardingCompleted,
+      assignedChannel: user.assignedChannel,
     });
 
     // Build response WITH cookie
     const response = NextResponse.json({
       success: true,
-      user: { name: user.name, email: user.email, role: user.role, provider: user.provider },
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        provider: user.provider,
+        onboardingCompleted: user.onboardingCompleted,
+        assignedChannel: user.assignedChannel,
+      },
     });
     response.cookies.set(COOKIE_NAME, token, COOKIE_OPTIONS);
 
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Google auth error:', error);
     return NextResponse.json(
       { error: 'Google sign-in failed. Please try again.' },

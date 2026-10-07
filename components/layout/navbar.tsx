@@ -168,7 +168,7 @@ export function Navbar() {
                                 )}
                             </div>
                         ) : (
-                            <Link href="/login" className="btn-primary text-sm px-5 py-2 ml-1 group">
+                            <Link href="/login/" className="btn-primary text-sm px-5 py-2 ml-1 group">
                                 Sign In
                                 <ArrowRight className="ml-1.5 h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
                             </Link>
@@ -270,7 +270,7 @@ export function Navbar() {
                                 </div>
                             ) : (
                                 <Link
-                                    href="/login"
+                                    href="/login/"
                                     onClick={() => setIsOpen(false)}
                                     className="btn-primary w-full justify-center"
                                 >

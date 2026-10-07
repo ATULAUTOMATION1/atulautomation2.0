@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import Script from 'next/script';
 
+import { useAuth } from '@/components/auth/auth-context';
+
 declare global {
   interface Window {
     google?: {
@@ -24,6 +26,7 @@ interface GoogleSignInButtonProps {
 export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
   const [loadError, setLoadError] = useState(false);
+  const { googleSignIn } = useAuth();
   const onSuccessRef = useRef(onSuccess);
   const onErrorRef = useRef(onError);
 
@@ -36,24 +39,19 @@ export function GoogleSignInButton({ onSuccess, onError }: GoogleSignInButtonPro
   const handleCredentialResponse = useCallback(async (response: { credential: string }) => {
     try {
       console.log('[Auth] Google credential received, verifying...');
-      const res = await fetch('/api/auth/google/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ credential: response.credential }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        console.error('[Auth] Google verification failed:', data.error);
-        onErrorRef.current?.(data.error || 'Google sign-in failed');
+      const result = await googleSignIn(response.credential);
+      if (result.error) {
+        console.error('[Auth] Google verification failed:', result.error);
+        onErrorRef.current?.(result.error);
       } else {
         console.log('[Auth] Google sign-in successful');
         onSuccessRef.current?.();
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('[Auth] Google verification network error:', err);
       onErrorRef.current?.('Google sign-in failed. Please try again.');
     }
-  }, []);
+  }, [googleSignIn]);
 
   useEffect(() => {
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;

@@ -40,8 +40,8 @@ function LoginForm() {
         setError(result.error);
         setLoading(false);
       } else {
-        // Success - user state update will trigger the useEffect redirect above
-        console.log('Login success - redirecting...');
+        console.log('Login success - redirecting to:', redirect);
+        window.location.href = redirect;
       }
     } catch (err) {
       console.error('Login submit Error:', err);
@@ -51,7 +51,7 @@ function LoginForm() {
   };
 
   const handleGoogleSuccess = () => {
-    // AuthContext updates 'user', triggering the redirect useEffect
+    window.location.href = redirect;
   };
 
   return (
@@ -144,7 +144,7 @@ function LoginForm() {
       <p className="text-center text-sm text-muted-foreground mt-6">
         Don&apos;t have an account?{' '}
         <Link
-          href={`/signup${redirect !== '/' ? `?redirect=${redirect}` : ''}`}
+          href={`/signup/${redirect !== '/' ? `?redirect=${redirect}` : ''}`}
           className="text-primary font-semibold hover:underline"
         >
           Sign Up

@@ -18,11 +18,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Find user
-    const user = await findUserByEmail(email);
+    const normalizedEmail = email.trim().toLowerCase();
+
+    // Find user (checks local DB first, then Sheets)
+    const user = await findUserByEmail(normalizedEmail);
     if (!user) {
       return NextResponse.json(
-        { error: 'No account found with this email.' },
+        { error: 'No account found with this email. Please check your spelling or sign up.' },
         { status: 401 }
       );
     }
@@ -30,7 +32,7 @@ export async function POST(request: Request) {
     // Google-only users can't login with password
     if (user.provider === 'google' && !user.passwordHash) {
       return NextResponse.json(
-        { error: 'This account uses Google Sign-In. Please use the Google button.' },
+        { error: 'This account was registered with Google. Please click "Continue with Google".' },
         { status: 400 }
       );
     }
@@ -46,7 +48,7 @@ export async function POST(request: Request) {
 
     if (user.status === 'suspended') {
       return NextResponse.json(
-        { error: 'Your account has been suspended.' },
+        { error: 'Your account has been suspended. Please contact support.' },
         { status: 403 }
       );
     }
@@ -57,17 +59,26 @@ export async function POST(request: Request) {
       email: user.email,
       role: user.role,
       provider: user.provider,
+      onboardingCompleted: user.onboardingCompleted,
+      assignedChannel: user.assignedChannel,
     });
 
     // Build response WITH cookie
     const response = NextResponse.json({
       success: true,
-      user: { name: user.name, email: user.email, role: user.role, provider: user.provider },
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        provider: user.provider,
+        onboardingCompleted: user.onboardingCompleted,
+        assignedChannel: user.assignedChannel,
+      },
     });
     response.cookies.set(COOKIE_NAME, token, COOKIE_OPTIONS);
 
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Login error:', error);
     return NextResponse.json(
       { error: 'Server error during login. Please try again.' },

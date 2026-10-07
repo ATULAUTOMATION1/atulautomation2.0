@@ -41,8 +41,9 @@ export interface SheetUser {
   onboardingCompleted: boolean;
   mindsetAnalysis: string;
   assignedChannel: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
-
 
 // ─── JWT Helpers ───────────────────────────────────────────
 export async function createToken(user: AuthUser): Promise<string> {
@@ -61,6 +62,8 @@ export async function verifyToken(token: string): Promise<AuthUser | null> {
       email: payload.email as string,
       role: payload.role as string,
       provider: payload.provider as string,
+      onboardingCompleted: payload.onboardingCompleted as boolean | undefined,
+      assignedChannel: payload.assignedChannel as string | undefined,
     };
   } catch {
     return null;
@@ -76,11 +79,11 @@ export async function verifyPassword(
   password: string,
   hash: string
 ): Promise<boolean> {
+  if (!password || !hash) return false;
   return bcrypt.compare(password, hash);
 }
 
 // ─── Cookie Helpers ────────────────────────────────────────
-
 export async function getAuthCookie(): Promise<string | undefined> {
   const cookieStore = await cookies();
   return cookieStore.get(COOKIE_NAME)?.value;
@@ -88,45 +91,74 @@ export async function getAuthCookie(): Promise<string | undefined> {
 
 // ─── Google ID Token Verification ──────────────────────────
 export async function verifyGoogleToken(idToken: string) {
-  const { payload } = await jwtVerify(idToken, GOOGLE_JWKS, {
-    issuer: ['https://accounts.google.com', 'accounts.google.com'],
-    audience: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-  });
-  return {
-    email: payload.email as string,
-    name: payload.name as string,
-    picture: payload.picture as string,
-  };
-}
-
-// ─── Google Sheets – User Operations ───────────────────────
-async function getSheetsClient() {
-  if (!process.env.GOOGLE_SHEETS_PRIVATE_KEY_B64 || !process.env.GOOGLE_SHEETS_CLIENT_EMAIL) {
+  try {
+    const { payload } = await jwtVerify(idToken, GOOGLE_JWKS, {
+      issuer: ['https://accounts.google.com', 'accounts.google.com'],
+      audience: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    });
+    return {
+      email: (payload.email as string)?.toLowerCase(),
+      name: (payload.name as string) || (payload.email as string)?.split('@')[0],
+      picture: payload.picture as string,
+    };
+  } catch (jwtErr: any) {
+    console.warn('[Auth] jose jwtVerify failed, attempting tokeninfo fallback:', jwtErr.message);
     try {
-      const envPath = path.join(process.cwd(), '.env.local');
-      if (fs.existsSync(envPath)) {
-        const envContent = fs.readFileSync(envPath, 'utf-8');
-        const lines = envContent.split('\n');
-        for (const line of lines) {
-          const trimmed = line.trim();
-          if (!trimmed || trimmed.startsWith('#')) continue;
-          const firstEquals = trimmed.indexOf('=');
-          if (firstEquals > 0) {
-            const key = trimmed.substring(0, firstEquals).trim();
-            const val = trimmed.substring(firstEquals + 1).trim();
-            process.env[key] = val;
-          }
+      const res = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(idToken)}`);
+      if (res.ok) {
+        const info = await res.json();
+        if (info.email) {
+          return {
+            email: (info.email as string).toLowerCase(),
+            name: info.name || info.email.split('@')[0],
+            picture: info.picture as string,
+          };
         }
       }
-    } catch (e) {
-      console.error('Failed to parse fallback .env.local:', e);
+    } catch (fallbackErr: any) {
+      console.error('[Auth] Tokeninfo fallback failed:', fallbackErr.message);
     }
+    return null;
   }
+}
 
+// ─── Local JSON Database ───────────────────────────────────
+function getLocalUsersFilePath(): string {
+  return path.join(process.cwd(), 'data', 'users.json');
+}
+
+function getLocalUsers(): SheetUser[] {
+  try {
+    const filePath = getLocalUsersFilePath();
+    if (!fs.existsSync(filePath)) {
+      return [];
+    }
+    const content = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(content) || [];
+  } catch (err: any) {
+    console.error('[Auth] Error reading local users:', err.message);
+    return [];
+  }
+}
+
+function saveLocalUsers(users: SheetUser[]): void {
+  try {
+    const filePath = getLocalUsersFilePath();
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf-8');
+  } catch (err: any) {
+    console.error('[Auth] Error saving local users:', err.message);
+  }
+}
+
+// ─── Google Sheets Integration (Optional / Fallback) ───────
+async function getSheetsClient() {
   const keyB64 = process.env.GOOGLE_SHEETS_PRIVATE_KEY_B64;
   const email = process.env.GOOGLE_SHEETS_CLIENT_EMAIL;
-  if (!keyB64 || !email) throw new Error('Google Sheets not configured');
-
+  if (!keyB64 || !email) throw new Error('Google Sheets credentials not set');
 
   const privateKey = Buffer.from(keyB64, 'base64').toString('utf-8');
   const auth = new google.auth.JWT({
@@ -173,45 +205,62 @@ async function ensureUsersTab() {
         },
       });
     }
-  } catch (err) {
-    console.error('ensureUsersTab failed gracefully:', err);
+  } catch (err: any) {
+    console.warn('[Auth] ensureUsersTab skipped:', err.message);
   }
 }
 
-
+// ─── Unified User Operations ───────────────────────────────
 export async function findUserByEmail(
   email: string
 ): Promise<SheetUser | null> {
-  const sheets = await getSheetsClient();
-  const sheetId = getSheetId();
+  if (!email) return null;
+  const normalizedEmail = email.trim().toLowerCase();
 
+  // 1. Check local users database first (instant and reliable)
+  const localUsers = getLocalUsers();
+  const localUser = localUsers.find(
+    (u) => u.email.toLowerCase() === normalizedEmail
+  );
+  if (localUser) {
+    return localUser;
+  }
+
+  // 2. Fallback to Google Sheets if configured
   try {
+    const sheets = await getSheetsClient();
+    const sheetId = getSheetId();
+
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
       range: 'Users!A:J',
     });
 
     const rows = res.data.values;
-    if (!rows || rows.length <= 1) return null;
-
-    for (const row of rows.slice(1)) {
-      if (row[2]?.toLowerCase() === email.toLowerCase()) {
-        return {
-          name: row[1] || '',
-          email: row[2] || '',
-          passwordHash: row[3] || '',
-          provider: row[4] || 'email',
-          role: row[5] || 'user',
-          status: row[6] || 'active',
-          onboardingCompleted: row[7] === 'TRUE',
-          mindsetAnalysis: row[8] || '',
-          assignedChannel: row[9] || '',
-        };
+    if (rows && rows.length > 1) {
+      for (const row of rows.slice(1)) {
+        if (row[2]?.toLowerCase() === normalizedEmail) {
+          const user: SheetUser = {
+            name: row[1] || '',
+            email: row[2] || '',
+            passwordHash: row[3] || '',
+            provider: row[4] || 'email',
+            role: row[5] || 'user',
+            status: row[6] || 'active',
+            onboardingCompleted: row[7] === 'TRUE',
+            mindsetAnalysis: row[8] || '',
+            assignedChannel: row[9] || '',
+          };
+          // Cache user locally for future speed
+          localUsers.push(user);
+          saveLocalUsers(localUsers);
+          return user;
+        }
       }
     }
-  } catch {
-    await ensureUsersTab();
-    return null;
+  } catch (sheetsErr: any) {
+    // Graceful fallback: do not crash if Google Sheets is unreachable or service account expired
+    console.warn('[Auth] Google Sheets lookup unavailable:', sheetsErr.message);
   }
 
   return null;
@@ -222,22 +271,61 @@ export async function createUser(
   email: string,
   passwordHash: string,
   provider: string = 'email'
-) {
-  await ensureUsersTab();
-  const sheets = await getSheetsClient();
-  const sheetId = getSheetId();
-  const timestamp = new Date().toLocaleString('en-IN', {
-    timeZone: 'Asia/Kolkata',
-  });
+): Promise<SheetUser> {
+  const normalizedEmail = email.trim().toLowerCase();
+  const localUsers = getLocalUsers();
+  const now = new Date().toISOString();
 
-  await sheets.spreadsheets.values.append({
-    spreadsheetId: sheetId,
-    range: 'Users!A:J',
-    valueInputOption: 'USER_ENTERED',
-    requestBody: {
-      values: [[timestamp, name, email, passwordHash, provider, 'user', 'active', 'FALSE', '', '']],
-    },
-  });
+  const newUser: SheetUser = {
+    name: name.trim(),
+    email: normalizedEmail,
+    passwordHash,
+    provider,
+    role: 'user',
+    status: 'active',
+    onboardingCompleted: false,
+    mindsetAnalysis: '',
+    assignedChannel: '',
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  // 1. Persist locally first (guaranteed success)
+  const existingIndex = localUsers.findIndex(
+    (u) => u.email.toLowerCase() === normalizedEmail
+  );
+  if (existingIndex >= 0) {
+    localUsers[existingIndex] = { ...localUsers[existingIndex], ...newUser };
+  } else {
+    localUsers.push(newUser);
+  }
+  saveLocalUsers(localUsers);
+
+  // 2. Best-effort Google Sheets sync (non-blocking)
+  (async () => {
+    try {
+      await ensureUsersTab();
+      const sheets = await getSheetsClient();
+      const sheetId = getSheetId();
+      const timestamp = new Date().toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+      });
+
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: sheetId,
+        range: 'Users!A:J',
+        valueInputOption: 'USER_ENTERED',
+        requestBody: {
+          values: [[timestamp, name, email, passwordHash, provider, 'user', 'active', 'FALSE', '', '']],
+        },
+      });
+      console.log(`[Auth] User ${email} synced to Sheets`);
+    } catch (err: any) {
+      console.warn('[Auth] Google Sheets sync failed (local persistence intact):', err.message);
+    }
+  })();
+
+  return newUser;
 }
 
 export async function updateUserOnboarding(
@@ -245,37 +333,48 @@ export async function updateUserOnboarding(
   mindsetAnalysis: string,
   assignedChannel: string
 ) {
-  const sheets = await getSheetsClient();
-  const sheetId = getSheetId();
+  const normalizedEmail = email.trim().toLowerCase();
+  const localUsers = getLocalUsers();
+  const user = localUsers.find((u) => u.email.toLowerCase() === normalizedEmail);
+  if (user) {
+    user.onboardingCompleted = true;
+    user.mindsetAnalysis = mindsetAnalysis;
+    user.assignedChannel = assignedChannel;
+    user.updatedAt = new Date().toISOString();
+    saveLocalUsers(localUsers);
+  }
 
+  // Best-effort sync to Google Sheets
   try {
+    const sheets = await getSheetsClient();
+    const sheetId = getSheetId();
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: sheetId,
       range: 'Users!A:C',
     });
 
     const rows = res.data.values;
-    if (!rows || rows.length <= 1) return;
+    if (rows && rows.length > 1) {
+      let rowIndex = -1;
+      for (let i = 1; i < rows.length; i++) {
+        if (rows[i][2]?.toLowerCase() === normalizedEmail) {
+          rowIndex = i + 1;
+          break;
+        }
+      }
 
-    let rowIndex = -1;
-    for (let i = 1; i < rows.length; i++) {
-      if (rows[i][2]?.toLowerCase() === email.toLowerCase()) {
-        rowIndex = i + 1;
-        break;
+      if (rowIndex !== -1) {
+        await sheets.spreadsheets.values.update({
+          spreadsheetId: sheetId,
+          range: `Users!H${rowIndex}:J${rowIndex}`,
+          valueInputOption: 'USER_ENTERED',
+          requestBody: {
+            values: [['TRUE', mindsetAnalysis, assignedChannel]],
+          },
+        });
       }
     }
-
-    if (rowIndex === -1) return;
-
-    await sheets.spreadsheets.values.update({
-      spreadsheetId: sheetId,
-      range: `Users!H${rowIndex}:J${rowIndex}`,
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [['TRUE', mindsetAnalysis, assignedChannel]],
-      },
-    });
-  } catch (error) {
-    console.error('Error updating onboarding state in Sheets:', error);
+  } catch (error: any) {
+    console.warn('[Auth] Sheets onboarding update skipped:', error.message);
   }
 }

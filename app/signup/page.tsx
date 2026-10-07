@@ -81,8 +81,8 @@ function SignupForm() {
         setStep('otp');
         setLoading(false);
       } else {
-        // Success - user state update will trigger the useEffect redirect above
-        console.log('Signup success - redirecting...');
+        console.log('Signup success - redirecting to:', redirect);
+        window.location.href = redirect;
       }
     } catch (err) {
       console.error('Signup error:', err);
@@ -107,7 +107,8 @@ function SignupForm() {
       if (result.error) {
         setError(result.error);
       } else {
-        console.log('OTP verified, logged in');
+        console.log('OTP verified - redirecting to:', redirect);
+        window.location.href = redirect;
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
@@ -117,7 +118,7 @@ function SignupForm() {
   };
 
   const handleGoogleSuccess = () => {
-    // AuthContext updates 'user', triggering the redirect useEffect
+    window.location.href = redirect;
   };
 
   return (
@@ -276,7 +277,7 @@ function SignupForm() {
       <p className="text-center text-sm text-muted-foreground mt-6">
         Already have an account?{' '}
         <Link
-          href={`/login${redirect !== '/' ? `?redirect=${redirect}` : ''}`}
+          href={`/login/${redirect !== '/' ? `?redirect=${redirect}` : ''}`}
           className="text-primary font-semibold hover:underline"
         >
           Sign In
