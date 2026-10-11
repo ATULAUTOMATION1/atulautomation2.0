@@ -2,7 +2,7 @@ const { Client } = require('ssh2');
 const fs = require('fs');
 const path = require('path');
 
-const REMOTE_DIR = '/home/u268486488/domains/atulautomation.com/nodejs';
+const BASE_DIR = '/home/u268486488/domains/atulautomation.com';
 const LOCAL_ARCHIVE = path.join(__dirname, 'deploy.zip');
 
 if (!fs.existsSync(LOCAL_ARCHIVE)) {
@@ -38,7 +38,7 @@ conn.on('ready', () => {
       // Upload chunks sequentially using fastPut
       for (let i = 0; i < numChunks; i++) {
         const chunkName = `deploy.zip.part${i}`;
-        const remotePath = `${REMOTE_DIR}/${chunkName}`;
+        const remotePath = `${BASE_DIR}/${chunkName}`;
         console.log(`Uploading chunk ${i + 1}/${numChunks} (${(fs.statSync(chunkPaths[i]).size / 1024 / 1024).toFixed(2)}MB)...`);
         
         await new Promise((resolve, reject) => {
@@ -49,40 +49,53 @@ conn.on('ready', () => {
         });
       }
       
-      console.log('✅ All chunks uploaded successfully. Recombining on server...');
+      console.log('✅ All chunks uploaded successfully. Extracting & merging on server...');
       
       const deployCmd = [
-        `cd ${REMOTE_DIR}`,
+        `cd ${BASE_DIR}`,
         'rm -f deploy.zip',
         `cat ${chunkPaths.map((_, i) => `deploy.zip.part${i}`).join(' ')} > deploy.zip`,
         'rm -f deploy.zip.part*',
-        // Ensure write permissions on existing folders
-        '[ -d public ] && chmod -R 755 public || true',
-        '[ -d .next ] && chmod -R 755 .next || true',
-        // Clean deploy_temp
-        '[ -d deploy_temp ] && chmod -R 755 deploy_temp || true',
         'rm -rf deploy_temp',
         'mkdir -p deploy_temp',
-        // Unzip into deploy_temp
         'unzip -o deploy.zip -d deploy_temp > /dev/null',
-        // Ensure everything in deploy_temp is writable (755)
         'chmod -R 755 deploy_temp',
-        // Merge files into active directories
-        'mkdir -p public .next',
-        'cp -rf deploy_temp/public/. public/',
-        'cp -rf deploy_temp/.next/. .next/',
-        'cp -f deploy_temp/package.json package.json',
-        // Clean up
+        // Deploy into hbuilds/current/nodejs
+        'if [ -d hbuilds/current/nodejs ]; then',
+        '  echo "--> Deploying into hbuilds/current/nodejs..."',
+        '  mkdir -p hbuilds/current/nodejs/public hbuilds/current/nodejs/data',
+        '  cp -rf deploy_temp/public/. hbuilds/current/nodejs/public/',
+        '  rm -rf hbuilds/current/nodejs/.next',
+        '  cp -rf deploy_temp/.next hbuilds/current/nodejs/',
+        '  [ -f deploy_temp/data/users.json ] && [ ! -f hbuilds/current/nodejs/data/users.json ] && cp deploy_temp/data/users.json hbuilds/current/nodejs/data/users.json || true',
+        '  cp -f deploy_temp/package.json hbuilds/current/nodejs/package.json',
+        '  mkdir -p hbuilds/current/nodejs/tmp',
+        '  touch hbuilds/current/nodejs/tmp/restart.txt',
+        'fi',
+        // Deploy into nodejs folder
+        'if [ -d nodejs ]; then',
+        '  echo "--> Deploying into nodejs folder..."',
+        '  mkdir -p nodejs/public nodejs/data',
+        '  cp -rf deploy_temp/public/. nodejs/public/',
+        '  rm -rf nodejs/.next',
+        '  cp -rf deploy_temp/.next nodejs/',
+        '  [ -f deploy_temp/data/users.json ] && [ ! -f nodejs/data/users.json ] && cp deploy_temp/data/users.json nodejs/data/users.json || true',
+        '  cp -f deploy_temp/package.json nodejs/package.json',
+        '  mkdir -p nodejs/tmp',
+        '  touch nodejs/tmp/restart.txt',
+        'fi',
         'rm -rf deploy_temp deploy.zip',
-        // Restart Passenger
-        'mkdir -p tmp',
-        'touch tmp/restart.txt',
-        // Kill Node process
-        `pkill -f "${REMOTE_DIR}/server.js" || true`,
-        `sleep 1`,
-        `nohup /opt/alt/alt-nodejs22/root/usr/bin/node server.js > console.log 2>&1 &`,
-        `sleep 1`,
-        'echo "✅ DEPLOYMENT COMPLETE"'
+        // Kill existing Node processes so Passenger respawns with fresh workers
+        'pkill -9 -f "server.js" || true',
+        'pkill -9 -f "node" || true',
+        'sleep 2',
+        'if [ -d hbuilds/current/nodejs ]; then',
+        '  cd hbuilds/current/nodejs',
+        '  touch tmp/restart.txt',
+        '  nohup /opt/alt/alt-nodejs22/root/usr/bin/node server.js > console.log 2>&1 &',
+        'fi',
+        'sleep 2',
+        'echo "✅ DEPLOYMENT FINISHED ON SERVER"'
       ].join('\n');
 
       conn.exec(deployCmd, (err, stream) => {
@@ -95,13 +108,12 @@ conn.on('ready', () => {
           }
           conn.end();
         })
-        .on('data', data => console.log(data.toString()))
-        .stderr.on('data', data => console.error(data.toString()));
+        .on('data', data => process.stdout.write(data.toString()))
+        .stderr.on('data', data => process.stderr.write(data.toString()));
       });
       
     } catch (uploadErr) {
       console.error('Upload failed:', uploadErr);
-      // Clean up local temp chunks
       for (const cp of chunkPaths) {
         try { fs.unlinkSync(cp); } catch (e) {}
       }
@@ -109,8 +121,7 @@ conn.on('ready', () => {
     }
   });
 }).on('error', err => {
-  console.error('Connection Error:', err);
-  // Clean up local temp chunks
+  console.error('Connection Error:', err.message);
   for (const cp of chunkPaths) {
     try { fs.unlinkSync(cp); } catch (e) {}
   }
